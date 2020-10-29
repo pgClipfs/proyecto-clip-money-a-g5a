@@ -1,0 +1,33 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: #CEE7F2;
+}
+header{
+    background-color: #84CFF0;
+    width: 100%;
+    height: 15%;
+}
+footer{
+    background-color: #3E6170;
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    height: 10%;
+}
+.logotipo{
+    width: 130px;
+    margin: 2% 2%;
+    float: right;
+}
+.menu {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    padding-top: 10px;
+}
+.pie-pagina{
+    color: white;
+}
