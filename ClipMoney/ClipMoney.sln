@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30621.155
+VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipMoney", "ClipMoney.csproj", "{F3BA002B-B15B-49F4-BDDF-0AB512F2C48D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipMoney", "ClipMoney\ClipMoney.csproj", "{4FA7D693-5E48-4959-A1F9-5681B34C4F40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F3BA002B-B15B-49F4-BDDF-0AB512F2C48D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3BA002B-B15B-49F4-BDDF-0AB512F2C48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3BA002B-B15B-49F4-BDDF-0AB512F2C48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3BA002B-B15B-49F4-BDDF-0AB512F2C48D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA7D693-5E48-4959-A1F9-5681B34C4F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA7D693-5E48-4959-A1F9-5681B34C4F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA7D693-5E48-4959-A1F9-5681B34C4F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA7D693-5E48-4959-A1F9-5681B34C4F40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {12264ECC-B63F-49A7-BD5A-3729706DC643}
+		SolutionGuid = {4A6A6E79-B071-47D7-8A31-26FC2A83D9D3}
 	EndGlobalSection
 EndGlobal
