@@ -1,6 +1,8 @@
-﻿using ClipMoney.Models.Tablas;
+﻿using ClipMoney.Controllers;
+using ClipMoney.Models.Tablas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace ClipMoney.Models
 
     public class UsuarioGestor
     {
-        private const string StrConn = "Server=192.168.0.27;Database=ClipMoney;User Id = Administrador; Password=12345";
+        private string StrConn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         public Usuario ObtenerPorCUILPassword(string Cuil, string Password)
         {
@@ -20,10 +22,12 @@ namespace ClipMoney.Models
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
 
+            string encryptedPassword = ServicioEncriptador.ComputeSha256Hash(Password);
+
             SqlCommand comm = conn.CreateCommand();
             comm.CommandText = "SELECT * FROM USUARIOS WHERE CUIL=@Cuil AND CONTRASEÑA=@Password";
             comm.Parameters.Add(new SqlParameter("@Cuil", Cuil));
-            comm.Parameters.Add(new SqlParameter("@Password", Password));
+            comm.Parameters.Add(new SqlParameter("@Password", encryptedPassword));
 
             SqlDataReader dr = comm.ExecuteReader();
             if (dr.Read())
