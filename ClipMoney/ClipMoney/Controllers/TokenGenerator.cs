@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WebApiSegura.Controllers
+namespace ClipMoney.Controllers
 {
     /// <summary>
     /// JWT Token generator class using "secret-key"
@@ -23,7 +23,7 @@ namespace WebApiSegura.Controllers
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             // create a claimsIdentity
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, username) });
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, username) });
 
             // create token to the user
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WebApiSegura.Controllers
+namespace ClipMoney.Controllers
 {
     /// <summary>
     /// Token validator for Authorization Request using a DelegatingHandler
