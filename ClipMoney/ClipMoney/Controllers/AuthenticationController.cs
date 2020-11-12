@@ -59,5 +59,43 @@ namespace ClipMoney.Controllers
 
             
         }
+
+        [Route("api/Authentication/Registration")]
+        [HttpPost]
+        public IHttpActionResult Registration([FromBody] Usuario model)
+        {
+            UsuarioGestor gestor = new UsuarioGestor();
+            Respuesta oRespuesta = new Respuesta();
+
+            try
+            {
+                Usuario usuario = gestor.BuscarPersonaPorCuil(model.Cuil);
+                if(usuario.IdCliente != null)
+                {
+                    oRespuesta.Exito = 0;
+                    oRespuesta.Mensaje = "El usuario ya se encuentra registrado";
+
+                    return Content(HttpStatusCode.BadRequest, oRespuesta);
+                } 
+
+                gestor.RegistrarUsuario(model);
+                oRespuesta.Exito = 1;
+                oRespuesta.Mensaje = "Usuario registrado con exito";
+
+                return Ok(oRespuesta);
+            }
+            catch(Exception ex)
+            {
+                oRespuesta.Exito = 0;
+                oRespuesta.Mensaje = "No se pudo registrar al usuario";
+                oRespuesta.Data = ex.Message;
+
+
+                return Content(HttpStatusCode.BadRequest, oRespuesta);
+            }
+
+
+            return Ok();
+        }
     }
 }
