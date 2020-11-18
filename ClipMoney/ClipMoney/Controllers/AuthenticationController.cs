@@ -69,6 +69,8 @@ namespace ClipMoney.Controllers
 
             try
             {
+                gestor.ValidarDatosUsuario(model);
+
                 Usuario usuario = gestor.BuscarPersonaPorCuil(model.Cuil);
                 if(usuario.IdCliente != null)
                 {
@@ -83,6 +85,15 @@ namespace ClipMoney.Controllers
                 oRespuesta.Mensaje = "Usuario registrado con exito";
 
                 return Ok(oRespuesta);
+            }
+            catch(FormatException ex)
+            {
+                oRespuesta.Exito = 0;
+                oRespuesta.Mensaje = "No se pudo registrar al usuario";
+                oRespuesta.Data = ex.Message;
+
+
+                return Content(HttpStatusCode.BadRequest, oRespuesta);
             }
             catch(Exception ex)
             {

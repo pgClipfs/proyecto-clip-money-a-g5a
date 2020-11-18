@@ -148,6 +148,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RegexUtilities.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ServicioEncriptador.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
@@ -156,7 +157,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Request\LoginRequest.cs" />
-    <Compile Include="Models\Request\RegistrationRequest.cs" />
     <Compile Include="Models\Response\LoginRespuesta.cs" />
     <Compile Include="Models\Response\Respuesta.cs" />
     <Compile Include="Models\Gestores\UsuarioGestor.cs" />

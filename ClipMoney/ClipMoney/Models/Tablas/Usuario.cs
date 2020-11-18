@@ -39,5 +39,6 @@ namespace ClipMoney.Models.Tablas
         public string Email { get; set; }
         public string Telefono { get; set; }
         public int IdSituacionCrediticia { get; set; }
+        public int Privilegios { get; set; }
     }
 }
