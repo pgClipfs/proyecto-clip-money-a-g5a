@@ -17,13 +17,15 @@ import { DialogDeleteComponent } from './common/delete/dialogdelete.component';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './security/jwt.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DialogDeleteComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
