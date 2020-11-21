@@ -1,0 +1,42 @@
+mat-card {
+    width: 480px;
+    margin: auto;
+}
+
+mat-card-content {
+    width: 95%;
+}
+
+img {
+    height: 150px;
+    margin: 25px;
+}
+
+mat-card-title {
+    text-align: center;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #293785;
+}
+
+.half {
+    width: 48%;
+}
+
+div mat-form-field {
+    margin-top: 10px;
+}
+
+// input [type="password"]  {
+//     margin-left: 8px;
+// }
