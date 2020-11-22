@@ -62,7 +62,7 @@ namespace ClipMoney.Controllers
 
         [Route("api/Authentication/Registration")]
         [HttpPost]
-        public IHttpActionResult Registration([FromBody] Usuario model)
+        public IHttpActionResult Registration([FromBody] RegistrationRequest model)
         {
             UsuarioGestor gestor = new UsuarioGestor();
             Respuesta oRespuesta = new Respuesta();
@@ -105,8 +105,6 @@ namespace ClipMoney.Controllers
                 return Content(HttpStatusCode.BadRequest, oRespuesta);
             }
 
-
-            return Ok();
         }
     }
 }

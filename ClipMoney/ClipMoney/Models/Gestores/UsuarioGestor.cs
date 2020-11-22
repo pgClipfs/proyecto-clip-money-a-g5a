@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Text.RegularExpressions;
+using ClipMoney.Models.Request;
 
 
 namespace ClipMoney.Models
@@ -76,7 +77,7 @@ namespace ClipMoney.Models
             return usuario;
         }
 
-        public bool RegistrarUsuario(Usuario usuario)
+        public bool RegistrarUsuario(RegistrationRequest usuario)
         {
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -93,7 +94,7 @@ namespace ClipMoney.Models
             comm.Parameters.Add(new SqlParameter("@Contraseña", encryptedPassword));
             comm.Parameters.Add(new SqlParameter("@Email", usuario.Email));
             comm.Parameters.Add(new SqlParameter("@Telefono", usuario.Telefono));
-            comm.Parameters.Add(new SqlParameter("@IdSituacion", usuario.IdSituacionCrediticia));
+            comm.Parameters.Add(new SqlParameter("@IdSituacion", 1));
             comm.Parameters.Add(new SqlParameter("@Privilegios", "NO ACTIVO"));
 
             comm.ExecuteNonQuery();
@@ -103,7 +104,7 @@ namespace ClipMoney.Models
             return true;
         }
 
-        public void ValidarDatosUsuario(Usuario user)
+        public void ValidarDatosUsuario(RegistrationRequest user)
         {
             Regex soloLetras = new Regex(@"^[a-zA-Z]+$"); // solo letras y 1 solo espacio
             Regex soloNumeros = new Regex("^[0-9]*$"); // solo letras y 1 solo espacio
