@@ -18,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { JwtInterceptor } from './security/jwt.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { ErrorInterceptor } from './security/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { RegistrationComponent } from './components/registration/registration.co
     FlexLayoutModule 
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
