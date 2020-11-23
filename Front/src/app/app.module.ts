@@ -7,6 +7,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { HomeComponent } from './components/home/home.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -19,6 +20,10 @@ import { JwtInterceptor } from './security/jwt.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ErrorInterceptor } from './security/error.interceptor';
+import { AuthComponent } from './components/auth/auth.component';
+import { PreregistroComponent } from './components/auth/preregistro/preregistro.component';
+
+
 
 @NgModule({
   declarations: [
@@ -26,7 +31,9 @@ import { ErrorInterceptor } from './security/error.interceptor';
     HomeComponent,
     DialogDeleteComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    AuthComponent,
+    PreregistroComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +49,8 @@ import { ErrorInterceptor } from './security/error.interceptor';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule 
+    FlexLayoutModule,
+    MatTabsModule 
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

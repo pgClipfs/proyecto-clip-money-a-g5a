@@ -26,6 +26,6 @@ export class AppComponent {
 
   logout() {
     this.apiauthService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth']);
   }
 }

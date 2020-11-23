@@ -4,7 +4,7 @@ import { ApiauthService } from '../../services/apiauth.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 
-@Component({templateUrl: 'login.component.html', styleUrls: ['./login.component.scss']})
+@Component({selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.component.scss']})
 export class LoginComponent implements OnInit{
     
     // public loginForm = new FormGroup({

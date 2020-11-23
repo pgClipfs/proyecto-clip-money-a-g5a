@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiauthService } from '../../services/apiauth.service';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'user-registration',
@@ -19,10 +18,16 @@ export class RegistrationComponent implements OnInit {
     tel: ['', Validators.required]
   })
 
-  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
   }
+
+  public constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+        this.registrationForm.controls['name'].setValue(params["firstname"]);
+        this.registrationForm.controls['surname'].setValue(params["lastname"]);
+    });
+}
 
   signUp() {
     if (this.registrationForm.valid) {
