@@ -22,6 +22,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ErrorInterceptor } from './security/error.interceptor';
 import { AuthComponent } from './components/auth/auth.component';
 import { PreregistroComponent } from './components/auth/preregistro/preregistro.component';
+import { DialogTermsComponent } from './components/registration/dialog-terms/dialog-terms.component';
 
 
 
@@ -33,7 +34,8 @@ import { PreregistroComponent } from './components/auth/preregistro/preregistro.
     LoginComponent,
     RegistrationComponent,
     AuthComponent,
-    PreregistroComponent
+    PreregistroComponent,
+    DialogTermsComponent
   ],
   imports: [
     BrowserModule,

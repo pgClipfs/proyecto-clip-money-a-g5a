@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiauthService } from '../../services/apiauth.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { sha256 } from 'js-sha256';
 
 
 @Component({selector: 'app-login', templateUrl: 'login.component.html', styleUrls: ['./login.component.scss']})
@@ -32,8 +33,14 @@ export class LoginComponent implements OnInit{
     }
 
     login() {
+    
         if (this.loginForm.valid) {
-            this.apiauthService.login(this.loginForm.value).subscribe( response => {
+
+            const formClone = {...this.loginForm.value}
+            const hashedPassword = sha256(formClone.password)
+            formClone.password = hashedPassword;
+
+            this.apiauthService.login(formClone).subscribe( response => {
                 if (response.Exito === 1) {
                     this.router.navigate(['/'])
                 }

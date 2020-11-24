@@ -5,14 +5,14 @@
         <form [formGroup]="registrationForm" (ngSubmit)="signUp()">
 
             <mat-form-field>
-                <mat-label>Nombre completo</mat-label>
-                <input type="text" formControlName="name" matInput
+                <mat-label>Nombres</mat-label>
+                <input type="text" formControlName="nombre" matInput
                     placeholder="Ingresalo tal como figura en tu documento">
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Apellido/s</mat-label>
-                <input type="text" formControlName="surname" matInput
+                <input type="text" formControlName="apellido" matInput
                     placeholder="Ingresalo tal como figura en tu documento">
             </mat-form-field>
 
@@ -32,7 +32,7 @@
 
                 <mat-form-field class="half" style="margin-left: 8px;">
                     <mat-label>Contraseña</mat-label>
-                    <input type="password" formControlName="cuil" matInput placeholder=""
+                    <input type="password" formControlName="contraseña" matInput placeholder=""
                         minlength="8">
                     <mat-hint>Minimo 8 caracteres</mat-hint>
 
@@ -41,14 +41,16 @@
 
             <mat-form-field>
                 <mat-label>Teléfono</mat-label>
-                <input type="number" formControlName="tel" matInput >
+                <input type="number" formControlName="telefono" matInput >
                 <mat-hint>Numero completo. Sin espacios ni guiones</mat-hint>
             </mat-form-field>
 
+            <mat-card *ngIf="error" class="error-login">{{error}}</mat-card>
+            
+            <button mat-button id="terms" (click)="openDialog($event)">Terminos y condiciones</button>
 
             <div>
                 <button type="submit"
-                    (click)="signUp()" 
                     mat-raised-button
                     color="primary"
                     >Registrate

@@ -1,6 +1,6 @@
 mat-card {
     width: 480px;
-    margin: auto;
+    margin: 50px auto;
 }
 
 mat-card-content {
@@ -29,6 +29,10 @@ button:hover {
     background-color: #293785;
 }
 
+#terms:hover {
+    background-color: #dfdfdf
+}
+
 .half {
     width: 48%;
 }
@@ -40,3 +44,14 @@ div mat-form-field {
 // input [type="password"]  {
 //     margin-left: 8px;
 // }
+
+.error-login {
+    width: 400px;
+    height: 5px;
+    margin-top: 10px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: 1px solid red;
+}
