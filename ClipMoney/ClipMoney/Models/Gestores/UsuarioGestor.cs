@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Text.RegularExpressions;
 using ClipMoney.Models.Request;
+using BC = BCrypt.Net.BCrypt;
 
 
 namespace ClipMoney.Models
@@ -48,6 +49,11 @@ namespace ClipMoney.Models
             return usuario;
         }
 
+        internal void VerificarContraseña(string contraseñaReq, string contraseñaDB)
+        {
+            
+        }
+
         public Usuario BuscarPersonaPorCuil(string cuil)
         {
             Usuario usuario = new Usuario();
@@ -66,8 +72,9 @@ namespace ClipMoney.Models
                 int id = dr.GetInt32(0);
                 string nombre = dr.GetString(2);
                 string apellido = dr.GetString(3);
+                string contraseña = dr.GetString(4);
 
-                usuario = new Usuario(id, nombre, apellido);
+                usuario = new Usuario(id, nombre, apellido, contraseña);
             }
 
             dr.Close();
@@ -82,7 +89,8 @@ namespace ClipMoney.Models
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
 
-            string encryptedPassword = ServicioEncriptador.ComputeSha256Hash(usuario.Contraseña);
+            //string encryptedPassword = ServicioEncriptador.ComputeSha256Hash(usuario.Contraseña);
+            string passwordHash = BC.HashPassword(usuario.Contraseña);
 
             SqlCommand comm = conn.CreateCommand();
             comm.CommandText = @"INSERT INTO USUARIOS(CUIL, NOMBRE, APELLIDO, CONTRASEÑA, EMAIL, TELEFONO, ID_SITUACION_CREDITICIA, PRIVILEGIOS) 
@@ -91,7 +99,7 @@ namespace ClipMoney.Models
             comm.Parameters.Add(new SqlParameter("@Cuil", usuario.Cuil));
             comm.Parameters.Add(new SqlParameter("@Nombre", usuario.Nombre));
             comm.Parameters.Add(new SqlParameter("@Apellido", usuario.Apellido));
-            comm.Parameters.Add(new SqlParameter("@Contraseña", encryptedPassword));
+            comm.Parameters.Add(new SqlParameter("@Contraseña", passwordHash));
             comm.Parameters.Add(new SqlParameter("@Email", usuario.Email));
             comm.Parameters.Add(new SqlParameter("@Telefono", usuario.Telefono));
             comm.Parameters.Add(new SqlParameter("@IdSituacion", 1));
@@ -106,7 +114,7 @@ namespace ClipMoney.Models
 
         public void ValidarDatosUsuario(RegistrationRequest user)
         {
-            Regex soloLetras = new Regex(@"^[a-zA-Z]+$"); // solo letras y 1 solo espacio
+            Regex soloLetras = new Regex(@"^(\w+\s?)*\s*$"); // solo letras y 1 solo espacio
             Regex soloNumeros = new Regex("^[0-9]*$"); // solo letras y 1 solo espacio
             Regex tieneNumeros = new Regex(@"[0-9]+");
             Regex tieneMayusculas = new Regex(@"[A-Z]+");
@@ -120,27 +128,27 @@ namespace ClipMoney.Models
             }
             
             // validacion contraseña
-            if (!tieneNumeros.IsMatch(user.Contraseña))
-            {
-                throw new FormatException("La contraseña debe poseer numeros");
-            }
-            else if (!tieneMayusculas.IsMatch(user.Contraseña))
-            {
-                throw new FormatException("La contraseña debe poseer letras mayusculas");
-            }
-            else if (!longitudMinimaMaxima.IsMatch(user.Contraseña))
-            {
-                throw new FormatException("La contraseña debe poseer longitud mayor a 8 y menor a 15");
-            }
-            else if (!tieneMinisculas.IsMatch(user.Contraseña))
-            {
-                throw new FormatException("La contraseña debe poseer letras minisculas");
-            }
+            //if (!tieneNumeros.IsMatch(user.Contraseña))
+            //{
+            //    throw new FormatException("La contraseña debe poseer numeros");
+            //}
+            //else if (!tieneMayusculas.IsMatch(user.Contraseña))
+            //{
+            //    throw new FormatException("La contraseña debe poseer letras mayusculas");
+            //}
+            //else if (!longitudMinimaMaxima.IsMatch(user.Contraseña))
+            //{
+            //    throw new FormatException("La contraseña debe poseer longitud mayor a 8 y menor a 15");
+            //}
+            //else if (!tieneMinisculas.IsMatch(user.Contraseña))
+            //{
+            //    throw new FormatException("La contraseña debe poseer letras minisculas");
+            //}
 
-            else if (!tieneSimbolos.IsMatch(user.Contraseña))
-            {
-                throw new FormatException("La contraseña debe poseer simbolos");
-            }
+            //else if (!tieneSimbolos.IsMatch(user.Contraseña))
+            //{
+            //    throw new FormatException("La contraseña debe poseer simbolos");
+            //}
             // termina validacion contraseña
 
             if (!soloNumeros.IsMatch(user.Cuil))

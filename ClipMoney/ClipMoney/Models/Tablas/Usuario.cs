@@ -18,6 +18,14 @@ namespace ClipMoney.Models.Tablas
             this.Apellido = apellido;
         }
 
+        public Usuario(int id, string nombre, string apellido, string contraseña) 
+        {
+            this.IdCliente = id;
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.Contraseña = contraseña;
+        }
+
         public Usuario(int IdCliente, string Cuil, string Nombre, string Apellido, string Contraseña, string Email, string Telefono, int IdSituacionCrediticia)
         {
             this.IdCliente = IdCliente;

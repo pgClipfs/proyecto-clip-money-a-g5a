@@ -8,10 +8,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Http;
-
+using System.Web.Http.Cors;
+using BC = BCrypt.Net.BCrypt;
 
 namespace ClipMoney.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AuthenticationController : ApiController
     {
         // GET: Authentication
@@ -28,11 +30,21 @@ namespace ClipMoney.Controllers
             try
             {
                 UsuarioGestor gestor = new UsuarioGestor();
-                LoginRespuesta oLoginRespuesta = new LoginRespuesta(); 
-                
-                Usuario usuario = gestor.ObtenerPorCUILPassword(User.Cuil, User.Password);
+                LoginRespuesta oLoginRespuesta = new LoginRespuesta();
 
-                if(usuario.IdCliente != null)
+                Usuario usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
+                //Usuario usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
+
+                if (!BC.Verify(User.Password, usuario.Contraseña))
+                {
+                    oRespuesta.Exito = 0;
+                    oRespuesta.Mensaje = "Contraseña incorrecta";
+
+                    return Content(HttpStatusCode.BadRequest, oRespuesta);
+                }
+
+
+                if (usuario.IdCliente != null)
                 {
                     oLoginRespuesta.Token = TokenGenerator.GenerateTokenJwt(User.Cuil);
 
@@ -56,8 +68,6 @@ namespace ClipMoney.Controllers
 
                 return BadRequest();
             }
-
-            
         }
 
         [Route("api/Authentication/Registration")]
@@ -75,7 +85,8 @@ namespace ClipMoney.Controllers
                 if(usuario.IdCliente != null)
                 {
                     oRespuesta.Exito = 0;
-                    oRespuesta.Mensaje = "El usuario ya se encuentra registrado";
+                    oRespuesta.Mensaje = "No se pudo registrar al usuario";
+                    oRespuesta.Data = "El usuario ya se encuentra registrado";
 
                     return Content(HttpStatusCode.BadRequest, oRespuesta);
                 } 
