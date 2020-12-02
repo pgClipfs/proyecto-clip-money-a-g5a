@@ -21,10 +21,12 @@ export class RegistrationComponent implements OnInit {
     cuil: ['', Validators.required],
     email: ['', Validators.required],
     contraseña: ['', Validators.required],
-    telefono: ['', Validators.required]
+    telefono: ['', Validators.required],
+    dniFront: ['', null]
   })
 
   public error: string = "";
+  public firstForm: boolean = true;
 
   ngOnInit(): void {
   }
@@ -49,6 +51,25 @@ export class RegistrationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#file');
+  
+    if (typeof (FileReader) !== 'undefined') {
+      const reader = new FileReader();
+  
+      reader.onload = (e: any) => {
+        const srcResult = e.target.result;
+      };
+  
+      reader.readAsArrayBuffer(inputNode.files[0]);
+    }
+  }
+
+  handleChangePage(e) {
+    e.preventDefault();
+    this.firstForm = false;
   }
 
   signUp() {
