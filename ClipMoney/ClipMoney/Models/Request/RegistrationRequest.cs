@@ -14,5 +14,6 @@ namespace ClipMoney.Models.Request
         public string Contraseña { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
+        public List<string> Images { get; set; }
     }
 }

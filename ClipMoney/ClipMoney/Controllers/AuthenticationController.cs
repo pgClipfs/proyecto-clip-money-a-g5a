@@ -4,8 +4,11 @@ using ClipMoney.Models.Response;
 using ClipMoney.Models.Tablas;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -72,8 +75,22 @@ namespace ClipMoney.Controllers
 
         [Route("api/Authentication/Registration")]
         [HttpPost]
-        public IHttpActionResult Registration([FromBody] RegistrationRequest model)
+        public async Task<IHttpActionResult> RegistrationAsync()
         {
+            HttpRequest request = HttpContext.Current.Request;
+
+            RegistrationRequest model = new RegistrationRequest()
+            {
+                Nombre = request.Params["nombre"],
+                Apellido = request.Params["apellido"],
+                Cuil = request.Params["cuil"],
+                Contraseña = request.Params["contraseña"],
+                Email = request.Params["email"],
+                Telefono = request.Params["telefono"],
+                Images = Services.ImagesService.StoreImage(request)
+            };
+
+
             UsuarioGestor gestor = new UsuarioGestor();
             Respuesta oRespuesta = new Respuesta();
 
@@ -82,14 +99,14 @@ namespace ClipMoney.Controllers
                 gestor.ValidarDatosUsuario(model);
 
                 Usuario usuario = gestor.BuscarPersonaPorCuil(model.Cuil);
-                if(usuario.IdCliente != null)
+                if (usuario.IdCliente != null)
                 {
                     oRespuesta.Exito = 0;
                     oRespuesta.Mensaje = "No se pudo registrar al usuario";
                     oRespuesta.Data = "El usuario ya se encuentra registrado";
 
                     return Content(HttpStatusCode.BadRequest, oRespuesta);
-                } 
+                }
 
                 gestor.RegistrarUsuario(model);
                 oRespuesta.Exito = 1;
@@ -97,7 +114,7 @@ namespace ClipMoney.Controllers
 
                 return Ok(oRespuesta);
             }
-            catch(FormatException ex)
+            catch (FormatException ex)
             {
                 oRespuesta.Exito = 0;
                 oRespuesta.Mensaje = "No se pudo registrar al usuario";
@@ -106,7 +123,7 @@ namespace ClipMoney.Controllers
 
                 return Content(HttpStatusCode.BadRequest, oRespuesta);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 oRespuesta.Exito = 0;
                 oRespuesta.Mensaje = "No se pudo registrar al usuario";
@@ -115,7 +132,6 @@ namespace ClipMoney.Controllers
 
                 return Content(HttpStatusCode.BadRequest, oRespuesta);
             }
-
         }
     }
 }

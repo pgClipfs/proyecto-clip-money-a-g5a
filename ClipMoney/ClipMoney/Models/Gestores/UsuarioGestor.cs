@@ -93,19 +93,36 @@ namespace ClipMoney.Models
             string passwordHash = BC.HashPassword(usuario.Contraseña);
 
             SqlCommand comm = conn.CreateCommand();
-            comm.CommandText = @"INSERT INTO USUARIOS(CUIL, NOMBRE, APELLIDO, CONTRASEÑA, EMAIL, TELEFONO, ID_SITUACION_CREDITICIA, PRIVILEGIOS) 
-                                values(@Cuil, @Nombre, @Apellido, @Contraseña, @Email, @Telefono, @IdSituacion, @Privilegios)";
+            comm.CommandText = @"INSERT INTO USUARIOS(CUIL, NOMBRE, APELLIDO, Clave, EMAIL, TELEFONO, ID_SITUACION_CREDITICIA, PRIVILEGIOS)
+                                output INSERTED.ID_USUARIO
+                                values(@Cuil, @Nombre, @Apellido, @Clave, @Email, @Telefono, @IdSituacion, @Privilegios)";
 
             comm.Parameters.Add(new SqlParameter("@Cuil", usuario.Cuil));
             comm.Parameters.Add(new SqlParameter("@Nombre", usuario.Nombre));
             comm.Parameters.Add(new SqlParameter("@Apellido", usuario.Apellido));
-            comm.Parameters.Add(new SqlParameter("@Contraseña", passwordHash));
+            comm.Parameters.Add(new SqlParameter("@Clave", passwordHash));
             comm.Parameters.Add(new SqlParameter("@Email", usuario.Email));
             comm.Parameters.Add(new SqlParameter("@Telefono", usuario.Telefono));
-            comm.Parameters.Add(new SqlParameter("@IdSituacion", 1));
+            comm.Parameters.Add(new SqlParameter("@IdSituacion", 7));
             comm.Parameters.Add(new SqlParameter("@Privilegios", "NO ACTIVO"));
 
-            comm.ExecuteNonQuery();
+            int IdUsuario = (int)comm.ExecuteScalar();
+
+            foreach (var photo in usuario.Images)
+            {
+                SqlCommand commPhoto = conn.CreateCommand();
+                commPhoto.CommandText = @"INSERT INTO USUARIOSxIMAGENES(RUTA, RAZON_IMAGEN, ID_USUARIO)
+                                        values(@Ruta, @RazonImagen, @IdUsuario)";
+                commPhoto.Parameters.Add(new SqlParameter("@Ruta", photo));
+                commPhoto.Parameters.Add(new SqlParameter("@RazonImagen", "DNI"));
+                commPhoto.Parameters.Add(new SqlParameter("@IdUsuario", IdUsuario));
+
+                commPhoto.ExecuteNonQuery();
+
+            }
+
+            if (conn.State == System.Data.ConnectionState.Open)
+                conn.Close();
 
             conn.Close();
 

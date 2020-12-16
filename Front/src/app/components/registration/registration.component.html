@@ -3,7 +3,7 @@
     <mat-card-title>Completá tus datos</mat-card-title>
     <mat-card-content>
         <form [formGroup]="registrationForm" (ngSubmit)="signUp()">
-            <div *ngIf="firstForm" id="firstForm">
+            <div id="firstForm" *ngIf="firstForm">
                 <mat-form-field>
                     <mat-label>Nombres</mat-label>
                     <input type="text" formControlName="nombre" matInput
@@ -50,6 +50,19 @@
                     <input type="text" formControlName="telefono" matInput >
                     <mat-hint>Numero completo. Sin espacios ni guiones</mat-hint>
                 </mat-form-field>
+                <br> <br>
+                <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                    <span fxLayout="column" fxLayoutAlign="space-evenly center">
+                        <label for="dniFront">Imagen de DNI del frente</label>
+                        <input type="file" name="dniFront" (change)="onFileSelect($event)" />
+
+                    </span>                    
+                    <span fxLayout="column" fxLayoutAlign="space-evenly center">
+                        <label for="dniBack">Imagen de DNI del dorso</label>
+                        <input type="file" name="dniBack" (change)="onFileSelect($event)" />
+                    </span>
+
+                </div>
     
                 <mat-card *ngIf="error" class="error-login">{{error}}</mat-card>
                 
@@ -60,27 +73,10 @@
                     <button type="submit"
                         mat-raised-button
                         color="primary"
-                        (click)="handleChangePage($event)"
-                        >Registrate
+                        >Continuar
                     </button>
                 </div>
 
-
-            </div>
-            <div *ngIf="!firstForm">
-
-                <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                    <mat-grid-tile>
-                        <button type="button" mat-raised-button (click)="fileInput.click()">Elegir imagen</button>
-                        <input hidden (change)="onFileSelected()" formControlName="contraseña" #fileInput type="file" id="file">
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <button type="button" mat-raised-button (click)="fileInput.click()">Elegir imagen</button>
-                        <input hidden (change)="onFileSelected()" formControlName="contraseña" #fileInput type="file" id="file">
-                        
-                    </mat-grid-tile>
-                  </div>
-                  
 
             </div>
         </form>
