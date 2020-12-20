@@ -175,16 +175,22 @@
     <Compile Include="Controllers\ServicioEncriptador.cs" />
     <Compile Include="Controllers\TokenGenerator.cs" />
     <Compile Include="Controllers\TokenValidationHandler.cs" />
+    <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gestores\AccountManager.cs" />
     <Compile Include="Models\Request\LoginRequest.cs" />
     <Compile Include="Models\Request\RegistrationRequest.cs" />
     <Compile Include="Models\Response\LoginRespuesta.cs" />
     <Compile Include="Models\Response\Respuesta.cs" />
     <Compile Include="Models\Gestores\UsuarioGestor.cs" />
-    <Compile Include="Models\Tablas\Usuario.cs" />
+    <Compile Include="Models\Tablas\Cuenta.cs" />
+    <Compile Include="Models\Tablas\Divisas.cs" />
+    <Compile Include="Models\Tablas\TipoCuentas.cs" />
+    <Compile Include="Models\Tablas\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ImagesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

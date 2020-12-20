@@ -19,9 +19,9 @@ namespace ClipMoney.Models
     {
         private string StrConn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public Usuario ObtenerPorCUILPassword(string Cuil, string Password)
+        public Usuarios ObtenerPorCUILPassword(string Cuil, string Password)
         {
-            Usuario usuario = new Usuario();
+            Usuarios usuario = new Usuarios();
 
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -40,7 +40,7 @@ namespace ClipMoney.Models
                 string nombre = dr.GetString(2);
                 string apellido = dr.GetString(3);
 
-               usuario = new Usuario(id, nombre, apellido);
+               usuario = new Usuarios(id, nombre, apellido);
             }
 
             dr.Close();
@@ -54,9 +54,9 @@ namespace ClipMoney.Models
             
         }
 
-        public Usuario BuscarPersonaPorCuil(string cuil)
+        public Usuarios BuscarPersonaPorCuil(string cuil)
         {
-            Usuario usuario = new Usuario();
+            Usuarios usuario = new Usuarios();
 
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -69,12 +69,16 @@ namespace ClipMoney.Models
             SqlDataReader dr = comm.ExecuteReader();
             if (dr.Read())
             {
-                int id = dr.GetInt32(0);
-                string nombre = dr.GetString(2);
-                string apellido = dr.GetString(3);
-                string contraseña = dr.GetString(4);
-
-                usuario = new Usuario(id, nombre, apellido, contraseña);
+                usuario = new Usuarios() { 
+                    IdUsuario = dr.GetInt32(0), 
+                    Cuil = cuil, 
+                    Nombre = dr.GetString(2), 
+                    Apellido = dr.GetString(3), 
+                    Clave = dr.GetString(4),
+                    Email = dr.GetString(5),
+                    Telefono = dr.GetString(6),
+                    Privilegios = dr.GetString(8)
+            };
             }
 
             dr.Close();

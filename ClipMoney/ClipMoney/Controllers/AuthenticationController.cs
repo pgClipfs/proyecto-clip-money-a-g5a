@@ -35,10 +35,10 @@ namespace ClipMoney.Controllers
                 UsuarioGestor gestor = new UsuarioGestor();
                 LoginRespuesta oLoginRespuesta = new LoginRespuesta();
 
-                Usuario usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
+                Usuarios usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
                 //Usuario usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
 
-                if (!BC.Verify(User.Password, usuario.Contraseña))
+                if (!BC.Verify(User.Password, usuario.Clave))
                 {
                     oRespuesta.Exito = 0;
                     oRespuesta.Mensaje = "Contraseña incorrecta";
@@ -47,9 +47,9 @@ namespace ClipMoney.Controllers
                 }
 
 
-                if (usuario.IdCliente != null)
+                if (usuario.IdUsuario != null)
                 {
-                    oLoginRespuesta.Token = TokenGenerator.GenerateTokenJwt(User.Cuil);
+                    oLoginRespuesta.Token = TokenGenerator.GenerateTokenJwt(usuario.Cuil, usuario.IdUsuario);
 
                     oRespuesta.Exito = 1;
                     oRespuesta.Mensaje = "Acesso concedido";
@@ -98,8 +98,8 @@ namespace ClipMoney.Controllers
             {
                 gestor.ValidarDatosUsuario(model);
 
-                Usuario usuario = gestor.BuscarPersonaPorCuil(model.Cuil);
-                if (usuario.IdCliente != null)
+                Usuarios usuario = gestor.BuscarPersonaPorCuil(model.Cuil);
+                if (usuario.IdUsuario != null)
                 {
                     oRespuesta.Exito = 0;
                     oRespuesta.Mensaje = "No se pudo registrar al usuario";
