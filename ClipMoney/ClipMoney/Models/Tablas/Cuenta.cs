@@ -7,7 +7,7 @@ namespace ClipMoney.Models.Tablas
 {
     public class Cuenta
     { 
-        public int IdCuenta { get; set; }
+        public int? IdCuenta { get; set; }
         public TipoCuentas TipoCuenta { get; set; }
         public Divisas Divisa { get; set; }
         public Usuarios Usuario { get; set; }

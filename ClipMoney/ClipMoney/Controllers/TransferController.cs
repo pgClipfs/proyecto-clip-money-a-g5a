@@ -1,5 +1,6 @@
 ﻿using ClipMoney.Models;
 using ClipMoney.Models.Gestores;
+using ClipMoney.Models.Request;
 using ClipMoney.Models.Tablas;
 using System;
 using System.Collections.Generic;
@@ -43,5 +44,49 @@ namespace ClipMoney.Controllers
             }
         }
 
+        [HttpPost]
+        public IHttpActionResult Post([FromBody] TransferRequest model)
+        {
+            Respuesta oRespuesta = new Respuesta();
+            AccountManager accountManager = new AccountManager();
+            TransferManager transferManager = new TransferManager();
+
+            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+
+            string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
+
+
+            try
+            {
+                Cuenta oAccount = new Cuenta();
+
+                oAccount = accountManager.GetAccountById(model.DebitAccountId);
+
+                if(oAccount.IdCuenta == null)
+                {
+                    throw new ArgumentNullException("Cuenta de debito no encontrada");
+                }
+
+                transferManager.MakeTransfer(oAccount, model.CreditAccountId, model.Amount, model.Concept);
+                accountManager.UpdateAccountBalance((int)oAccount.IdCuenta, -model.Amount);
+                accountManager.UpdateAccountBalance(model.CreditAccountId, model.Amount);
+                oRespuesta.Exito = 1;
+                oRespuesta.Mensaje = "Exito - Transferencia realizada";
+
+                return Content(HttpStatusCode.OK, oRespuesta);
+
+            } catch(ArgumentNullException ex)
+            {
+                oRespuesta.Exito = 0;
+                oRespuesta.Mensaje = "Error - " + ex.Message;
+                return Content(HttpStatusCode.BadRequest, oRespuesta);
+            } catch(Exception ex)
+            {
+                oRespuesta.Exito = 0;
+                oRespuesta.Mensaje = ex.Message;
+                return Content(HttpStatusCode.BadRequest, oRespuesta);
+            }
+
+        }
     }
 }
