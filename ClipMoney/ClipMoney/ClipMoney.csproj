@@ -184,6 +184,7 @@
     <Compile Include="Models\Request\LoginRequest.cs" />
     <Compile Include="Models\Request\RegistrationRequest.cs" />
     <Compile Include="Models\Request\TransferRequest.cs" />
+    <Compile Include="Models\Response\BasicAccountResponse.cs" />
     <Compile Include="Models\Response\LoginRespuesta.cs" />
     <Compile Include="Models\Response\Respuesta.cs" />
     <Compile Include="Models\Gestores\UsuarioGestor.cs" />

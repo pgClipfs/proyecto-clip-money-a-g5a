@@ -12,7 +12,7 @@ namespace ClipMoney.Models.Tablas
         public Divisas Divisa { get; set; }
         public Usuarios Usuario { get; set; }
         public string CVU { get; set; }
-        public decimal Saldo { get; set; }
+        public decimal? Saldo { get; set; }
         public string Alias { get; set; }
         public DateTime OpeningDate { get; set; }
     }

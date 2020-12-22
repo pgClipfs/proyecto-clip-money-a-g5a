@@ -5,7 +5,7 @@
 
 #### Transferencias
 
-Haciendo un get a ./api/Transfer se obtienen las cuentas del usuario logeado.
+Haciendo un get a `./api/Transfer` se obtienen las cuentas del usuario logeado.
 Se devuelve un JSON con un array de objetos de cuentas.
 Ejemplo:
 
@@ -56,7 +56,25 @@ Ejemplo:
 }
 ```
 
-Para realizar una transferencia hacer un post a ./api/Transfer con un json con el formato:
+Para obtener informacion basica de cuenta de destino, hacer get a `./api/Transfer?cvu=numeroDeCvu`
+Ejemplo: ./api/Transfer?cvu=4879413218432184163518
+```json
+{
+    "Exito": 1,
+    "Mensaje": "Exito - cuenta obtenida",
+    "Data": {
+        "CVU": "4879413218432184163518",
+        "IdCuenta": 1,
+        "Propietario": {
+            "Nombre": "david",
+            "Apellido": "Alvarez",
+            "CUIL": "81711677771"
+        }
+    }
+}
+```
+
+Para realizar una transferencia hacer un post a `./api/Transfer` con un json con el formato:
 ```json
 {
     "DebitAccountId": 1,

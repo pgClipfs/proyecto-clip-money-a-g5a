@@ -113,6 +113,63 @@ namespace ClipMoney.Models.Gestores
 
         }
 
+        public Cuenta GetAccountByCVU(string CVU)
+        {
+            SqlConnection conn = new SqlConnection(StrConn);
+            conn.Open();
+
+
+            SqlCommand comm = conn.CreateCommand();
+            comm.CommandText = "SELECT ID_CUENTA, " +
+                "TC.ID_TIPO_CUENTA, " +
+                "TC.TIPO_CUENTA, " +
+                "DIV.ID_DIVISA, " +
+                "DIV.DIVISA, " +
+                "DIV.COMISION, " +
+                "DIV.PRECIO_COMPRA, " +
+                "DIV.PRECIO_VENTA, " +
+                "USR.ID_USUARIO, " +
+                "USR.CUIL, " +
+                "USR.NOMBRE, " +
+                "USR.APELLIDO, " +
+                "USR.EMAIL, " +
+                "USR.TELEFONO, " +
+                "USR.ID_SITUACION_CREDITICIA, " +
+                "USR.PRIVILEGIOS, " +
+                "CVU, " +
+                "SALDO, " +
+                "ALIAS, " +
+                "FECHA_APERTURA " +
+                "FROM CUENTAS " +
+                "INNER JOIN TIPO_CUENTAS TC ON CUENTAS.ID_TIPO_CUENTA = TC.ID_TIPO_CUENTA " +
+                "INNER JOIN DIVISAS DIV ON CUENTAS.ID_DIVISA = DIV.ID_DIVISA " +
+                "INNER JOIN USUARIOS USR ON CUENTAS.ID_USUARIO = USR.ID_USUARIO " +
+                "WHERE CVU=@Cvu";
+
+            comm.Parameters.AddWithValue("@Cvu", CVU);
+
+            SqlDataReader dr = comm.ExecuteReader();
+
+            Cuenta oAccount = new Cuenta();
+            if (dr.Read())
+            {
+                oAccount.IdCuenta = dr.GetInt32(0);
+                oAccount.TipoCuenta = new TipoCuentas() { IdTipoCuenta = dr.GetByte(1), TipoCuenta = dr.GetString(2) };
+                oAccount.Divisa = new Divisas() { IdDivisa = dr.GetByte(3), Divisa = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
+                oAccount.Usuario = new Usuarios() { IdUsuario = dr.GetInt32(8), Cuil = dr.GetString(9), Nombre = dr.GetString(10), Apellido = dr.GetString(11), Email = dr.GetString(12), Telefono = dr.GetString(13), IdSituacionCrediticia = dr.GetByte(14), Privilegios = dr.GetString(15) };
+                oAccount.CVU = dr.GetString(16);
+                oAccount.Saldo = dr.GetDecimal(17);
+                oAccount.Alias = dr.GetString(18);
+                oAccount.OpeningDate = dr.GetDateTime(19);
+
+            }
+
+            dr.Close();
+            conn.Close();
+
+            return oAccount;
+        }
+
         public void UpdateAccountBalance(int accountID, decimal amount)
         {
             SqlConnection conn = new SqlConnection(StrConn);

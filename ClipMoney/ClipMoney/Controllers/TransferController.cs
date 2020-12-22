@@ -1,6 +1,7 @@
 ﻿using ClipMoney.Models;
 using ClipMoney.Models.Gestores;
 using ClipMoney.Models.Request;
+using ClipMoney.Models.Response;
 using ClipMoney.Models.Tablas;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,42 @@ namespace ClipMoney.Controllers
             {
                 oRespuesta.Exito = 0;
                 oRespuesta.Mensaje = "Error - no se pudo obtener las cuentas del usuario";
+                oRespuesta.Data = ex.Message;
+
+                return Content(HttpStatusCode.BadRequest, oRespuesta);
+            }
+        }
+
+        public IHttpActionResult GetAccount(string cvu)
+        {
+            Respuesta oRespuesta = new Respuesta();
+            try
+            {
+                AccountManager oAccountManager = new AccountManager();
+
+                Cuenta oAccount = oAccountManager.GetAccountByCVU(cvu);
+
+                var response = new BasicAccountResponse
+                {
+                    CVU = oAccount.CVU,
+                    IdCuenta = oAccount.IdCuenta,
+                    Propietario = new
+                    {
+                        Nombre = oAccount.Usuario.Nombre,
+                        Apellido = oAccount.Usuario.Apellido,
+                        CUIL = oAccount.Usuario.Cuil
+                    }
+                };
+
+                oRespuesta.Exito = 1;
+                oRespuesta.Mensaje = "Exito - cuenta obtenida";
+                oRespuesta.Data = response;
+
+                return Content(HttpStatusCode.OK, oRespuesta);
+            } catch (Exception ex)
+            {
+                oRespuesta.Exito = 0;
+                oRespuesta.Mensaje = "Error - no se pudo obtener la cuenta";
                 oRespuesta.Data = ex.Message;
 
                 return Content(HttpStatusCode.BadRequest, oRespuesta);
