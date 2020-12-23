@@ -3,6 +3,26 @@
 
 ## Desarrollo
 
+#### Deposito
+
+##### Tarjeta
+
+Haciendo un get a `./api/Deposit/CreditCard?number=NumeroDeTarjeta` se obtiene un json diciendo si la tarjeta de credito es valida y de que entidad financiera es.
+No es necesario pasar el numero completo de la tarjeta para que te diga la marca
+
+Ejemplo llamando a
+`http://localhost:49220/api/Deposit/CreditCard?number=4111111111111111`
+```json
+{
+    "Exito": 1,
+    "Mensaje": "Exito - validacion de la tarjeta realizada",
+    "Data": {
+        "IsValid": true,
+        "Brand": "Visa"
+    }
+}
+```
+
 #### Transferencias
 
 Haciendo un get a `./api/Transfer` se obtienen las cuentas del usuario logeado.
