@@ -171,6 +171,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\DepositController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -184,7 +185,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Gestores\AccountManager.cs" />
+    <Compile Include="Models\Gestores\DepositManager.cs" />
     <Compile Include="Models\Gestores\TransferManager.cs" />
+    <Compile Include="Models\Request\CreditCardDepositRequest.cs" />
     <Compile Include="Models\Request\LoginRequest.cs" />
     <Compile Include="Models\Request\RegistrationRequest.cs" />
     <Compile Include="Models\Request\TransferRequest.cs" />
@@ -193,6 +196,7 @@
     <Compile Include="Models\Response\Respuesta.cs" />
     <Compile Include="Models\Gestores\UsuarioGestor.cs" />
     <Compile Include="Models\Tablas\Cuenta.cs" />
+    <Compile Include="Models\Tablas\Deposits.cs" />
     <Compile Include="Models\Tablas\Divisas.cs" />
     <Compile Include="Models\Tablas\TipoCuentas.cs" />
     <Compile Include="Models\Tablas\Usuarios.cs" />

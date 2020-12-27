@@ -3,29 +3,9 @@
 
 ## Desarrollo
 
-#### Deposito
+### General
 
-##### Tarjeta
-
-Haciendo un get a `./api/Deposit/CreditCard?number=NumeroDeTarjeta` se obtiene un json diciendo si la tarjeta de credito es valida y de que entidad financiera es.
-No es necesario pasar el numero completo de la tarjeta para que te diga la marca
-
-Ejemplo llamando a
-`http://localhost:49220/api/Deposit/CreditCard?number=4111111111111111`
-```json
-{
-    "Exito": 1,
-    "Mensaje": "Exito - validacion de la tarjeta realizada",
-    "Data": {
-        "IsValid": true,
-        "Brand": "Visa"
-    }
-}
-```
-
-#### Transferencias
-
-Haciendo un get a `./api/Transfer` se obtienen las cuentas del usuario logeado.
+Haciendo un get a `./api/Account/` se obtienen las cuentas del usuario logeado.
 Se devuelve un JSON con un array de objetos de cuentas.
 Ejemplo:
 
@@ -75,6 +55,42 @@ Ejemplo:
     ]
 }
 ```
+
+### Deposito
+
+#### Tarjeta
+
+Haciendo un get a `./api/Deposit/CreditCard?number=NumeroDeTarjeta` se obtiene un json diciendo si la tarjeta de credito es valida y de que entidad financiera es.
+No es necesario pasar el numero completo de la tarjeta para que te diga la marca
+
+Ejemplo llamando a
+`http://localhost:49220/api/Deposit/CreditCard?number=4111111111111111`
+```json
+{
+    "Exito": 1,
+    "Mensaje": "Exito - validacion de la tarjeta realizada",
+    "Data": {
+        "IsValid": true,
+        "Brand": "Visa"
+    }
+}
+```
+
+Para hacer un deposito con tarjeta hacer un post a `./api/Deposit/CreditCard` con un JSON con el formato:
+
+```json
+{
+    "FullName": "Cristian Almada",
+    "ExpirationDate": "06/22",
+    "CreditCardNumber": "4111111111111111",
+    "SecurityNumber": 422,
+    "DocumentNumber": 11222333,
+    "Amount": 15000,
+    "DebitAccountId": 2
+}
+```
+
+#### Transferencias
 
 Para obtener informacion basica de cuenta de destino, hacer get a `./api/Transfer?cvu=numeroDeCvu`
 Ejemplo: ./api/Transfer?cvu=4879413218432184163518
