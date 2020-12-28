@@ -88,6 +88,41 @@ namespace ClipMoney.Models
             return usuario;
         }
 
+        public Usuarios GetByUserId(string UserID)
+        {
+            Usuarios usuario = new Usuarios();
+
+            SqlConnection conn = new SqlConnection(StrConn);
+            conn.Open();
+
+
+            SqlCommand comm = conn.CreateCommand();
+            comm.CommandText = "SELECT ID_USUARIO, CUIL, NOMBRE, APELLIDO, CLAVE, EMAIL, TELEFONO, ID_SITUACION_CREDITICIA, PRIVILEGIOS FROM USUARIOS WHERE ID_USUARIO=@UserId";
+            comm.Parameters.Add(new SqlParameter("@UserId", UserID));
+
+            SqlDataReader dr = comm.ExecuteReader();
+            if (dr.Read())
+            {
+                usuario = new Usuarios()
+                {
+                    IdUsuario = dr.GetInt32(0),
+                    Cuil = dr.GetString(1),
+                    Nombre = dr.GetString(2),
+                    Apellido = dr.GetString(3),
+                    Clave = dr.GetString(4),
+                    Email = dr.GetString(5),
+                    Telefono = dr.GetString(6),
+                    Privilegios = dr.GetString(8)
+                };
+            }
+
+            dr.Close();
+            conn.Close();
+
+
+            return usuario;
+        }
+
         public int RegistrarUsuario(RegistrationRequest usuario)
         {
             SqlConnection conn = new SqlConnection(StrConn);

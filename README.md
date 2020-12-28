@@ -57,6 +57,27 @@ Ejemplo:
 }
 ```
 
+Haciendo un get a `./api/User` se obtienen los datos del usuario logeado menos la contraseña.
+
+Ejemplo:
+```json
+{
+    "Exito": 1,
+    "Mensaje": "Exito - se obtuvo los datos del usuario",
+    "Data": {
+        "IdUsuario": 104,
+        "Cuil": "81711677771",
+        "Nombre": "david",
+        "Apellido": "Alvarez",
+        "Clave": null,
+        "Email": "contacto@gmail.com",
+        "Telefono": "3517733227 ",
+        "IdSituacionCrediticia": null,
+        "Privilegios": "NO ACTIVO"
+    }
+}
+```
+
 Haciendo un get a `./api/Transactions/` se obtienen las 10 ultimas transacciones del usuario, actualmente solo muestra depositos y transferencias
 
 Ejemplo:
