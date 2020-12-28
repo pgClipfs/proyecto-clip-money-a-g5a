@@ -46,10 +46,7 @@ export class ApiauthService {
     }
 
     singUp(singUp: any): any {
-        return this._http.post<Response>(this.url + "/Registration", singUp, {
-            reportProgress: true,
-            observe: 'events'
-          });
+        return this._http.post<Response>(this.url + "/Registration", singUp)
     }
 
     logout(){

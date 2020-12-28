@@ -7,9 +7,7 @@ import { DialogTermsComponent } from './dialog-terms/dialog-terms.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Response } from 'src/app/models/response';
 import { sha256 } from 'js-sha256';
-import { requiredFileType } from '../../../utils/requiredTypeFile';
 import { toFormData } from '../../../utils/toFormData';
-import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'user-registration',
@@ -77,9 +75,10 @@ export class RegistrationComponent implements OnInit {
     if(this.registrationForm.valid) {
       this.apiauthService
       .singUp(toFormData(formClone)).subscribe(
-        (response: Response) => {                          
+        (response) => {                
           if(response.Exito === 1) {
-            this.router.navigate(['/auth'])
+            console.log('hola')
+            this.router.navigate(['./auth'])
   
           }
         },
