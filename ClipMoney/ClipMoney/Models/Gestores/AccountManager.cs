@@ -11,6 +11,7 @@ namespace ClipMoney.Models.Gestores
     public class AccountManager
     {
         private string StrConn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        private static Random random = new Random();
 
         public Cuenta GetAccountById(int AccountID)
         {
@@ -170,6 +171,42 @@ namespace ClipMoney.Models.Gestores
             return oAccount;
         }
 
+        public void CreateNewAccount(int TypeAccountId, int CurrencyId, int UserId, decimal Balance, string Alias)
+        {
+            SqlConnection oSql = new SqlConnection(StrConn);
+            oSql.Open();
+
+            SqlCommand oCommand = oSql.CreateCommand();
+
+            oCommand.CommandText = "INSERT INTO CUENTAS( " +
+                "ID_TIPO_CUENTA, " +
+                "ID_DIVISA, " +
+                "ID_USUARIO, " +
+                "CVU, " +
+                "SALDO, " +
+                "ALIAS, " +
+                "FECHA_APERTURA) " +
+                "VALUES(" +
+                "@TypeAccountId, " +
+                "@CurrencyId, " +
+                "@UserId, " +
+                "@Cvu, " +
+                "@Balance, " +
+                "@Alias," +
+                "GETDATE() )";
+
+            oCommand.Parameters.AddWithValue("@TypeAccountId", TypeAccountId);
+            oCommand.Parameters.AddWithValue("@CurrencyId", CurrencyId);
+            oCommand.Parameters.AddWithValue("@UserId", UserId);
+            oCommand.Parameters.AddWithValue("@Cvu", RandomDigits(22));
+            oCommand.Parameters.AddWithValue("@Balance", Balance);
+            oCommand.Parameters.AddWithValue("@Alias", (object)Alias ?? DBNull.Value);
+
+            oCommand.ExecuteNonQuery();
+
+            oSql.Close();
+        }
+
         public void UpdateAccountBalance(int accountID, decimal amount)
         {
             SqlConnection conn = new SqlConnection(StrConn);
@@ -186,6 +223,14 @@ namespace ClipMoney.Models.Gestores
 
             comm.ExecuteNonQuery();
             conn.Close();
+        }
+
+        public string RandomDigits(int length)
+        {
+            string s = string.Empty;
+            for (int i = 0; i < length; i++)
+                s = String.Concat(s, random.Next(10).ToString());
+            return s;
         }
 
     }

@@ -88,7 +88,7 @@ namespace ClipMoney.Models
             return usuario;
         }
 
-        public bool RegistrarUsuario(RegistrationRequest usuario)
+        public int RegistrarUsuario(RegistrationRequest usuario)
         {
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -115,11 +115,12 @@ namespace ClipMoney.Models
             foreach (var photo in usuario.Images)
             {
                 SqlCommand commPhoto = conn.CreateCommand();
-                commPhoto.CommandText = @"INSERT INTO USUARIOSxIMAGENES(RUTA, RAZON_IMAGEN, ID_USUARIO)
-                                        values(@Ruta, @RazonImagen, @IdUsuario)";
-                commPhoto.Parameters.Add(new SqlParameter("@Ruta", photo));
-                commPhoto.Parameters.Add(new SqlParameter("@RazonImagen", "DNI"));
-                commPhoto.Parameters.Add(new SqlParameter("@IdUsuario", IdUsuario));
+                commPhoto.CommandText = @"INSERT INTO USUARIOSxIMAGENES(NOMBRE, ID_USUARIO, URL, TIPO)
+                                        values(@Nombre, @UserId, @Url, @Type)";
+                commPhoto.Parameters.Add(new SqlParameter("@Nombre", ""));
+                commPhoto.Parameters.Add(new SqlParameter("@UserID", IdUsuario));
+                commPhoto.Parameters.Add(new SqlParameter("@Url", photo));
+                commPhoto.Parameters.Add(new SqlParameter("@Type", 1)); // Tipo 1 = DNI
 
                 commPhoto.ExecuteNonQuery();
 
@@ -130,7 +131,7 @@ namespace ClipMoney.Models
 
             conn.Close();
 
-            return true;
+            return IdUsuario;
         }
 
         public void ValidarDatosUsuario(RegistrationRequest user)

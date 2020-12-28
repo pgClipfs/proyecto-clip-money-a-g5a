@@ -75,7 +75,7 @@ export class RegistrationComponent implements OnInit {
     if(this.registrationForm.valid) {
       this.apiauthService
       .singUp(toFormData(formClone)).subscribe(
-        (response) => {                
+        (response: Response) => {                
           if(response.Exito === 1) {
             console.log('hola')
             this.router.navigate(['./auth'])

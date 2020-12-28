@@ -1,4 +1,5 @@
 ﻿using ClipMoney.Models;
+using ClipMoney.Models.Gestores;
 using ClipMoney.Models.Request;
 using ClipMoney.Models.Response;
 using ClipMoney.Models.Tablas;
@@ -92,6 +93,7 @@ namespace ClipMoney.Controllers
 
 
             UsuarioGestor gestor = new UsuarioGestor();
+            AccountManager oAccountManager = new AccountManager();
             Respuesta oRespuesta = new Respuesta();
 
             try
@@ -108,7 +110,8 @@ namespace ClipMoney.Controllers
                     return Content(HttpStatusCode.BadRequest, oRespuesta);
                 }
 
-                gestor.RegistrarUsuario(model);
+                int UserId = gestor.RegistrarUsuario(model);
+                oAccountManager.CreateNewAccount(1, 1, UserId, 0, null);
                 oRespuesta.Exito = 1;
                 oRespuesta.Mensaje = "Usuario registrado con exito";
 
