@@ -5,9 +5,9 @@ using System.Web;
 
 namespace ClipMoney.Models.Tablas
 {
-    public class TipoCuentas
+    public class AccountType
     {
-        public int IdTipoCuenta { get; set; }
-        public string TipoCuenta { get; set; }
+        public int AccountTypeId { get; set; }
+        public string AccountTypeName { get; set; }
     }
 }

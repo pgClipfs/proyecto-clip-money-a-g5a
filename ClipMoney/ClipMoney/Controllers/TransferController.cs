@@ -19,46 +19,46 @@ namespace ClipMoney.Controllers
 
         public IHttpActionResult GetAccount(string cvu)
         {
-            Respuesta oRespuesta = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
             try
             {
                 AccountManager oAccountManager = new AccountManager();
 
-                Cuenta oAccount = oAccountManager.GetAccountByCVU(cvu);
+                Account oAccount = oAccountManager.GetAccountByCVU(cvu);
 
                 var response = new BasicAccountResponse
                 {
                     CVU = oAccount.CVU,
-                    IdCuenta = oAccount.IdCuenta,
-                    Propietario = new
+                    AccountId = oAccount.AccountId,
+                    Owner = new
                     {
-                        Nombre = oAccount.Usuario.Nombre,
-                        Apellido = oAccount.Usuario.Apellido,
-                        CUIL = oAccount.Usuario.Cuil
+                        Name = oAccount.User.Name,
+                        Surname = oAccount.User.Surname,
+                        Cuil = oAccount.User.Cuil
                     }
                 };
 
-                oRespuesta.Exito = 1;
-                oRespuesta.Mensaje = "Exito - cuenta obtenida";
-                oRespuesta.Data = response;
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - cuenta obtenida";
+                oResponse.Data = response;
 
-                return Content(HttpStatusCode.OK, oRespuesta);
+                return Content(HttpStatusCode.OK, oResponse);
             } catch (Exception ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "Error - no se pudo obtener la cuenta";
-                oRespuesta.Data = ex.Message;
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se pudo obtener la cuenta";
+                oResponse.Data = ex.Message;
 
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
         }
 
         [HttpPost]
         public IHttpActionResult Post([FromBody] TransferRequest model)
         {
-            Respuesta oRespuesta = new Respuesta();
-            AccountManager accountManager = new AccountManager();
-            TransferManager transferManager = new TransferManager();
+            GeneralResponse oResponse = new GeneralResponse();
+            AccountManager oAccountManager = new AccountManager();
+            TransferManager oTransferManager = new TransferManager();
 
             var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
 
@@ -67,33 +67,33 @@ namespace ClipMoney.Controllers
 
             try
             {
-                Cuenta oAccount = new Cuenta();
+                Account oAccount = new Account();
 
-                oAccount = accountManager.GetAccountById(model.DebitAccountId);
+                oAccount = oAccountManager.GetAccountById(model.DebitAccountId);
 
-                if(oAccount.IdCuenta == null)
+                if(oAccount.AccountId == null)
                 {
                     throw new ArgumentNullException("Cuenta de debito no encontrada");
                 }
 
-                transferManager.MakeTransfer(oAccount, model.CreditAccountId, model.Amount, model.Concept);
-                accountManager.UpdateAccountBalance((int)oAccount.IdCuenta, -model.Amount);
-                accountManager.UpdateAccountBalance(model.CreditAccountId, model.Amount);
-                oRespuesta.Exito = 1;
-                oRespuesta.Mensaje = "Exito - Transferencia realizada";
+                oTransferManager.MakeTransfer(oAccount, model.CreditAccountId, model.Amount, model.Concept);
+                oAccountManager.UpdateAccountBalance((int)oAccount.AccountId, -model.Amount);
+                oAccountManager.UpdateAccountBalance(model.CreditAccountId, model.Amount);
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - Transferencia realizada";
 
-                return Content(HttpStatusCode.OK, oRespuesta);
+                return Content(HttpStatusCode.OK, oResponse);
 
             } catch(ArgumentNullException ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "Error - " + ex.Message;
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                oResponse.Success = 0;
+                oResponse.Message = "Error - " + ex.Message;
+                return Content(HttpStatusCode.BadRequest, oResponse);
             } catch(Exception ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = ex.Message;
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                oResponse.Success = 0;
+                oResponse.Message = ex.Message;
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
 
         }

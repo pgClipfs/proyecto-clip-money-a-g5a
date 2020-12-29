@@ -16,7 +16,7 @@ namespace ClipMoney.Controllers
     {
         public IHttpActionResult Get()
         {
-            Respuesta oResponse = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
 
             try
             {
@@ -26,16 +26,16 @@ namespace ClipMoney.Controllers
                 TransactionManager oTransactionManager = new TransactionManager();
                 List<Transactions> oTransactions = oTransactionManager.GetTransactions(UserId);
 
-                oResponse.Exito = 1;
-                oResponse.Mensaje = "Exito - transactiones obtenidas correctamente";
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - transactiones obtenidas correctamente";
                 oResponse.Data = oTransactions;
 
                 return Content(HttpStatusCode.OK, oResponse);
 
             } catch(Exception ex)
             {
-                oResponse.Exito = 0;
-                oResponse.Mensaje = "Error - no se pudo obtener las transacciones";
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se pudo obtener las transacciones";
                 oResponse.Data = ex.Message;
 
                 return Content(HttpStatusCode.BadRequest, oResponse);                

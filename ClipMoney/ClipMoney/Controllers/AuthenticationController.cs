@@ -20,55 +20,50 @@ namespace ClipMoney.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AuthenticationController : ApiController
     {
-        // GET: Authentication
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
         [HttpPost]
         public IHttpActionResult Login([FromBody] LoginRequest User)
         {
-            Respuesta oRespuesta = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
 
             try
             {
-                UsuarioGestor gestor = new UsuarioGestor();
-                LoginRespuesta oLoginRespuesta = new LoginRespuesta();
+                UserManager oUserManager = new UserManager();
+                LoginResponse oLoginRespuesta = new LoginResponse();
 
-                Usuarios usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
+                User user = oUserManager.GetByCuil(User.Cuil);
                 
-                if(usuario.IdUsuario == null)
+                if(user.UserId == null)
                 {
                     throw new ArgumentException("Acesso denegado, cuil o cuil incorrecto");
                 }
 
-                if (!BC.Verify(User.Password, usuario.Clave))
+                if (!BC.Verify(User.Password, user.Password))
                 {
-                    oRespuesta.Exito = 0;
-                    oRespuesta.Mensaje = "Contraseña incorrecta";
+                    oResponse.Success = 0;
+                    oResponse.Message = "Contraseña incorrecta";
 
-                    return Content(HttpStatusCode.BadRequest, oRespuesta);
+                    return Content(HttpStatusCode.BadRequest, oResponse);
                 }
 
 
-                oLoginRespuesta.Token = TokenGenerator.GenerateTokenJwt(usuario.Cuil, usuario.IdUsuario);
+                oLoginRespuesta.Token = TokenGenerator.GenerateTokenJwt(user.Cuil, user.UserId);
 
-                oRespuesta.Exito = 1;
-                oRespuesta.Mensaje = "Acesso concedido";
-                oRespuesta.Data = oLoginRespuesta;
+                oResponse.Success = 1;
+                oResponse.Message = "Acesso concedido";
+                oResponse.Data = oLoginRespuesta;
 
-                return Ok(oRespuesta);
+                return Ok(oResponse);
             } catch (ArgumentException ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = ex.Message;
-                return Ok(oRespuesta);
+                oResponse.Success = 0;
+                oResponse.Message = ex.Message;
+                return Ok(oResponse);
             } 
             catch (Exception ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "Error";
+                oResponse.Success = 0;
+                oResponse.Message = "Error desconocido, no se pudo logear";
+                oResponse.Data = ex.Message;
 
                 return BadRequest();
             }
@@ -82,58 +77,61 @@ namespace ClipMoney.Controllers
 
             RegistrationRequest model = new RegistrationRequest()
             {
-                Nombre = request.Params["nombre"],
-                Apellido = request.Params["apellido"],
-                Cuil = request.Params["cuil"],
-                Contraseña = request.Params["contraseña"],
-                Email = request.Params["email"],
-                Telefono = request.Params["telefono"],
+                Name = request.Params["Name"],
+                Surname = request.Params["Surname"],
+                Cuil = request.Params["Cuil"],
+                Password = request.Params["Password"],
+                Email = request.Params["Email"],
+                PhoneNumber = request.Params["PhoneNumber"],
                 Images = Services.ImagesService.StoreImage(request)
             };
 
 
-            UsuarioGestor gestor = new UsuarioGestor();
+            UserManager oUserManager = new UserManager();
             AccountManager oAccountManager = new AccountManager();
-            Respuesta oRespuesta = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
 
             try
             {
-                gestor.ValidarDatosUsuario(model);
+                oUserManager.ValidateUserData(model);
 
-                Usuarios usuario = gestor.BuscarPersonaPorCuil(model.Cuil);
-                if (usuario.IdUsuario != null)
+                User user = oUserManager.GetByCuil(model.Cuil);
+                if (user.UserId != null) 
                 {
-                    oRespuesta.Exito = 0;
-                    oRespuesta.Mensaje = "No se pudo registrar al usuario";
-                    oRespuesta.Data = "El usuario ya se encuentra registrado";
-
-                    return Content(HttpStatusCode.BadRequest, oRespuesta);
+                    throw new ArgumentException("El usuario ya se encuentra registrado");
                 }
 
-                int UserId = gestor.RegistrarUsuario(model);
+                int UserId = oUserManager.RegisterUser(model);
                 oAccountManager.CreateNewAccount(1, 1, UserId, 0, null);
-                oRespuesta.Exito = 1;
-                oRespuesta.Mensaje = "Usuario registrado con exito";
+                oResponse.Success = 1;
+                oResponse.Message = "Usuario registrado con exito";
 
-                return Ok(oRespuesta);
+                return Ok(oResponse);
+            } catch(ArgumentException ex)
+            {
+                oResponse.Success = 0;
+                oResponse.Message = "No se pudo registrar al usuario";
+                oResponse.Data = ex.Message;
+
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
             catch (FormatException ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "No se pudo registrar al usuario";
-                oRespuesta.Data = ex.Message;
+                oResponse.Success = 0;
+                oResponse.Message = "No se pudo registrar al usuario";
+                oResponse.Data = ex.Message;
 
 
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
             catch (Exception ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "No se pudo registrar al usuario";
-                oRespuesta.Data = ex.Message;
+                oResponse.Success = 0;
+                oResponse.Message = "No se pudo registrar al usuario";
+                oResponse.Data = ex.Message;
 
 
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
         }
     }

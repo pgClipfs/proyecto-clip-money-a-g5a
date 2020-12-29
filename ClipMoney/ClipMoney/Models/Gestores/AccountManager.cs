@@ -13,7 +13,7 @@ namespace ClipMoney.Models.Gestores
         private string StrConn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         private static Random random = new Random();
 
-        public Cuenta GetAccountById(int AccountID)
+        public Account GetAccountById(int AccountID)
         {
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -42,14 +42,14 @@ namespace ClipMoney.Models.Gestores
 
             SqlDataReader dr = comm.ExecuteReader();
 
-            Cuenta account = new Cuenta();
+            Account account = new Account();
             if (dr.Read())
             {
-                account.IdCuenta = dr.GetInt32(0);
-                account.TipoCuenta = new TipoCuentas() { IdTipoCuenta = dr.GetByte(1), TipoCuenta = dr.GetString(2) };
-                account.Divisa = new Divisas() { IdDivisa = dr.GetByte(3), Divisa = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
+                account.AccountId = dr.GetInt32(0);
+                account.TypeAccount = new AccountType() { AccountTypeId = dr.GetByte(1), AccountTypeName = dr.GetString(2) };
+                account.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
                 account.CVU = dr.GetString(8);
-                account.Saldo = dr.GetDecimal(9);
+                account.Balance = dr.GetDecimal(9);
                 account.Alias = dr.GetString(10);
                 account.OpeningDate = dr.GetDateTime(11);
 
@@ -61,9 +61,9 @@ namespace ClipMoney.Models.Gestores
             return account;
         }
 
-        public List<Cuenta> GetUserAccountsByUserId(int UserID)
+        public List<Account> GetUserAccountsByUserId(int UserID)
         {
-            Usuarios usuario = new Usuarios();
+            User usuario = new User();
 
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -92,15 +92,15 @@ namespace ClipMoney.Models.Gestores
 
             SqlDataReader dr = comm.ExecuteReader();
 
-            List<Cuenta> AccountList = new List<Cuenta>();
+            List<Account> AccountList = new List<Account>();
             while (dr.Read())
             {
-                Cuenta account = new Cuenta();
-                account.IdCuenta = dr.GetInt32(0);
-                account.TipoCuenta = new TipoCuentas() { IdTipoCuenta = dr.GetByte(1), TipoCuenta = dr.GetString(2) };
-                account.Divisa = new Divisas() { IdDivisa = dr.GetByte(3), Divisa = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
+                Account account = new Account();
+                account.AccountId = dr.GetInt32(0);
+                account.TypeAccount = new AccountType() { AccountTypeId = dr.GetByte(1), AccountTypeName = dr.GetString(2) };
+                account.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
                 account.CVU = dr.GetString(8);
-                account.Saldo = dr.GetDecimal(9);
+                account.Balance = dr.GetDecimal(9);
                 account.Alias = dr.GetString(10);
                 account.OpeningDate = dr.GetDateTime(11);
 
@@ -114,7 +114,7 @@ namespace ClipMoney.Models.Gestores
 
         }
 
-        public Cuenta GetAccountByCVU(string CVU)
+        public Account GetAccountByCVU(string CVU)
         {
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -151,15 +151,15 @@ namespace ClipMoney.Models.Gestores
 
             SqlDataReader dr = comm.ExecuteReader();
 
-            Cuenta oAccount = new Cuenta();
+            Account oAccount = new Account();
             if (dr.Read())
             {
-                oAccount.IdCuenta = dr.GetInt32(0);
-                oAccount.TipoCuenta = new TipoCuentas() { IdTipoCuenta = dr.GetByte(1), TipoCuenta = dr.GetString(2) };
-                oAccount.Divisa = new Divisas() { IdDivisa = dr.GetByte(3), Divisa = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
-                oAccount.Usuario = new Usuarios() { IdUsuario = dr.GetInt32(8), Cuil = dr.GetString(9), Nombre = dr.GetString(10), Apellido = dr.GetString(11), Email = dr.GetString(12), Telefono = dr.GetString(13), IdSituacionCrediticia = dr.GetByte(14), Privilegios = dr.GetString(15) };
+                oAccount.AccountId = dr.GetInt32(0);
+                oAccount.TypeAccount = new AccountType() { AccountTypeId = dr.GetByte(1), AccountTypeName = dr.GetString(2) };
+                oAccount.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
+                oAccount.User = new User() { UserId = dr.GetInt32(8), Cuil = dr.GetString(9), Name = dr.GetString(10), Surname = dr.GetString(11), Email = dr.GetString(12), PhoneNumber = dr.GetString(13), Privileges = dr.GetString(15) };
                 oAccount.CVU = dr.GetString(16);
-                oAccount.Saldo = dr.GetDecimal(17);
+                oAccount.Balance = dr.GetDecimal(17);
                 oAccount.Alias = dr.GetString(18);
                 oAccount.OpeningDate = dr.GetDateTime(19);
 

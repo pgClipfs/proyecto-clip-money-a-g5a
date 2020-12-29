@@ -15,48 +15,14 @@ using BC = BCrypt.Net.BCrypt;
 namespace ClipMoney.Models
 {
 
-    public class UsuarioGestor
+    public class UserManager
     {
         private string StrConn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public Usuarios ObtenerPorCUILPassword(string Cuil, string Password)
+
+        public User GetByCuil(string cuil)
         {
-            Usuarios usuario = new Usuarios();
-
-            SqlConnection conn = new SqlConnection(StrConn);
-            conn.Open();
-
-            string encryptedPassword = ServicioEncriptador.ComputeSha256Hash(Password);
-
-            SqlCommand comm = conn.CreateCommand();
-            comm.CommandText = "SELECT * FROM USUARIOS WHERE CUIL=@Cuil AND CONTRASEÑA=@Password";
-            comm.Parameters.Add(new SqlParameter("@Cuil", Cuil));
-            comm.Parameters.Add(new SqlParameter("@Password", encryptedPassword));
-
-            SqlDataReader dr = comm.ExecuteReader();
-            if (dr.Read())
-            {
-                int id = dr.GetInt32(0);
-                string nombre = dr.GetString(2);
-                string apellido = dr.GetString(3);
-
-               usuario = new Usuarios(id, nombre, apellido);
-            }
-
-            dr.Close();
-            conn.Close();
-
-            return usuario;
-        }
-
-        internal void VerificarContraseña(string contraseñaReq, string contraseñaDB)
-        {
-            
-        }
-
-        public Usuarios BuscarPersonaPorCuil(string cuil)
-        {
-            Usuarios usuario = new Usuarios();
+            User usuario = new User();
 
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -69,15 +35,15 @@ namespace ClipMoney.Models
             SqlDataReader dr = comm.ExecuteReader();
             if (dr.Read())
             {
-                usuario = new Usuarios() { 
-                    IdUsuario = dr.GetInt32(0), 
+                usuario = new User() { 
+                    UserId = dr.GetInt32(0), 
                     Cuil = cuil, 
-                    Nombre = dr.GetString(2), 
-                    Apellido = dr.GetString(3), 
-                    Clave = dr.GetString(4),
+                    Name = dr.GetString(2), 
+                    Surname = dr.GetString(3), 
+                    Password = dr.GetString(4),
                     Email = dr.GetString(5),
-                    Telefono = dr.GetString(6),
-                    Privilegios = dr.GetString(8)
+                    PhoneNumber = dr.GetString(6),
+                    Privileges = dr.GetString(8)
             };
             }
 
@@ -88,9 +54,9 @@ namespace ClipMoney.Models
             return usuario;
         }
 
-        public Usuarios GetByUserId(string UserID)
+        public User GetByUserId(string UserID)
         {
-            Usuarios usuario = new Usuarios();
+            User usuario = new User();
 
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -103,16 +69,16 @@ namespace ClipMoney.Models
             SqlDataReader dr = comm.ExecuteReader();
             if (dr.Read())
             {
-                usuario = new Usuarios()
+                usuario = new User()
                 {
-                    IdUsuario = dr.GetInt32(0),
+                    UserId = dr.GetInt32(0),
                     Cuil = dr.GetString(1),
-                    Nombre = dr.GetString(2),
-                    Apellido = dr.GetString(3),
-                    Clave = dr.GetString(4),
+                    Name = dr.GetString(2),
+                    Surname = dr.GetString(3),
+                    Password = dr.GetString(4),
                     Email = dr.GetString(5),
-                    Telefono = dr.GetString(6),
-                    Privilegios = dr.GetString(8)
+                    PhoneNumber = dr.GetString(6),
+                    Privileges = dr.GetString(8)
                 };
             }
 
@@ -123,9 +89,9 @@ namespace ClipMoney.Models
             return usuario;
         }
 
-        public Usuarios UpdateDataByUserId(string UserID, string PhoneNumber, string Email)
+        public User UpdateDataByUserId(string UserID, string PhoneNumber, string Email)
         {
-            Usuarios usuario = new Usuarios();
+            User usuario = new User();
 
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -143,13 +109,13 @@ namespace ClipMoney.Models
             return usuario;
         }
 
-        public int RegistrarUsuario(RegistrationRequest usuario)
+        public int RegisterUser(RegistrationRequest usuario)
         {
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
 
             //string encryptedPassword = ServicioEncriptador.ComputeSha256Hash(usuario.Contraseña);
-            string passwordHash = BC.HashPassword(usuario.Contraseña);
+            string passwordHash = BC.HashPassword(usuario.Password);
 
             SqlCommand comm = conn.CreateCommand();
             comm.CommandText = @"INSERT INTO USUARIOS(CUIL, NOMBRE, APELLIDO, Clave, EMAIL, TELEFONO, ID_SITUACION_CREDITICIA, PRIVILEGIOS)
@@ -157,11 +123,11 @@ namespace ClipMoney.Models
                                 values(@Cuil, @Nombre, @Apellido, @Clave, @Email, @Telefono, @IdSituacion, @Privilegios)";
 
             comm.Parameters.Add(new SqlParameter("@Cuil", usuario.Cuil));
-            comm.Parameters.Add(new SqlParameter("@Nombre", usuario.Nombre));
-            comm.Parameters.Add(new SqlParameter("@Apellido", usuario.Apellido));
+            comm.Parameters.Add(new SqlParameter("@Nombre", usuario.Name));
+            comm.Parameters.Add(new SqlParameter("@Apellido", usuario.Surname));
             comm.Parameters.Add(new SqlParameter("@Clave", passwordHash));
             comm.Parameters.Add(new SqlParameter("@Email", usuario.Email));
-            comm.Parameters.Add(new SqlParameter("@Telefono", usuario.Telefono));
+            comm.Parameters.Add(new SqlParameter("@Telefono", usuario.PhoneNumber));
             comm.Parameters.Add(new SqlParameter("@IdSituacion", 7));
             comm.Parameters.Add(new SqlParameter("@Privilegios", "NO ACTIVO"));
 
@@ -189,7 +155,7 @@ namespace ClipMoney.Models
             return IdUsuario;
         }
 
-        public void ValidarDatosUsuario(RegistrationRequest user)
+        public void ValidateUserData(RegistrationRequest user)
         {
             Regex soloLetras = new Regex(@"^(\w+\s?)*\s*$"); // solo letras y 1 solo espacio
             Regex soloNumeros = new Regex("^[0-9]*$"); // solo letras y 1 solo espacio
@@ -199,7 +165,7 @@ namespace ClipMoney.Models
             Regex tieneMinisculas = new Regex(@"[a-z]+");
             Regex tieneSimbolos = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
-            if (user.Nombre.Length == 0 || !soloLetras.IsMatch(user.Nombre) )
+            if (user.Name.Length == 0 || !soloLetras.IsMatch(user.Name) )
             {
                 throw new FormatException("Nombre de usuario incorrecto");
             }
@@ -238,10 +204,10 @@ namespace ClipMoney.Models
                 throw new FormatException("El mail tiene formato incorrecto");
             }
 
-            if (!soloNumeros.IsMatch(user.Telefono) )
+            if (!soloNumeros.IsMatch(user.PhoneNumber) )
             {
                 throw new FormatException("El numero de telefono solo debe poseer numeros");
-            } else if (user.Telefono.Length < 8 || user.Telefono.Length > 11)
+            } else if (user.PhoneNumber.Length < 8 || user.PhoneNumber.Length > 11)
             {
                 throw new FormatException("El numero de telefono posee longitud incorrecta");
             }

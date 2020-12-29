@@ -12,7 +12,7 @@ namespace ClipMoney.Models.Gestores
     {
         private string StrConn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public bool MakeTransfer(Cuenta DebitAccount, int IdCreditAccount, decimal Amount, string concept)
+        public bool MakeTransfer(Account DebitAccount, int IdCreditAccount, decimal Amount, string concept)
         {
             SqlConnection conn = new SqlConnection(StrConn);
             conn.Open();
@@ -23,9 +23,9 @@ namespace ClipMoney.Models.Gestores
                 "VALUES(@IdCuentaOrigen, @IdCuentaDestino, @IdDivisa, GETDATE(), @Concepto, @Monto) ";
 
 
-            comm.Parameters.Add(new SqlParameter("@IdCuentaOrigen", DebitAccount.IdCuenta));
+            comm.Parameters.Add(new SqlParameter("@IdCuentaOrigen", DebitAccount.AccountId));
             comm.Parameters.Add(new SqlParameter("@IdCuentaDestino", IdCreditAccount));
-            comm.Parameters.Add(new SqlParameter("@IdDivisa", DebitAccount.Divisa.IdDivisa));
+            comm.Parameters.Add(new SqlParameter("@IdDivisa", DebitAccount.Currency.CurrencyId));
             comm.Parameters.Add(new SqlParameter("@Monto", Amount));
             comm.Parameters.Add(new SqlParameter("@Concepto", concept));
 

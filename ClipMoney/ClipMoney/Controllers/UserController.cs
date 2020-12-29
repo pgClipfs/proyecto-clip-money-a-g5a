@@ -18,34 +18,34 @@ namespace ClipMoney.Controllers
 
         public IHttpActionResult Get()
         {
-            Respuesta oResponse = new Respuesta();
-            UsuarioGestor oUserManager = new UsuarioGestor();
+            GeneralResponse oResponse = new GeneralResponse();
+            UserManager oUserManager = new UserManager();
 
             try
             {
                 var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
                 string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
 
-                Usuarios oUser = oUserManager.GetByUserId(UserId);
+                User oUser = oUserManager.GetByUserId(UserId);
 
                 var oUserResponse = new
                 {
                     Cuil = oUser.Cuil,
-                    Nombre = oUser.Nombre,
-                    Apellido = oUser.Apellido,
+                    Name = oUser.Name,
+                    Surname = oUser.Surname,
                     Email = oUser.Email,
-                    Telefono = oUser.Telefono,
+                    PhoneNumber = oUser.PhoneNumber,
                 };
 
-                oResponse.Exito = 1;
-                oResponse.Mensaje = "Exito - se obtuvo los datos del usuario";
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - se obtuvo los datos del usuario";
                 oResponse.Data = oUserResponse;
 
                 return Content(HttpStatusCode.OK, oResponse);
             } catch(Exception ex)
             {
-                oResponse.Exito = 0;
-                oResponse.Mensaje = "Error - no se pudo obtener los datos del usuario";
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se pudo obtener los datos del usuario";
                 oResponse.Data = ex.Message;
 
                 return Content(HttpStatusCode.BadRequest, oResponse);
@@ -55,37 +55,37 @@ namespace ClipMoney.Controllers
         [HttpPut]
         public IHttpActionResult ChangeUserData(UpdateUserDataRequest model)
         {
-            Respuesta oResponse = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
 
             try
             {
                 var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
                 string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
 
-                UsuarioGestor oUserManager = new UsuarioGestor();
+                UserManager oUserManager = new UserManager();
                 oUserManager.UpdateDataByUserId(UserId, model.PhoneNumber, model.Email);
 
-                Usuarios oUser = oUserManager.GetByUserId(UserId);
+                User oUser = oUserManager.GetByUserId(UserId);
 
                 var oUserResponse = new
                 {
                     Cuil = oUser.Cuil,
-                    Nombre = oUser.Nombre,
-                    Apellido = oUser.Apellido,
+                    Name = oUser.Name,
+                    Surname = oUser.Surname,
                     Email = oUser.Email,
-                    Telefono = oUser.Telefono,
+                    PhoneNumber = oUser.PhoneNumber,
                 };
 
-                oResponse.Exito = 1;
-                oResponse.Mensaje = "Exito - se han registrado los nuevos datos del usuario";
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - se han registrado los nuevos datos del usuario";
                 oResponse.Data = oUserResponse;
 
                 return Content(HttpStatusCode.OK, oResponse);
 
             } catch(Exception ex)
             {
-                oResponse.Exito = 0;
-                oResponse.Mensaje = "Error - no se ha podido registrar los nuevos datos del usuario";
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se ha podido registrar los nuevos datos del usuario";
                 oResponse.Data = ex.Message;
 
                 return Content(HttpStatusCode.BadRequest, oResponse);

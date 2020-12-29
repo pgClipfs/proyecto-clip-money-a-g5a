@@ -19,30 +19,30 @@ namespace ClipMoney.Controllers
         [Route("api/Deposit/CreditCard")]
         [HttpGet]
         public IHttpActionResult Get(string number) {
-            CreditCardDetector detector = new CreditCardDetector(number);
-            Respuesta oRespuesta = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
 
             try
             {
+                CreditCardDetector detector = new CreditCardDetector(number);
                 var response = new
                 {
                     IsValid = detector.IsValid(),
                     Brand = number.CreditCardBrandNameIgnoreLength(),
                 };
 
-                oRespuesta.Exito = 1;
-                oRespuesta.Mensaje = "Exito - validacion de la tarjeta realizada";
-                oRespuesta.Data = response;
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - validacion de la tarjeta realizada";
+                oResponse.Data = response;
 
-                return Content(HttpStatusCode.OK, oRespuesta);
+                return Content(HttpStatusCode.OK, oResponse);
 
             } catch(Exception ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "Error - no se pudo validar la tarjeta de credito";
-                oRespuesta.Data = ex.Message;
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se pudo validar la tarjeta de credito";
+                oResponse.Data = ex.Message;
 
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
 
 
@@ -52,7 +52,7 @@ namespace ClipMoney.Controllers
         [HttpPost]
         public IHttpActionResult Post(CreditCardDepositRequest model)
         {
-            Respuesta oRespuesta = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
             DepositManager oDepositManager = new DepositManager();
             AccountManager oAccountManager = new AccountManager();
 
@@ -70,27 +70,27 @@ namespace ClipMoney.Controllers
                 oDepositManager.DepositWithCreditCard(model.Amount, model.DebitAccountId, model.FullName, model.CreditCardNumber.Substring(model.CreditCardNumber.Length - 4), model.DocumentNumber, model.ExpirationDate);
                 oAccountManager.UpdateAccountBalance(model.DebitAccountId, model.Amount);
 
-                oRespuesta.Exito = 1;
-                oRespuesta.Mensaje = "Exito - se ha realizado el deposito correctamente";
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - se ha realizado el deposito correctamente";
 
-                return Content(HttpStatusCode.OK, oRespuesta);
+                return Content(HttpStatusCode.OK, oResponse);
             }
             catch (ArgumentException ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "Error - no se ha podido realizar el deposito";
-                oRespuesta.Data = ex.Message;
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se ha podido realizar el deposito";
+                oResponse.Data = ex.Message;
 
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
             catch (Exception ex)
             {
 
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "Error - no se ha podido realizar el deposito";
-                oRespuesta.Data = ex.Message;
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se ha podido realizar el deposito";
+                oResponse.Data = ex.Message;
 
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
         }
     }

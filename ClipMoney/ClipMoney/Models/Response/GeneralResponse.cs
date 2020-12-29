@@ -5,10 +5,10 @@ using System.Web;
 
 namespace ClipMoney.Models
 {
-    public class Respuesta
+    public class GeneralResponse
     {
-        public int Exito { get; set; }
-        public string Mensaje { get; set; }
+        public int Success { get; set; }
+        public string Message { get; set; }
         public object Data { get; set; }
     }
 }

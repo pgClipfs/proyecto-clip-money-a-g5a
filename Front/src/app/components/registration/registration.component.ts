@@ -17,14 +17,14 @@ import { toFormData } from '../../../utils/toFormData';
 export class RegistrationComponent implements OnInit {
 
   public registrationForm = this.formBuilder.group({
-    nombre: ['', Validators.required],
-    apellido: ['', Validators.required],
-    cuil: ['', Validators.required],
-    email: ['', Validators.required],
-    contraseña: ['', Validators.required],
-    telefono: ['', Validators.required],
-    dniFront: [null, Validators.required],
-    dniBack: [null, Validators.required]
+    Name: ['', Validators.required],
+    Surname: ['', Validators.required],
+    Cuil: ['', Validators.required],
+    Email: ['', Validators.required],
+    Password: ['', Validators.required],
+    PhoneNumber: ['', Validators.required],
+    DniFront: [null, Validators.required],
+    DniBack: [null, Validators.required]
   })
 
   public error: string = "";
@@ -43,8 +43,8 @@ export class RegistrationComponent implements OnInit {
     private cd: ChangeDetectorRef
     ) {
     this.route.queryParams.subscribe(params => {
-        this.registrationForm.controls['nombre'].setValue(params["firstname"]);
-        this.registrationForm.controls['apellido'].setValue(params["lastname"]);
+        this.registrationForm.controls['Name'].setValue(params["firstname"]);
+        this.registrationForm.controls['Surname'].setValue(params["lastname"]);
     });
 }
 
@@ -69,14 +69,14 @@ export class RegistrationComponent implements OnInit {
   signUp() {
 
     const formClone = {...this.registrationForm.value}
-    const hashedPassword = sha256(formClone.contraseña)
-    formClone.contraseña = hashedPassword;
+    const hashedPassword = sha256(formClone.Password)
+    formClone.Password = hashedPassword;
     
     if(this.registrationForm.valid) {
       this.apiauthService
       .singUp(toFormData(formClone)).subscribe(
         (response: Response) => {                
-          if(response.Exito === 1) {
+          if(response.Success === 1) {
             console.log('hola')
             this.router.navigate(['./auth'])
   

@@ -16,7 +16,7 @@ namespace ClipMoney.Controllers
     {
         public IHttpActionResult Get()
         {
-            Respuesta oRespuesta = new Respuesta();
+            GeneralResponse oResponse = new GeneralResponse();
             try
             {
                 var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
@@ -24,22 +24,22 @@ namespace ClipMoney.Controllers
                 string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
 
                 AccountManager accountManager = new AccountManager();
-                List<Cuenta> accounts = accountManager.GetUserAccountsByUserId(Convert.ToInt32(UserId));
+                List<Account> accounts = accountManager.GetUserAccountsByUserId(Convert.ToInt32(UserId));
 
-                oRespuesta.Exito = 1;
-                oRespuesta.Mensaje = "Exito - cuentas del usuario obtenidas exitosamente";
-                oRespuesta.Data = accounts;
+                oResponse.Success = 1;
+                oResponse.Message = "Exito - cuentas del usuario obtenidas exitosamente";
+                oResponse.Data = accounts;
 
-                return Ok(oRespuesta);
+                return Ok(oResponse);
 
             }
             catch (Exception ex)
             {
-                oRespuesta.Exito = 0;
-                oRespuesta.Mensaje = "Error - no se pudo obtener las cuentas del usuario";
-                oRespuesta.Data = ex.Message;
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se pudo obtener las cuentas del usuario";
+                oResponse.Data = ex.Message;
 
-                return Content(HttpStatusCode.BadRequest, oRespuesta);
+                return Content(HttpStatusCode.BadRequest, oResponse);
             }
         }
     }

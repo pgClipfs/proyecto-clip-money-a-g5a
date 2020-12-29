@@ -8,7 +8,7 @@ namespace ClipMoney.Models.Response
     public class BasicAccountResponse
     {
         public string CVU { get; set; }
-        public int? IdCuenta { get; set; }
-        public object Propietario { get; set; }
+        public int? AccountId { get; set; }
+        public object Owner { get; set; }
     }
 }

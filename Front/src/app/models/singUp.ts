@@ -1,8 +1,8 @@
 export interface SingUp {
     Cuil: string;
-    Nombre: string;
-    Apellido: string;
-    Contraseña: string;
+    Name: string;
+    Surname: string;
+    Password: string;
     Email: string;
-    Telefono: string;
+    PhoneNumber: string;
 }
