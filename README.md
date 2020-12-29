@@ -12,44 +12,44 @@ Ejemplo:
 
 ```json
 {
-    "Exito": 1,
-    "Mensaje": "Exito - cuentas del usuario obtenidas exitosamente",
+    "Success": 1,
+    "Message": "Exito - cuentas del usuario obtenidas exitosamente",
     "Data": [
         {
-            "IdCuenta": 1,
-            "TipoCuenta": {
-                "IdTipoCuenta": 1,
-                "TipoCuenta": "CORRIENTE"
+            "AccountId": 1,
+            "TypeAccount": {
+                "AccountTypeId": 1,
+                "AccountTypeName": "CORRIENTE"
             },
-            "Divisa": {
-                "IdDivisa": 1,
-                "Divisa": "PESO ARGENTINO",
+            "Currency": {
+                "CurrencyId": 1,
+                "CurrencyName": "PESO ARGENTINO",
                 "Fee": 1.0,
                 "SalePrice": 70.0000,
                 "PurchasePrice": 60.0000
             },
-            "Usuario": null,
+            "User": null,
             "CVU": "4879413218432184163518",
-            "Saldo": 10000.0000,
+            "Balance": 6742.0500,
             "Alias": "PRUEBA1.PRUEBA2",
             "OpeningDate": "2020-12-19T00:00:00"
         },
         {
-            "IdCuenta": 2,
-            "TipoCuenta": {
-                "IdTipoCuenta": 1,
-                "TipoCuenta": "CORRIENTE"
+            "AccountId": 2,
+            "TypeAccount": {
+                "AccountTypeId": 1,
+                "AccountTypeName": "CORRIENTE"
             },
-            "Divisa": {
-                "IdDivisa": 1,
-                "Divisa": "PESO ARGENTINO",
+            "Currency": {
+                "CurrencyId": 1,
+                "CurrencyName": "PESO ARGENTINO",
                 "Fee": 1.0,
                 "SalePrice": 70.0000,
                 "PurchasePrice": 60.0000
             },
-            "Usuario": null,
-            "CVU": "627934562342331       ",
-            "Saldo": 200000.0000,
+            "User": null,
+            "CVU": "8831892375712317645923",
+            "Balance": 253257.9500,
             "Alias": "PRUEBA3.PRUEBA4",
             "OpeningDate": "2020-12-19T00:00:00"
         }
@@ -62,8 +62,8 @@ Haciendo un get a `./api/Transactions/` se obtienen las 10 ultimas transacciones
 Ejemplo:
 ```json
 {
-    "Exito": 1,
-    "Mensaje": "Exito - transactiones obtenidas correctamente",
+    "Success": 1,
+    "Message": "Exito - transactiones obtenidas correctamente",
     "Data": [
         {
             "TransactionType": "DEPOSITO",
@@ -122,17 +122,17 @@ Ejemplo:
 
 Haciendo un get a `./api/User` se obtienen los datos del usuario logeado
 
-Ejemplo de respuesta:
+Ejemplo:
 ```json
 {
-    "Exito": 1,
-    "Mensaje": "Exito - se obtuvo los datos del usuario",
+    "Success": 1,
+    "Message": "Exito - se obtuvo los datos del usuario",
     "Data": {
         "Cuil": "81711677771",
-        "Nombre": "david",
-        "Apellido": "Alvarez",
-        "Email": "pablito@gmail.com",
-        "Telefono": "351321421  "
+        "Name": "david",
+        "Surname": "Alvarez",
+        "Email": "contacto@gmail.com",
+        "PhoneNumber": "35132142123"
     }
 }
 ```
@@ -158,10 +158,10 @@ Ejemplo llamando a
 `http://localhost:49220/api/Deposit/CreditCard?number=4111111111111111`
 ```json
 {
-    "Exito": 1,
-    "Mensaje": "Exito - validacion de la tarjeta realizada",
+    "Success": 1,
+    "Message": "Exito - validacion de la tarjeta realizada",
     "Data": {
-        "IsValid": true,
+        "IsValid": false,
         "Brand": "Visa"
     }
 }
@@ -187,15 +187,15 @@ Para obtener informacion basica de cuenta de destino, hacer get a `./api/Transfe
 Ejemplo: ./api/Transfer?cvu=4879413218432184163518
 ```json
 {
-    "Exito": 1,
-    "Mensaje": "Exito - cuenta obtenida",
+    "Success": 1,
+    "Message": "Exito - cuenta obtenida",
     "Data": {
         "CVU": "4879413218432184163518",
-        "IdCuenta": 1,
-        "Propietario": {
-            "Nombre": "david",
-            "Apellido": "Alvarez",
-            "CUIL": "81711677771"
+        "AccountId": 1,
+        "Owner": {
+            "Name": "David",
+            "Surname": "Alvarez",
+            "Cuil": "81711677771"
         }
     }
 }
