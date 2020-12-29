@@ -37,7 +37,11 @@ namespace ClipMoney.Controllers
                 LoginRespuesta oLoginRespuesta = new LoginRespuesta();
 
                 Usuarios usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
-                //Usuario usuario = gestor.BuscarPersonaPorCuil(User.Cuil);
+                
+                if(usuario.IdUsuario == null)
+                {
+                    throw new ArgumentException("Acesso denegado, cuil o cuil incorrecto");
+                }
 
                 if (!BC.Verify(User.Password, usuario.Clave))
                 {
@@ -48,24 +52,20 @@ namespace ClipMoney.Controllers
                 }
 
 
-                if (usuario.IdUsuario != null)
-                {
-                    oLoginRespuesta.Token = TokenGenerator.GenerateTokenJwt(usuario.Cuil, usuario.IdUsuario);
+                oLoginRespuesta.Token = TokenGenerator.GenerateTokenJwt(usuario.Cuil, usuario.IdUsuario);
 
-                    oRespuesta.Exito = 1;
-                    oRespuesta.Mensaje = "Acesso concedido";
-                    oRespuesta.Data = oLoginRespuesta;
+                oRespuesta.Exito = 1;
+                oRespuesta.Mensaje = "Acesso concedido";
+                oRespuesta.Data = oLoginRespuesta;
 
-                    return Ok(oRespuesta);
-                } else
-                {
-                    oRespuesta.Exito = 0;
-                    oRespuesta.Mensaje = "Acesso denegado, cuil o cuil incorrecto";
-                    return Ok(oRespuesta);
-                }
-
-
-            } catch (Exception ex)
+                return Ok(oRespuesta);
+            } catch (ArgumentException ex)
+            {
+                oRespuesta.Exito = 0;
+                oRespuesta.Mensaje = ex.Message;
+                return Ok(oRespuesta);
+            } 
+            catch (Exception ex)
             {
                 oRespuesta.Exito = 0;
                 oRespuesta.Mensaje = "Error";

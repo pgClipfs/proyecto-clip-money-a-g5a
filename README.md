@@ -57,27 +57,6 @@ Ejemplo:
 }
 ```
 
-Haciendo un get a `./api/User` se obtienen los datos del usuario logeado menos la contraseña.
-
-Ejemplo:
-```json
-{
-    "Exito": 1,
-    "Mensaje": "Exito - se obtuvo los datos del usuario",
-    "Data": {
-        "IdUsuario": 104,
-        "Cuil": "81711677771",
-        "Nombre": "david",
-        "Apellido": "Alvarez",
-        "Clave": null,
-        "Email": "contacto@gmail.com",
-        "Telefono": "3517733227 ",
-        "IdSituacionCrediticia": null,
-        "Privilegios": "NO ACTIVO"
-    }
-}
-```
-
 Haciendo un get a `./api/Transactions/` se obtienen las 10 ultimas transacciones del usuario, actualmente solo muestra depositos y transferencias
 
 Ejemplo:
@@ -137,6 +116,35 @@ Ejemplo:
     ]
 }
 ```
+
+#### Usuario
+
+
+Haciendo un get a `./api/User` se obtienen los datos del usuario logeado
+
+Ejemplo de respuesta:
+```json
+{
+    "Exito": 1,
+    "Mensaje": "Exito - se obtuvo los datos del usuario",
+    "Data": {
+        "Cuil": "81711677771",
+        "Nombre": "david",
+        "Apellido": "Alvarez",
+        "Email": "pablito@gmail.com",
+        "Telefono": "351321421  "
+    }
+}
+```
+
+Haciendo un put a `./api/User` se actualizan los datos del usuario enviando un json con el siguiente formato, ademas como respuesta se obtienen los nuevos datos del usuario.
+```json 
+{
+    "PhoneNumber": "35132142123",
+    "Email": "contacto@gmail.com"
+}
+```
+
 
 ### Deposito
 

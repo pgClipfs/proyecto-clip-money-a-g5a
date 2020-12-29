@@ -1,5 +1,6 @@
 ﻿using ClipMoney.Models;
 using ClipMoney.Models.Gestores;
+using ClipMoney.Models.Request;
 using ClipMoney.Models.Tablas;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,19 @@ namespace ClipMoney.Controllers
                 string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
 
                 Usuarios oUser = oUserManager.GetByUserId(UserId);
-                oUser.Clave = null;
+
+                var oUserResponse = new
+                {
+                    Cuil = oUser.Cuil,
+                    Nombre = oUser.Nombre,
+                    Apellido = oUser.Apellido,
+                    Email = oUser.Email,
+                    Telefono = oUser.Telefono,
+                };
 
                 oResponse.Exito = 1;
                 oResponse.Mensaje = "Exito - se obtuvo los datos del usuario";
-                oResponse.Data = oUser;
+                oResponse.Data = oUserResponse;
 
                 return Content(HttpStatusCode.OK, oResponse);
             } catch(Exception ex)
@@ -43,5 +52,44 @@ namespace ClipMoney.Controllers
             }
         }
 
+        [HttpPut]
+        public IHttpActionResult ChangeUserData(UpdateUserDataRequest model)
+        {
+            Respuesta oResponse = new Respuesta();
+
+            try
+            {
+                var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+                string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
+
+                UsuarioGestor oUserManager = new UsuarioGestor();
+                oUserManager.UpdateDataByUserId(UserId, model.PhoneNumber, model.Email);
+
+                Usuarios oUser = oUserManager.GetByUserId(UserId);
+
+                var oUserResponse = new
+                {
+                    Cuil = oUser.Cuil,
+                    Nombre = oUser.Nombre,
+                    Apellido = oUser.Apellido,
+                    Email = oUser.Email,
+                    Telefono = oUser.Telefono,
+                };
+
+                oResponse.Exito = 1;
+                oResponse.Mensaje = "Exito - se han registrado los nuevos datos del usuario";
+                oResponse.Data = oUserResponse;
+
+                return Content(HttpStatusCode.OK, oResponse);
+
+            } catch(Exception ex)
+            {
+                oResponse.Exito = 0;
+                oResponse.Mensaje = "Error - no se ha podido registrar los nuevos datos del usuario";
+                oResponse.Data = ex.Message;
+
+                return Content(HttpStatusCode.BadRequest, oResponse);
+            }
+        }
     }
 }

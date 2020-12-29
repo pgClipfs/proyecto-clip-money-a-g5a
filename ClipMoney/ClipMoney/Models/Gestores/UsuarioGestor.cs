@@ -123,6 +123,26 @@ namespace ClipMoney.Models
             return usuario;
         }
 
+        public Usuarios UpdateDataByUserId(string UserID, string PhoneNumber, string Email)
+        {
+            Usuarios usuario = new Usuarios();
+
+            SqlConnection conn = new SqlConnection(StrConn);
+            conn.Open();
+
+
+            SqlCommand comm = conn.CreateCommand();
+            comm.CommandText = "UPDATE USUARIOS SET TELEFONO=@PhoneNumber, EMAIL=@Email WHERE ID_USUARIO=@UserId";
+            comm.Parameters.Add(new SqlParameter("@PhoneNumber", PhoneNumber));
+            comm.Parameters.Add(new SqlParameter("@Email", Email));
+            comm.Parameters.Add(new SqlParameter("@UserId", UserID));
+
+            comm.ExecuteNonQuery();
+            conn.Close();
+
+            return usuario;
+        }
+
         public int RegistrarUsuario(RegistrationRequest usuario)
         {
             SqlConnection conn = new SqlConnection(StrConn);
