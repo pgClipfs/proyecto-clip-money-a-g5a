@@ -4,10 +4,8 @@ using ClipMoney.Models.Request;
 using ClipMoney.Models.Response;
 using ClipMoney.Models.Tablas;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 
@@ -95,7 +93,6 @@ namespace ClipMoney.Controllers
                 oResponse.Message = ex.Message;
                 return Content(HttpStatusCode.BadRequest, oResponse);
             }
-
         }
     }
 }

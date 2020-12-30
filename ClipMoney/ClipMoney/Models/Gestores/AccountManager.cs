@@ -50,7 +50,7 @@ namespace ClipMoney.Models.Gestores
                 account.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
                 account.CVU = dr.GetString(8);
                 account.Balance = dr.GetDecimal(9);
-                account.Alias = dr.GetString(10);
+                account.Alias = dr[10] as string;
                 account.OpeningDate = dr.GetDateTime(11);
 
             }
@@ -101,7 +101,7 @@ namespace ClipMoney.Models.Gestores
                 account.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
                 account.CVU = dr.GetString(8);
                 account.Balance = dr.GetDecimal(9);
-                account.Alias = dr.GetString(10);
+                account.Alias = dr[10] as string;
                 account.OpeningDate = dr.GetDateTime(11);
 
                 AccountList.Add(account);
@@ -135,7 +135,6 @@ namespace ClipMoney.Models.Gestores
                 "USR.APELLIDO, " +
                 "USR.EMAIL, " +
                 "USR.TELEFONO, " +
-                "USR.ID_SITUACION_CREDITICIA, " +
                 "USR.PRIVILEGIOS, " +
                 "CVU, " +
                 "SALDO, " +
@@ -157,10 +156,10 @@ namespace ClipMoney.Models.Gestores
                 oAccount.AccountId = dr.GetInt32(0);
                 oAccount.TypeAccount = new AccountType() { AccountTypeId = dr.GetByte(1), AccountTypeName = dr.GetString(2) };
                 oAccount.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
-                oAccount.User = new User() { UserId = dr.GetInt32(8), Cuil = dr.GetString(9), Name = dr.GetString(10), Surname = dr.GetString(11), Email = dr.GetString(12), PhoneNumber = dr.GetString(13), Privileges = dr.GetString(15) };
+                oAccount.User = new User() { UserId = dr.GetInt32(8), Cuil = dr.GetString(9), Name = dr.GetString(10), Surname = dr.GetString(11), Email = dr.GetString(12), PhoneNumber = dr.GetString(13), Privileges = dr.GetString(14) };
                 oAccount.CVU = dr.GetString(16);
                 oAccount.Balance = dr.GetDecimal(17);
-                oAccount.Alias = dr.GetString(18);
+                oAccount.Alias = dr[18] as string; ;
                 oAccount.OpeningDate = dr.GetDateTime(19);
 
             }

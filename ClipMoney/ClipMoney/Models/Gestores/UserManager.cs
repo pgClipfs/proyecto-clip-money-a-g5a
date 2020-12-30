@@ -43,7 +43,7 @@ namespace ClipMoney.Models
                     Password = dr.GetString(4),
                     Email = dr.GetString(5),
                     PhoneNumber = dr.GetString(6),
-                    Privileges = dr.GetString(8)
+                    Privileges = dr.GetString(7)
             };
             }
 
@@ -63,7 +63,7 @@ namespace ClipMoney.Models
 
 
             SqlCommand comm = conn.CreateCommand();
-            comm.CommandText = "SELECT ID_USUARIO, CUIL, NOMBRE, APELLIDO, CLAVE, EMAIL, TELEFONO, ID_SITUACION_CREDITICIA, PRIVILEGIOS FROM USUARIOS WHERE ID_USUARIO=@UserId";
+            comm.CommandText = "SELECT ID_USUARIO, CUIL, NOMBRE, APELLIDO, CLAVE, EMAIL, TELEFONO, PRIVILEGIOS FROM USUARIOS WHERE ID_USUARIO=@UserId";
             comm.Parameters.Add(new SqlParameter("@UserId", UserID));
 
             SqlDataReader dr = comm.ExecuteReader();
@@ -78,7 +78,7 @@ namespace ClipMoney.Models
                     Password = dr.GetString(4),
                     Email = dr.GetString(5),
                     PhoneNumber = dr.GetString(6),
-                    Privileges = dr.GetString(8)
+                    Privileges = dr.GetString(7)
                 };
             }
 
@@ -118,9 +118,9 @@ namespace ClipMoney.Models
             string passwordHash = BC.HashPassword(usuario.Password);
 
             SqlCommand comm = conn.CreateCommand();
-            comm.CommandText = @"INSERT INTO USUARIOS(CUIL, NOMBRE, APELLIDO, Clave, EMAIL, TELEFONO, ID_SITUACION_CREDITICIA, PRIVILEGIOS)
+            comm.CommandText = @"INSERT INTO USUARIOS(CUIL, NOMBRE, APELLIDO, Clave, EMAIL, TELEFONO, PRIVILEGIOS)
                                 output INSERTED.ID_USUARIO
-                                values(@Cuil, @Nombre, @Apellido, @Clave, @Email, @Telefono, @IdSituacion, @Privilegios)";
+                                values(@Cuil, @Nombre, @Apellido, @Clave, @Email, @Telefono, @Privilegios)";
 
             comm.Parameters.Add(new SqlParameter("@Cuil", usuario.Cuil));
             comm.Parameters.Add(new SqlParameter("@Nombre", usuario.Name));
@@ -128,7 +128,6 @@ namespace ClipMoney.Models
             comm.Parameters.Add(new SqlParameter("@Clave", passwordHash));
             comm.Parameters.Add(new SqlParameter("@Email", usuario.Email));
             comm.Parameters.Add(new SqlParameter("@Telefono", usuario.PhoneNumber));
-            comm.Parameters.Add(new SqlParameter("@IdSituacion", 7));
             comm.Parameters.Add(new SqlParameter("@Privilegios", "NO ACTIVO"));
 
             int IdUsuario = (int)comm.ExecuteScalar();
