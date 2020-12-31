@@ -144,6 +144,17 @@ Haciendo un put a `./api/User` se actualizan los datos del usuario enviando un j
     "Email": "contacto@gmail.com"
 }
 ```
+En caso de haber un campo con formato incorrecto se devolvera un JSON con el siguiente formato.
+```json
+{
+    "Success": 0,
+    "Message": "Error, campos invalidos",
+    "Data": {
+        "PhoneNumber": "Numero de telefono incorrecto",
+        "Email": "El email ingresado no es valido"
+    }
+}
+```
 
 
 ### Deposito

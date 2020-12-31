@@ -2,6 +2,7 @@
 using ClipMoney.Models.Gestores;
 using ClipMoney.Models.Request;
 using ClipMoney.Models.Tablas;
+using ClipMoney.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,9 +57,17 @@ namespace ClipMoney.Controllers
         public IHttpActionResult ChangeUserData(UpdateUserDataRequest model)
         {
             GeneralResponse oResponse = new GeneralResponse();
+            FieldsService oFieldService = new FieldsService();
+            Dictionary<string, string> oErrors = oFieldService.ValidateModel(ModelState);
 
             try
             {
+                if (oErrors.Count != 0)
+                {
+                    throw new ArgumentException("Error, campos invalidos");
+                }
+
+
                 var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
                 string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
 
@@ -82,7 +91,15 @@ namespace ClipMoney.Controllers
 
                 return Content(HttpStatusCode.OK, oResponse);
 
-            } catch(Exception ex)
+            } catch(ArgumentException ex)
+            {
+                oResponse.Success = 0;
+                oResponse.Message = ex.Message;
+                oResponse.Data = oErrors;
+
+                return Content(HttpStatusCode.BadRequest, oResponse);
+            } 
+            catch(Exception ex)
             {
                 oResponse.Success = 0;
                 oResponse.Message = "Error - no se ha podido registrar los nuevos datos del usuario";

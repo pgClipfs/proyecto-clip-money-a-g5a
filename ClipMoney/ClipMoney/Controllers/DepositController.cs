@@ -2,6 +2,7 @@
 using ClipMoney.Models.Gestores;
 using ClipMoney.Models.Request;
 using ClipMoney.Models.Tablas;
+using ClipMoney.Services;
 using CreditCardValidator;
 using System;
 using System.Collections.Generic;
@@ -56,26 +57,16 @@ namespace ClipMoney.Controllers
             GeneralResponse oResponse = new GeneralResponse();
             DepositManager oDepositManager = new DepositManager();
             AccountManager oAccountManager = new AccountManager();
+            FieldsService oFieldsService = new FieldsService();
 
             try
             {
-                if (!ModelState.IsValid)
+                Dictionary<string, string> oErrors = oFieldsService.ValidateModel(ModelState);
+                if (oErrors.Count != 0)
                 {
-                    var oErrorsDictionary = new Dictionary<string, string>();
-
-                    foreach(var state in ModelState.Values)
-                    {
-                        foreach(var error in state.Errors)
-                        {
-                            var aErrors = error.ErrorMessage.Split(',');
-                            oErrorsDictionary.Add(aErrors[0], aErrors[1]);
-                        }
-                    }
-
-
                     oResponse.Success = 0;
                     oResponse.Message = "Error, campos invalidos";
-                    oResponse.Data = oErrorsDictionary;
+                    oResponse.Data = oErrors;
 
                     return Content(HttpStatusCode.BadRequest, oResponse);
                 }
