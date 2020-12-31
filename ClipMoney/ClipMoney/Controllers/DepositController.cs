@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 
 namespace ClipMoney.Controllers
 {
@@ -58,8 +59,35 @@ namespace ClipMoney.Controllers
 
             try
             {
-                //var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
-                //string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
+                if (!ModelState.IsValid)
+                {
+                    var oErrorsDictionary = new Dictionary<string, string>();
+
+                    foreach(var state in ModelState.Values)
+                    {
+                        foreach(var error in state.Errors)
+                        {
+                            var aErrors = error.ErrorMessage.Split(',');
+                            oErrorsDictionary.Add(aErrors[0], aErrors[1]);
+                        }
+                    }
+
+
+                    oResponse.Success = 0;
+                    oResponse.Message = "Error, campos invalidos";
+                    oResponse.Data = oErrorsDictionary;
+
+                    return Content(HttpStatusCode.BadRequest, oResponse);
+                }
+
+                var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+                string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
+                List<Account> oAccounts = oAccountManager.GetUserAccountsByUserId(Convert.ToInt32(UserId));
+
+                if (!oAccounts.Where(m => m.AccountId == model.DebitAccountId).Select(c => c).Any()) {
+                    throw new ArgumentException("La cuenta a la que desea depositar no pertenece al usuario logeado");
+                };
+
                 CreditCardDetector detector = new CreditCardDetector(model.CreditCardNumber);
 
                 if (!detector.IsValid())

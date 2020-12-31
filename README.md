@@ -181,6 +181,24 @@ Para hacer un deposito con tarjeta hacer un post a `./api/Deposit/CreditCard` co
 }
 ```
 
+En caso de que alguno de los campos sea incorrecto se devolvera un json con el siguiente formato, informando a cuales campos hay errores y informacion sobre el error
+
+```json
+{
+    "Success": 0,
+    "Message": "Error, campos invalidos",
+    "Data": {
+        "FullName": "El nombre tiene que ser como minimo de 5 caracteres y menor que 30",
+        "ExpirationDate": "La fecha de expiracion debe ser igual a 5",
+        "CreditCardNumber": "La longitud del numero de la tarjeta debe ser igual a 16",
+        "SecurityNumber": "El numero de seguridad debe ser igual a 3",
+        "DocumentNumber": "Numero de documento incorrecto",
+        "Amount": "El monto minimo a depositar es 200 y como maximo puede ser 50000",
+        "DebitAccountId": "El id de la cuenta a depositar tiene que ser positivo"
+    }
+}
+```
+
 #### Transferencias
 
 Para obtener informacion basica de cuenta de destino, hacer get a `./api/Transfer?cvu=numeroDeCvu`
