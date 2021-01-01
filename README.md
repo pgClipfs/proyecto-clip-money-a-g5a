@@ -159,6 +159,15 @@ En caso de haber un campo con formato incorrecto se devolvera un JSON con el sig
 
 ### Deposito
 
+#### Efectivo
+
+Haciendo un get a './api/Deposit/Cash?cvu=NumeroDeCvu' se obtiene un PDF con un codigo de barras el cual esta compuesto por el numero de cvu y el id de usuario, no olvidarse de mandar el token en el header ya que hace una validacion de que el cvu sea del usuario logeado.
+
+Imagen del pdf:
+
+![](./PdfExample.png)
+
+
 #### Tarjeta
 
 Haciendo un get a `./api/Deposit/CreditCard?number=NumeroDeTarjeta` se obtiene un json diciendo si la tarjeta de credito es valida y de que entidad financiera es.
