@@ -6,18 +6,75 @@ using ClipMoney.Services;
 using CreditCardValidator;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
+using System.Net.Http.Headers;
+using FastReport;
+using FastReport.Export;
+using FastReport.Export.PdfSimple;
+using System.Web.Http.Cors;
 
 namespace ClipMoney.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Authorize]
     public class DepositController : ApiController
     {
+        [Route("api/Deposit/Cash")]
+        [HttpGet]
+        public HttpResponseMessage GetPdf(string CVU)
+        {
+            var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
+
+
+            try
+            {
+                AccountManager oAccountManager = new AccountManager();
+                ICollection<Account> oAccounts = oAccountManager.GetUserAccountsByUserId(Convert.ToInt32(UserId));
+
+                if(!oAccounts.Where(a => a.CVU == CVU).Any())
+                {
+                    throw new ArgumentException("El cvu especificado no pertenece al usuario logeado");
+                }
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    var oReport = new Report();
+                    oReport.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/Reports/Boleta.frx") );
+                    oReport.SetParameterValue("pCVU", CVU);
+                    oReport.SetParameterValue("pCODIGO", "ClipMoney-" + UserId + "-" + CVU);
+
+                    oReport.Prepare();
+
+                    PDFSimpleExport oExport = new PDFSimpleExport();
+
+                    oExport.Export(oReport, ms);
+                    ms.Flush();
+
+
+                    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                    response.Content = new ByteArrayContent(ms.ToArray());
+                    response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                    response.Content.Headers.ContentDisposition.FileName = "Factura.pdf";
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+                    return response;
+                }
+            } catch (Exception ex)
+            {
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+
+                return response;
+            }
+
+
+        }
+
         [Route("api/Deposit/CreditCard")]
         [HttpGet]
         public IHttpActionResult Get(string number) {
@@ -46,9 +103,9 @@ namespace ClipMoney.Controllers
 
                 return Content(HttpStatusCode.BadRequest, oResponse);
             }
-
-
         }
+
+
 
         [Route("api/Deposit/CreditCard")]
         [HttpPost]
