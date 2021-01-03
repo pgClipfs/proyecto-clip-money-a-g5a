@@ -185,6 +185,7 @@
     <Compile Include="Models\Gestores\UsuarioGestor.cs" />
     <Compile Include="Models\Tablas\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ImagesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
