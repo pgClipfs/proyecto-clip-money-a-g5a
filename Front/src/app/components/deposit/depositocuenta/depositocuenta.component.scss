@@ -1,0 +1,56 @@
+mat-card {
+    width: 800px;
+    margin: 50px auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+mat-card-content {
+    width: 95%;
+    margin-top: 3rem;
+    //border-color: #293785;
+    //border-width: 5px;
+    //border-style: solid;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+}
+
+img {
+    height: 150px;
+    margin: 25px;
+}
+
+mat-card-title {
+    text-align: center;
+    font-size: 3rem;
+    padding-top: 1rem;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+
+#terms:hover {
+    background-color: #dfdfdf
+}
+
+.half {
+    width: 48%;
+}
+
+p{
+    padding-top: 1rem;
+    font-size: 1.5rem;
+    text-align: left;
+    line-height: 2rem;
+}
+.datos{
+    width: 500px;
+    margin: 50px auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    font-size: 1rem;
+}

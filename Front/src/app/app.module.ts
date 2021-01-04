@@ -24,6 +24,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { PreregistroComponent } from './components/auth/preregistro/preregistro.component';
 import { DialogTermsComponent } from './components/registration/dialog-terms/dialog-terms.component';
 import { DepositComponent } from './components/deposit/deposit.component';
+import { DepositocuentaComponent } from './components/deposit/depositocuenta/depositocuenta.component';
 
 
 
@@ -37,7 +38,8 @@ import { DepositComponent } from './components/deposit/deposit.component';
     AuthComponent,
     PreregistroComponent,
     DialogTermsComponent,
-    DepositComponent
+    DepositComponent,
+    DepositocuentaComponent
   ],
   imports: [
     BrowserModule,
