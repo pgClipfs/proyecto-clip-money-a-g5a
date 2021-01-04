@@ -7,7 +7,7 @@
             <button type="submit"
                 mat-raised-button
                 color="primary"
-                >Deposito Bancario
+                ><a routerLink="/depositocuenta" routerLinkActive="active">Deposito con Cuenta</a>
             </button>
         </div>
         <div>
@@ -21,8 +21,9 @@
         <button type="submit"
             mat-raised-button
             color="primary"
-            >PagoFacil / Rapipago
+            ><a routerLink="/depositrp" routerLinkActive="active">Deposito con PagoFacil/Rapipago</a>
         </button>
         </div>
     </mat-card-content>
 </mat-card>
+<router-outlet></router-outlet>
