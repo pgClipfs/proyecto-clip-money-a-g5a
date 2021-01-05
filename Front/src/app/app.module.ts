@@ -23,6 +23,7 @@ import { ErrorInterceptor } from './security/error.interceptor';
 import { AuthComponent } from './components/auth/auth.component';
 import { PreregistroComponent } from './components/auth/preregistro/preregistro.component';
 import { DialogTermsComponent } from './components/registration/dialog-terms/dialog-terms.component';
+import { CardDepositComponent } from './components/card-deposit/card-deposit.component';
 
 
 
@@ -35,7 +36,8 @@ import { DialogTermsComponent } from './components/registration/dialog-terms/dia
     RegistrationComponent,
     AuthComponent,
     PreregistroComponent,
-    DialogTermsComponent
+    DialogTermsComponent,
+    CardDepositComponent
   ],
   imports: [
     BrowserModule,
