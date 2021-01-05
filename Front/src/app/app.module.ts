@@ -23,7 +23,15 @@ import { ErrorInterceptor } from './security/error.interceptor';
 import { AuthComponent } from './components/auth/auth.component';
 import { PreregistroComponent } from './components/auth/preregistro/preregistro.component';
 import { DialogTermsComponent } from './components/registration/dialog-terms/dialog-terms.component';
-
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRippleModule} from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import { TransferenciaComponent } from './components/transferencia/transferencia.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { OperacionesComponent } from './components/operaciones/operaciones.component';
 
 
 @NgModule({
@@ -35,7 +43,10 @@ import { DialogTermsComponent } from './components/registration/dialog-terms/dia
     RegistrationComponent,
     AuthComponent,
     PreregistroComponent,
-    DialogTermsComponent
+    DialogTermsComponent,
+    TransferenciaComponent,
+    PerfilComponent,
+    OperacionesComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +63,13 @@ import { DialogTermsComponent } from './components/registration/dialog-terms/dia
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MatTabsModule 
+    MatTabsModule,
+    MatDividerModule,
+    MatSelectModule,
+    MatRippleModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatListModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

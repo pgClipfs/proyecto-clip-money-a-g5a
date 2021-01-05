@@ -1,0 +1,43 @@
+p{ 
+    margin: 0; 
+    display: inline;
+    margin: 0px 10px;
+}
+ul { 
+    margin-top: 0;
+}
+
+mat-card ul li{
+    padding: 10px 0px;
+    padding-right: 20px;
+}
+
+mat-card{
+    cursor: pointer;
+    float: left;
+    height: auto;
+    margin: auto;
+    margin: 0px 30px;
+    padding: 20px 20px;
+ 
+}
+mat-card:last-child{
+    margin-bottom: 300px;
+}
+
+mat-card li{
+    padding: 0;
+    margin: 0;
+    list-style:none;
+    list-style-type: none;
+    text-align:start;
+}
+
+
+#titulo{
+    font-size: 20px;
+    color:#3F51B5;
+}
+.element{
+    font-weight: 500;
+}

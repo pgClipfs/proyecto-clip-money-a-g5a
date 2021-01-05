@@ -1,12 +1,6 @@
-#background {
-  background-image: url("./../../../ClipMoney/logo-moneyclip-simple.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-}
 a{
-    color: inherit; 
-    text-decoration: inherit;
+    color: white;
+    text-decoration: none;
   }
   
   .clickable {
@@ -23,7 +17,6 @@ a{
   }
   .sidenav-inside{
     width: 15%;
-    padding-bottom: 500px;
   }
   
   .mat-sidenav-content{
@@ -39,14 +32,28 @@ a{
     box-shadow: 0 0 11px rgba(33,33,33,.2);
   }
   
-  #cerrarSesion{
-      background-color: #ff5252;
+  .mat-form-field{width: 60%;}
+  
+  .mat-divider{margin-bottom: 50px}
+  
+  #container-transaction{margin:40px 0px 20px 0px;}
+  
+  #transferencia{
+    cursor: default;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 auto ;
+    align-items: center;
+    text-align: center;
   }
-  #cerrarSesion a{
-    color:white;
+  
+  #input{
+    width: 80%;
   }
-.sidenav-container{
-    height: 1000px;
+  
+  .mat-form-field{
+    padding: 0 10%;
   }
-
-//
+  #transferirButton{
+    margin: 0 10%;
+  }

@@ -1,0 +1,72 @@
+
+#perfil{
+    width: 100%;
+    margin: auto;
+    margin-top: 400px;
+    margin-bottom: 60px;
+    border: 1px solid grey;
+    border-bottom-right-radius: 1%;
+    border-bottom-left-radius: 1%;
+    align-items: center;
+    width: 700px;
+    background-color: white;
+}
+
+mat-toolbar{
+    justify-content: center;
+}
+
+#foto{
+    height: 200px;
+    width: 200px;
+    border: 1px solid grey;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    
+}
+#foto p {
+    margin-top: 45%;
+}
+
+#dataContainer{
+    display: grid;
+    justify-content: space-around;
+    font-size: 20px;
+    margin: 0 20%;
+    padding: 20px 0;
+}
+
+.dataUser{
+    width: 350px;
+    display: inline-block;
+    margin-right: 10px;
+    padding: 20px 10px;
+}
+.dataUser:first-child{margin-top: 0;}
+
+#modificarButton{
+    width: 80%;
+}
+.dataUserGet{
+    text-align: end;
+    display: inline;
+}
+
+mat-icon{
+    display:inline-block; white-space: nowrap;
+}
+.listItem{
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.listItem mat-icon{
+    margin-left: 5px;
+}
+.listItem mat-icon:hover{
+    color:#3F51B5;
+    cursor: pointer;
+}
+.noedit{
+    margin-right: 30px;
+}
