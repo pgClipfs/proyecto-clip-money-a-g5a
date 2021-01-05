@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit{
             formClone.password = hashedPassword;
 
             this.apiauthService.login(formClone).subscribe( response => {
-                if (response.Exito === 1) {
+                if (response.Success === 1) {
                     this.router.navigate(['/'])
                 }
             })

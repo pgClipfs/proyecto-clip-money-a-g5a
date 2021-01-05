@@ -5,9 +5,9 @@ using System.Web;
 
 namespace ClipMoney.Models.Response
 {
-    public class LoginRespuesta
+    public class LoginResponse
     {
-        public string Mensaje { get; set; }
+        public string Message { get; set; }
         public string Token { get; set; }
     }
 }
