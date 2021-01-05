@@ -23,7 +23,13 @@ import { ErrorInterceptor } from './security/error.interceptor';
 import { AuthComponent } from './components/auth/auth.component';
 import { PreregistroComponent } from './components/auth/preregistro/preregistro.component';
 import { DialogTermsComponent } from './components/registration/dialog-terms/dialog-terms.component';
+<<<<<<< HEAD
 import { CardDepositComponent } from './components/card-deposit/card-deposit.component';
+=======
+import { DepositComponent } from './components/deposit/deposit.component';
+import { DepositocuentaComponent } from './components/deposit/depositocuenta/depositocuenta.component';
+import { DepositRapiPagoComponent } from './components/deposit-rapi-pago/deposit-rapi-pago.component';
+>>>>>>> c1ede7d201c802e003f377f5e3b656e5f858ec8c
 
 
 
@@ -38,6 +44,9 @@ import { CardDepositComponent } from './components/card-deposit/card-deposit.com
     PreregistroComponent,
     DialogTermsComponent,
     CardDepositComponent
+    DepositComponent,
+    DepositocuentaComponent,
+    DepositRapiPagoComponent
   ],
   imports: [
     BrowserModule,
