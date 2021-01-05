@@ -1,0 +1,70 @@
+<div class="container">
+    <h1>Depositar con tarjeta</h1>
+
+    <div>
+        <fieldset>
+            <legend>Datos de la tarjeta</legend>
+    
+            <form [formGroup]="cardForm" (ngSubmit)="deposit()">
+    
+                <div class="formGroup">
+                    <mat-form-field >
+                        <mat-label>Nombre completo</mat-label>
+                        <input type="text" formControlName="FullName" matInput>
+                        <mat-hint>Ingresalo tal como figura en la tarjeta</mat-hint>
+                    </mat-form-field>
+        
+                    <br/>
+                    
+                    <mat-form-field>
+                        <mat-label>Número de Documento</mat-label>
+                        <input type="text" formControlName="DocumentNumber" matInput placeholder="13.659.895" minlength="6" maxlength="9">
+                        <mat-hint>Sin espacios ni puntos</mat-hint>
+                    </mat-form-field>
+                    
+                    <br/>
+                    
+                    <mat-form-field>
+                        <mat-label>Monto</mat-label>
+                        <input type="number" formControlName="Amount" matInput placeholder="$">
+                        <mat-hint>Cantidad de dinero a depositar</mat-hint>
+                    </mat-form-field>
+                    
+                </div>
+                
+                <div class="formGroup">
+                    <mat-form-field>
+                        <mat-label>Número de la Tarjeta</mat-label>
+                        <input type="text" formControlName="CreditCardNumber" matInput placeholder="5486 7548 8901 3549"
+                            minlength="16" maxlength="16">
+                        <mat-hint>Sin espacios ni guiones</mat-hint>
+                    </mat-form-field>
+
+                    <br/>
+
+                    <!-- no deberia dejar ingresar fechas menores o iguales a hoy -->
+                    <mat-form-field>
+                        <mat-label>Fecha de vencimiento</mat-label>
+                        <input type="month" formControlName="ExpirationDate" matInput >
+                        <mat-hint>Seleccione mes y año</mat-hint>
+                    </mat-form-field>
+
+                    <br/>
+
+                    <mat-form-field>
+                        <mat-label>Código de seguridad</mat-label>
+                        <input type="password" formControlName="SecurityNumber" matInput placeholder="CVV"
+                            minlength="3" maxlength="3">
+                        <mat-hint>Se encuentra al reverso de la tarjeta</mat-hint>
+                    </mat-form-field>
+                    
+                </div>
+
+                <button type="submit" mat-raised-button color="primary">Depositar</button>
+
+            </form>
+        </fieldset>
+
+    </div>
+
+</div>

@@ -32,6 +32,10 @@ import {MatListModule} from '@angular/material/list';
 import { TransferenciaComponent } from './components/transferencia/transferencia.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { OperacionesComponent } from './components/operaciones/operaciones.component';
+import { CardDepositComponent } from './components/card-deposit/card-deposit.component';
+import { DepositComponent } from './components/deposit/deposit.component';
+import { DepositocuentaComponent } from './components/deposit/depositocuenta/depositocuenta.component';
+import { DepositRapiPagoComponent } from './components/deposit-rapi-pago/deposit-rapi-pago.component';
 
 
 @NgModule({
@@ -46,7 +50,11 @@ import { OperacionesComponent } from './components/operaciones/operaciones.compo
     DialogTermsComponent,
     TransferenciaComponent,
     PerfilComponent,
-    OperacionesComponent
+    OperacionesComponent,
+    CardDepositComponent,
+    DepositComponent,
+    DepositocuentaComponent,
+    DepositRapiPagoComponent
   ],
   imports: [
     BrowserModule,
