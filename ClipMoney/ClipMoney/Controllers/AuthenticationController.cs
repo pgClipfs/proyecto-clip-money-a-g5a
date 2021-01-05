@@ -87,7 +87,7 @@ namespace ClipMoney.Controllers
                 Contraseña = request.Params["contraseña"],
                 Email = request.Params["email"],
                 Telefono = request.Params["telefono"],
-                Images = Services.ImagesService.StoreImage(request)
+               // Images = Services.ImagesService.StoreImage(request)
             };
 
 

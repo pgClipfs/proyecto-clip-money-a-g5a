@@ -7,7 +7,7 @@ import { DialogTermsComponent } from './dialog-terms/dialog-terms.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Response } from 'src/app/models/response';
 import { sha256 } from 'js-sha256';
-import { requiredFileType } from '../../../utils/requiredTypeFile';
+//import { requiredFileType } from '../../../utils/requiredTypeFile';
 import { toFormData } from '../../../utils/toFormData';
 import { VirtualTimeScheduler } from 'rxjs';
 
