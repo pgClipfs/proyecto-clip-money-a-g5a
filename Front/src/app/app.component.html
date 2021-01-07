@@ -12,8 +12,6 @@
 </mat-drawer-container>
 -->
 
-
-
 <mat-toolbar color="primary">
   <button mat-icon-button>
     <mat-icon (click)="opened=!opened;">menu</mat-icon>
@@ -63,11 +61,10 @@
       <div matRipple>
         <mat-card id="cerrarSesion">
           <mat-list-item>
-            <a routerLink="/auth">Cerrar Sesion</a>
+            <a (click)="logout();">Cerrar Sesion</a>
           </mat-list-item>
         </mat-card>
       </div>
-
 
     </mat-list>
 
