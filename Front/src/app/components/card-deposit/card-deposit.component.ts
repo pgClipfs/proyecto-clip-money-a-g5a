@@ -4,6 +4,7 @@ import { Response } from 'src/app/models/response';
 import { ApiCardsDepositService } from 'src/app/services/apicardsdeposit.service';
 import { toFormData } from '../../../utils/toFormData';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ApiAccountService } from 'src/app/services/apiaccount.service';
 
 
 
@@ -25,9 +26,29 @@ export class CardDepositComponent implements OnInit {
     Amount: ['', Validators.required],
   })
 
-  constructor(private formBuilder: FormBuilder, private apiDepositService: ApiCardsDepositService,) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private apiDepositService: ApiCardsDepositService,
+    private apiAccountService: ApiAccountService
+  ) { }
 
   ngOnInit(): void {
+    this.getAccounts();
+  }
+
+  getAccounts() {
+    this.apiAccountService.getAccounts().subscribe(
+      (response: Response) => {                
+        if(response.Success === 1) {
+          console.log(response);
+          //console.log(JSON.parse(response));
+          // this.router.navigate(['./'])
+        }
+      },
+      (error: HttpErrorResponse) => {                     
+        this.error= error.error.Data;
+      }
+    )
   }
 
   deposit() {

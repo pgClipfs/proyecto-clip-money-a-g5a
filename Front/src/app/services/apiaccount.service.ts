@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Response } from '../models/response';
 
 
 const httpOption = {
@@ -11,14 +12,14 @@ const httpOption = {
 @Injectable({
   providedIn: 'root'
 })
-export class ApiaccountService {
-  url: string = 'http://localhost:49220/api/Account'
-  constructor(private _http: HttpClient
-    ) { }
+export class ApiAccountService {
+  url: string = 'http://localhost:49220/api/Account';
+
+  constructor(private _http: HttpClient) { }
   
-  /*getCuentas(user:number):Object {
-    return this._http.get<Response>(this.url,user);
-  }*/
+  getAccounts(): Observable<Response> {
+    return this._http.get<Response>(this.url);
+  }
 
 }
 
