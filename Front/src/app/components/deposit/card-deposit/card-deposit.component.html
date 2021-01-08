@@ -18,7 +18,7 @@
                     
                     <mat-form-field>
                         <mat-label>Número de Documento</mat-label>
-                        <input type="text" formControlName="DocumentNumber" matInput (keypress)="onlyNumbers($event)" placeholder="13.659.895" minlength="6" maxlength="9">
+                        <input type="text" formControlName="DocumentNumber" matInput (keypress)="onlyNumbers($event)" placeholder="13.659.895" minlength="6" maxlength="8">
                         <mat-hint>Sin espacios ni puntos</mat-hint>
                     </mat-form-field>
                     
@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="formGroup">
-                    <h4>Seleccione la cuenta donde hacia la cual desea depostar</h4>
+                    <h4>Seleccione la cuenta hacia la cual desea depostar</h4>
                     <mat-form-field appearance="fill" class="select">
                         <mat-label>Seleccionar cuenta...</mat-label>
                         <mat-select formControlName="DebitAccountId">
@@ -82,7 +82,10 @@
                 </div>
 
 
-                <button type="submit" mat-raised-button color="primary">Depositar</button>
+                <button type="submit" mat-raised-button color="primary">
+                    Depositar 
+                    <mat-progress-bar *ngIf="queryInProgress" mode="indeterminate" color="accent"></mat-progress-bar>
+                </button>
 
             </form>
         </fieldset>

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Response } from 'src/app/models/response';
 import { ApiCardsDepositService } from 'src/app/services/apicardsdeposit.service';
-import { toFormData } from '../../../utils/toFormData';
+//import { toFormData } from '../../../../utils/toFormData';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiAccountService } from 'src/app/services/apiaccount.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogTransactionStatusComponent } from './dialog-transaction-status/dialog-transaction-status.component';
 
 @Component({
   selector: 'app-card-deposit',
@@ -39,6 +41,7 @@ export class CardDepositComponent implements OnInit {
   minExpirationDate: string = new Date().toISOString().substring(0, 7);
   cardInput: HTMLElement;
   cardIcon: string = "fa fa-credit-card";
+  queryInProgress: boolean = false;
 
   public error: string = "";
 
@@ -55,7 +58,8 @@ export class CardDepositComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiDepositService: ApiCardsDepositService,
-    private apiAccountService: ApiAccountService
+    private apiAccountService: ApiAccountService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -140,19 +144,29 @@ export class CardDepositComponent implements OnInit {
     console.log('DataForm', formClone);
     
     if (this.cardForm.valid) {
-      this.apiDepositService.cardDeposit(formClone).subscribe(
-        (response: Response) => {
-          if (response.Success === 1) {
-            console.log('Success POST', response)
-            //MOSTRAR ESTADO
-          }
-        },
-        (error: HttpErrorResponse) => {
-          this.error = error.error.Data;
-          console.error('Fail POST', error.error.Data);
+      this.queryInProgress = true;
 
-        }
-      )
+      //añado un delay a la operacion para que se vea la animacion de la barra de progreso
+      setTimeout(() => {
+        
+        this.apiDepositService.cardDeposit(formClone).subscribe(
+          (response: Response) => {
+            if (response.Success === 1) {
+              console.log('Success POST', response)
+              this.queryInProgress = false;
+              this.openDialog();
+              //MOSTRAR ESTADO
+            }
+          },
+          (error: HttpErrorResponse) => {
+            this.error = error.error.Data;
+            console.error('Fail POST', error.error.Data);
+            this.queryInProgress = false;
+            this.openDialog();
+  
+          }
+        )
+      }, 2000);
     }
 
   }
@@ -164,7 +178,20 @@ export class CardDepositComponent implements OnInit {
     //ignorar el error que tira al compilar
     //@ts-ignore
     event.returnValue = (isNaN(String.fromCharCode(event.keyCode)) || event.keyCode == 32) ? false : true;
+  }
 
+  openDialog( ): void {
+    // const dialogRef = this.dialog.open(DialogTransactionStatusComponent, {
+    //     data: {name: this.s, animal: this.animal}
+    //   });
+    const dialogRef = this.dialog.open(DialogTransactionStatusComponent, {
+        data: {name: 'jjis'}
+      });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   this.animal = result;
+    // });
   }
 
 
