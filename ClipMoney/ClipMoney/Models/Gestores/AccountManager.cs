@@ -28,6 +28,13 @@ namespace ClipMoney.Models.Gestores
                 "DIV.COMISION, " +
                 "DIV.PRECIO_COMPRA, " +
                 "DIV.PRECIO_VENTA, " +
+                "USR.ID_USUARIO, " +
+                "USR.CUIL, " +
+                "USR.NOMBRE, " +
+                "USR.APELLIDO, " +
+                "USR.EMAIL, " +
+                "USR.TELEFONO, " +
+                "USR.PRIVILEGIOS, " +
                 "CVU, " +
                 "SALDO, " +
                 "ALIAS, " +
@@ -35,6 +42,7 @@ namespace ClipMoney.Models.Gestores
                 "FROM CUENTAS " +
                 "INNER JOIN TIPO_CUENTAS TC ON CUENTAS.ID_TIPO_CUENTA = TC.ID_TIPO_CUENTA " +
                 "INNER JOIN DIVISAS DIV ON CUENTAS.ID_DIVISA = DIV.ID_DIVISA " +
+                "INNER JOIN USUARIOS USR ON CUENTAS.ID_USUARIO = USR.ID_USUARIO " +
                 "WHERE ID_CUENTA=@IdCuenta";
 
             comm.Parameters.Add(new SqlParameter("@IdCuenta", AccountID));
@@ -48,10 +56,11 @@ namespace ClipMoney.Models.Gestores
                 account.AccountId = dr.GetInt32(0);
                 account.TypeAccount = new AccountType() { AccountTypeId = dr.GetByte(1), AccountTypeName = dr.GetString(2) };
                 account.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
-                account.CVU = dr.GetString(8);
-                account.Balance = dr.GetDecimal(9);
-                account.Alias = dr[10] as string;
-                account.OpeningDate = dr.GetDateTime(11);
+                account.User = new User() { UserId = dr.GetInt32(8), Cuil = dr.GetString(10), Name = dr.GetString(11), Surname = dr.GetString(12), Email = dr.GetString(13), PhoneNumber = dr.GetString(14), Privileges = dr.GetString(15) };
+                account.CVU = dr.GetString(15);
+                account.Balance = dr.GetDecimal(16);
+                account.Alias = dr[17] as string;
+                account.OpeningDate = dr.GetDateTime(18);
 
             }
 
@@ -157,10 +166,10 @@ namespace ClipMoney.Models.Gestores
                 oAccount.TypeAccount = new AccountType() { AccountTypeId = dr.GetByte(1), AccountTypeName = dr.GetString(2) };
                 oAccount.Currency = new Currency() { CurrencyId = dr.GetByte(3), CurrencyName = dr.GetString(4), Fee = dr.GetDouble(5), PurchasePrice = dr.GetDecimal(6), SalePrice = dr.GetDecimal(7) };
                 oAccount.User = new User() { UserId = dr.GetInt32(8), Cuil = dr.GetString(9), Name = dr.GetString(10), Surname = dr.GetString(11), Email = dr.GetString(12), PhoneNumber = dr.GetString(13), Privileges = dr.GetString(14) };
-                oAccount.CVU = dr.GetString(16);
-                oAccount.Balance = dr.GetDecimal(17);
-                oAccount.Alias = dr[18] as string; ;
-                oAccount.OpeningDate = dr.GetDateTime(19);
+                oAccount.CVU = dr.GetString(15);
+                oAccount.Balance = dr.GetDecimal(16);
+                oAccount.Alias = dr[17] as string; ;
+                oAccount.OpeningDate = dr.GetDateTime(18);
 
             }
 
