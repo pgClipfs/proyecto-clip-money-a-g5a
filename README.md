@@ -250,3 +250,15 @@ Para realizar una transferencia hacer un post a `./api/Transfer` con un json con
     "EmailNotificacion": "contacto@gmail.com"
 }
 ```
+
+#### Retiro
+
+Para realizar un retiro realizar un post a `./api/Withdraw` mandando en el body un json con el formato:
+```json
+{
+    "AccountId": 3,
+    "Amount": 100,
+    "Uncovered": false
+}
+```
+Si el valor de "Uncovered" es true entonces se va a permitir retirar hasta el 10% del saldo actual de la cuenta

@@ -207,6 +207,7 @@
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WithdrawController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,6 +220,7 @@
     <Compile Include="Models\Request\RegistrationRequest.cs" />
     <Compile Include="Models\Request\TransferRequest.cs" />
     <Compile Include="Models\Request\UpdateUserDataRequest.cs" />
+    <Compile Include="Models\Request\WithdrawRequest.cs" />
     <Compile Include="Models\Response\BasicAccountResponse.cs" />
     <Compile Include="Models\Response\LoginResponse.cs" />
     <Compile Include="Models\Response\GeneralResponse.cs" />
