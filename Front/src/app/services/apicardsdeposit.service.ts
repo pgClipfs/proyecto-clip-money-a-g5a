@@ -19,6 +19,10 @@ export class ApiCardsDepositService {
   cardDeposit(deposit: any): Observable<Response> {
     return this._http.post<Response>(this.url, deposit, httpOption);
   }
+
+  validateCard(NumeroDeTarjeta: number): Observable<Response> {
+    return this._http.get<Response>(this.url+`?number=${NumeroDeTarjeta}`);
+  }
 }
 
 

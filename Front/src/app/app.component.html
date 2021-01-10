@@ -12,8 +12,6 @@
 </mat-drawer-container>
 -->
 
-
-
 <mat-toolbar color="primary">
   <button mat-icon-button>
     <mat-icon (click)="opened=!opened;">menu</mat-icon>
@@ -29,45 +27,65 @@
     
     <mat-list>
       <div matRipple>
-        <mat-card>
-          <mat-list-item>
-            <a routerLink="/home">Home</a>
-          </mat-list-item>
-        </mat-card>
+        <a routerLink="/home">
+          <mat-card>
+            <mat-list-item>
+              Home
+            </mat-list-item>
+          </mat-card>
+        </a>
       </div>
 
       <div matRipple>
-        <mat-card>
-          <mat-list-item>
-            <a routerLink="/transferencia">Transferencia</a>
-          </mat-list-item>
-        </mat-card>
+        <a routerLink="/perfil">
+          <mat-card>
+            <mat-list-item>
+              Perfil
+            </mat-list-item>
+          </mat-card>
+      </a>
+      </div>
+
+      <div matRipple>
+        <a routerLink="/transferencia">
+          <mat-card>
+            <mat-list-item>
+              Transferencia
+            </mat-list-item>
+          </mat-card>
+        </a>
       </div>
      
+
       <div matRipple>
-        <mat-card>
-          <mat-list-item>
-            <a routerLink="/perfil">Perfil</a>
-          </mat-list-item>
-        </mat-card>
+        <a routerLink="/operaciones">
+          <mat-card>
+            <mat-list-item>
+              Operaciones
+            </mat-list-item>
+          </mat-card>
+        </a>
       </div>
 
       <div matRipple>
-        <mat-card>
-          <mat-list-item>
-            <a routerLink="/operaciones">Operaciones</a>
-          </mat-list-item>
-        </mat-card>
+        <a routerLink="/deposit">
+          <mat-card>
+            <mat-list-item>
+              Depositos
+            </mat-list-item>
+          </mat-card>
+        </a>
       </div>
 
       <div matRipple>
-        <mat-card id="cerrarSesion">
-          <mat-list-item>
-            <a routerLink="/auth">Cerrar Sesion</a>
-          </mat-list-item>
-        </mat-card>
+        <a (click)="logout();">
+          <mat-card id="cerrarSesion">
+            <mat-list-item>
+              Cerrar Sesion
+            </mat-list-item>
+          </mat-card>
+        </a>
       </div>
-
 
     </mat-list>
 
