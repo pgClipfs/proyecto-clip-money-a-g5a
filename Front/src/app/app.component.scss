@@ -1,3 +1,52 @@
-.main {
-    height: 100vh;
+#background {
+  background-image: url("./../../../ClipMoney/logo-moneyclip-simple.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
+a{
+    color: inherit; 
+    text-decoration: inherit;
+  }
+  
+  .clickable {
+    cursor: pointer;
+  }
+  
+  .title{
+      margin-left:20px;
+      color: #ffffff;
+  }
+  
+  .sidenav-container{
+    height: 90%;
+  }
+  .sidenav-inside{
+    width: 15%;
+    padding-bottom: 500px;
+  }
+  
+  .mat-sidenav-content{
+    align-items: center;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mat-card{margin: 0 5px 5px 5px; cursor: pointer;}
+  .mat-card:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+  }
+  
+  #cerrarSesion{
+      background-color: #ff5252;
+  }
+  #cerrarSesion a{
+    color:white;
+  }
+.sidenav-container{
+    height: 1000px;
+  }
+
+//

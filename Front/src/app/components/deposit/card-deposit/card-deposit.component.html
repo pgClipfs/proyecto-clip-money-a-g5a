@@ -1,0 +1,96 @@
+<div class="container">
+    <h1>Depositar con tarjeta</h1>
+
+    <div>
+        <fieldset>
+            <legend>Datos de la tarjeta</legend>
+    
+            <form [formGroup]="cardForm" (ngSubmit)="deposit()">
+    
+                <div class="formGroup">
+                    <mat-form-field >
+                        <mat-label>Nombre completo</mat-label>
+                        <input type="text" formControlName="FullName" matInput maxlength="40" minlength="5">
+                        <mat-hint>Ingresalo tal como figura en la tarjeta</mat-hint>
+                    </mat-form-field>
+        
+                    <br/>
+                    
+                    <mat-form-field>
+                        <mat-label>Número de Documento</mat-label>
+                        <input type="text" formControlName="DocumentNumber" matInput (keypress)="onlyNumbers($event)" placeholder="13.659.895" minlength="6" maxlength="8">
+                        <mat-hint>Sin espacios ni puntos</mat-hint>
+                    </mat-form-field>
+                    
+                    <br/>
+                    
+                    <mat-form-field>
+                        <mat-label>Monto</mat-label>
+                        <input type="number" formControlName="Amount" matInput placeholder="$">
+                        <mat-hint>Cantidad de dinero a depositar</mat-hint>
+                    </mat-form-field>
+                    
+                </div>
+                
+                <div class="formGroup">
+                    <mat-form-field style="width: 75%;">
+                        <mat-label>Número de la Tarjeta</mat-label>
+                        <input type="text" id="CardNumber" formControlName="CreditCardNumber" matInput 
+                            (keypress)="onlyNumbers($event)"  
+                            (input)="validateCard()" 
+                            placeholder="5486 7548 8901 3549"
+                            minlength="16" 
+                            maxlength="16"
+                        >
+                        <mat-hint>Sin espacios ni guiones</mat-hint>
+                    </mat-form-field>
+
+                    <i [class]="cardIcon" aria-hidden="true"></i>
+
+                    <br/>
+
+                    <!-- de deja ingresar fechas anteriores al mes actual al menos q se haga por teclado y no desde el picker -->
+                    <mat-form-field>
+                        <mat-label>Fecha de vencimiento</mat-label>
+                        <input type="month" formControlName="ExpirationDate" matInput [min]="minExpirationDate">
+                        <mat-hint>Seleccione mes y año</mat-hint>
+                    </mat-form-field>
+
+                    <br/>
+
+                    <mat-form-field>
+                        <mat-label>Código de seguridad</mat-label>
+                        <input type="password" formControlName="SecurityNumber" matInput (keypress)="onlyNumbers($event)" placeholder="CVV"
+                            minlength="3" maxlength="3">
+                        <mat-hint>Se encuentra al reverso de la tarjeta</mat-hint>
+                    </mat-form-field>
+                    
+                </div>
+
+                <div class="formGroup">
+                    <h4>Seleccione la cuenta hacia la cual desea depostar</h4>
+                    <mat-form-field appearance="fill" class="select">
+                        <mat-label>Seleccionar cuenta...</mat-label>
+                        <mat-select formControlName="DebitAccountId">
+                            <mat-option *ngFor="let account of Accounts" [value]="account.AccountId">
+                                {{ 
+                                    'CTA NRO: ' + '...' + account.CVU.substring(16) + ' ' + (account.TypeAccount.AccountTypeName === "CORRIENTE" ? 'CC' : 'CA') + '  $ ' + account.Currency.CurrencyName
+                                }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+                <button type="submit" mat-raised-button color="primary">
+                    Depositar 
+                    <mat-progress-bar *ngIf="queryInProgress" mode="indeterminate" color="accent"></mat-progress-bar>
+                </button>
+
+            </form>
+        </fieldset>
+
+    </div>
+
+</div>
+

@@ -11,7 +11,7 @@ namespace ClipMoney.Controllers
     /// </summary>
     internal static class TokenGenerator
     {
-        public static string GenerateTokenJwt(string username)
+        public static string GenerateTokenJwt(string cuil, int? IdUsuario)
         {
             // appsetting for Token JWT
             var secretKey = ConfigurationManager.AppSettings["JWT_SECRET_KEY"];
@@ -23,7 +23,8 @@ namespace ClipMoney.Controllers
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             // create a claimsIdentity
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, username) });
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, cuil),
+                                                                       new Claim(ClaimTypes.Sid, Convert.ToString(IdUsuario) )});
 
             // create token to the user
             var tokenHandler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();

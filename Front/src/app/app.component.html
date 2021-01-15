@@ -1,4 +1,4 @@
-
+<!--
 <mat-drawer-container>
   <mat-drawer #drawer mode="side" >
     <a [routerLink]="['/home']">Inicio</a><br>
@@ -10,5 +10,91 @@
     <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>
+-->
+
+<mat-toolbar color="primary">
+  <button mat-icon-button>
+    <mat-icon (click)="opened=!opened;">menu</mat-icon>
+  </button>
+  <span class="title"><a routerLink="/">Clip Money</a></span>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container"> 
+  
+  <!-- Inside -->
+
+  <mat-sidenav class="sidenav-inside" [(opened)]="opened">  
+    
+    <mat-list>
+      <div matRipple>
+        <a routerLink="/home">
+          <mat-card>
+            <mat-list-item>
+              Home
+            </mat-list-item>
+          </mat-card>
+        </a>
+      </div>
+
+      <div matRipple>
+        <a routerLink="/perfil">
+          <mat-card>
+            <mat-list-item>
+              Perfil
+            </mat-list-item>
+          </mat-card>
+      </a>
+      </div>
+
+      <div matRipple>
+        <a routerLink="/transferencia">
+          <mat-card>
+            <mat-list-item>
+              Transferencia
+            </mat-list-item>
+          </mat-card>
+        </a>
+      </div>
+     
+
+      <div matRipple>
+        <a routerLink="/operaciones">
+          <mat-card>
+            <mat-list-item>
+              Operaciones
+            </mat-list-item>
+          </mat-card>
+        </a>
+      </div>
+
+      <div matRipple>
+        <a routerLink="/deposit">
+          <mat-card>
+            <mat-list-item>
+              Depositos
+            </mat-list-item>
+          </mat-card>
+        </a>
+      </div>
+
+      <div matRipple>
+        <a (click)="logout();">
+          <mat-card id="cerrarSesion">
+            <mat-list-item>
+              Cerrar Sesion
+            </mat-list-item>
+          </mat-card>
+        </a>
+      </div>
+
+    </mat-list>
+
+  </mat-sidenav>
 
 
+  <mat-sidenav-content id="background">
+  <!-- Router outlet-->
+  <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
