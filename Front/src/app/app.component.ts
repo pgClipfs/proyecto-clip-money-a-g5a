@@ -11,6 +11,7 @@ import { ApiauthService } from './services/apiauth.service';
 export class AppComponent {
   title = 'app';
   usuario: Usuario;
+  opened = false;
 
   constructor(public apiauthService: ApiauthService,
               private router: Router

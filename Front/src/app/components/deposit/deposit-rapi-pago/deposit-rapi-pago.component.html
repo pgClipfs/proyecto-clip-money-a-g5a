@@ -1,0 +1,32 @@
+<mat-card fxLayout="column" fxLayoutAlign="center center">
+    <img alt="Angular Logo" src="./assets/logo-moneyclip-simple.png" />
+    <mat-card-title>Depositar</mat-card-title>
+    <mat-card-content>
+        <p>Rapipago/Pagofacil</p>
+        <h2>Datos de la cuenta</h2>
+        <form [formGroup]="depositrpform" (ngSubmit)="generarBoleta()" *ngIf="boletaGenerada==false">
+        <mat-form-field>
+            <mat-label>Cvu</mat-label>
+            <input type="text" formControlName="cvu" matInput
+                placeholder="Sin espacios, ni guiones">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Monto a Depositar</mat-label>
+            <input type="text" formControlName="monto" matInput
+                placeholder="Ingrese el monto a depositar, sin puntos">
+        </mat-form-field>
+
+        <mat-card *ngIf="error" class="error-login">{{error}}</mat-card>
+        
+        <div>   
+            <button type="submit" mat-raised-button color="primary">Generar Boleta</button>
+        </div>
+    </form>
+    </mat-card-content>
+    <div *ngIf="boletaGenerada==true">
+        <h3>El código de barras generado es el siguiente:</h3>
+        <img alt="Codigo de barras" src= "./assets/barrasClip.png">
+        <h3>Podes dictarle estos números al cajero de un rapipago o sino podes imprimir la boleta de pago para que sea escaneada.</h3>
+        <button mat-raised-button color="primary">Descargar PDF</button>
+</div>
+</mat-card>

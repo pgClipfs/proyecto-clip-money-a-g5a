@@ -35,7 +35,7 @@ export class ApiauthService {
         return this._http.post<Response>(this.url, login, httpOption).pipe(
             map(res => {
                 console.log(res.Data);
-                if(res.Exito === 1){
+                if(res.Success === 1){
                     const usuario: Usuario = res.Data;
                     localStorage.setItem('usuario', JSON.stringify(usuario));
                     this.usuarioSubject.next(usuario);
@@ -46,10 +46,7 @@ export class ApiauthService {
     }
 
     singUp(singUp: any): any {
-        return this._http.post<Response>(this.url + "/Registration", singUp, {
-            reportProgress: true,
-            observe: 'events'
-          });
+        return this._http.post<Response>(this.url + "/Registration", singUp)
     }
 
     logout(){

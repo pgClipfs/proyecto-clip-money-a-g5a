@@ -6,19 +6,19 @@
             <div id="firstForm" *ngIf="firstForm">
                 <mat-form-field>
                     <mat-label>Nombres</mat-label>
-                    <input type="text" formControlName="nombre" matInput
+                    <input type="text" formControlName="Name" matInput
                         placeholder="Ingresalo tal como figura en tu documento">
                 </mat-form-field>
     
                 <mat-form-field>
                     <mat-label>Apellido/s</mat-label>
-                    <input type="text" formControlName="apellido" matInput
+                    <input type="text" formControlName="Surname" matInput
                         placeholder="Ingresalo tal como figura en tu documento">
                 </mat-form-field>
     
                 <mat-form-field>
                     <mat-label>Cuil</mat-label>
-                    <input type="text" formControlName="cuil" matInput placeholder="Cuil" minlength="7"
+                    <input type="text" formControlName="Cuil" matInput placeholder="Cuil" minlength="7"
                         maxlength="11">
                     <mat-hint >Numero completo. Sin espacios ni guiones</mat-hint>
                 </mat-form-field>
@@ -26,13 +26,13 @@
                 <div>
                     <mat-form-field class="half">
                         <mat-label>Email </mat-label>
-                        <input type="email" formControlName="email" matInput
+                        <input type="email" formControlName="Email" matInput
                             placeholder="example@host.com">
                     </mat-form-field>
     
                     <mat-form-field class="half" style="margin-left: 8px;">
                         <mat-label>Contraseña</mat-label>
-                        <input type="password" formControlName="contraseña" matInput placeholder=""
+                        <input type="password" formControlName="Password" matInput placeholder=""
                             minlength="8">
                         <mat-hint>Minimo 8 caracteres</mat-hint>
     
@@ -47,19 +47,19 @@
     
                 <mat-form-field>
                     <mat-label>Teléfono</mat-label>
-                    <input type="text" formControlName="telefono" matInput >
+                    <input type="text" formControlName="PhoneNumber" matInput >
                     <mat-hint>Numero completo. Sin espacios ni guiones</mat-hint>
                 </mat-form-field>
                 <br> <br>
                 <div fxLayout="row" fxLayoutAlign="space-evenly center">
                     <span fxLayout="column" fxLayoutAlign="space-evenly center">
                         <label for="dniFront">Imagen de DNI del frente</label>
-                        <input type="file" name="dniFront" (change)="onFileSelect($event)" />
+                        <input type="file" name="DniFront" (change)="onFileSelect($event)" />
 
                     </span>                    
                     <span fxLayout="column" fxLayoutAlign="space-evenly center">
                         <label for="dniBack">Imagen de DNI del dorso</label>
-                        <input type="file" name="dniBack" (change)="onFileSelect($event)" />
+                        <input type="file" name="DniBack" (change)="onFileSelect($event)" />
                     </span>
 
                 </div>
@@ -73,7 +73,7 @@
                     <button type="submit"
                         mat-raised-button
                         color="primary"
-                        >Continuar
+                        >Registrarse
                     </button>
                 </div>
 

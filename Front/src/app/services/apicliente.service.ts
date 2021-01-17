@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Cliente } from '../models/cliente';
+//import { Cliente } from '../models/cliente';
 import { Response } from '../models/response';
 
 const httpOption = {
   headers: new HttpHeaders({
-    'Contentd-Type': 'application/json'
+    'Content-Type': 'application/json'
   })
 }
 
@@ -24,7 +24,7 @@ export class ApiclienteService {
   getClientes(): Observable<Response> {
     return this._http.get<Response>(this.url);
   }
-
+  /*
   add(cliente: Cliente): Observable<Response> {
     return this._http.post<Response>(this.url, cliente, httpOption)
   }
@@ -37,7 +37,7 @@ export class ApiclienteService {
     return this._http.delete<Response>(this.url+"/"+id)
   }
   
-
+*/
 }
 
 
