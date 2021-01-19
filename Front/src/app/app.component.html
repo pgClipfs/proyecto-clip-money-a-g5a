@@ -12,89 +12,95 @@
 </mat-drawer-container>
 -->
 
-<mat-toolbar color="primary">
-  <button mat-icon-button>
-    <mat-icon (click)="opened=!opened;">menu</mat-icon>
-  </button>
-  <span class="title"><a routerLink="/">Clip Money</a></span>
-</mat-toolbar>
-
-<mat-sidenav-container class="sidenav-container"> 
+<div *ngIf="usuario !== null">
+  <mat-toolbar color="primary">
+    <button mat-icon-button>
+      <mat-icon (click)="opened=!opened;">menu</mat-icon>
+    </button>
+    <span class="title"><a routerLink="/">Clip Money</a></span>
+  </mat-toolbar>
   
-  <!-- Inside -->
-
-  <mat-sidenav class="sidenav-inside" [(opened)]="opened">  
+  <mat-sidenav-container class="sidenav-container"> 
     
-    <mat-list>
-      <div matRipple>
-        <a routerLink="/home">
-          <mat-card>
-            <mat-list-item>
-              Home
-            </mat-list-item>
-          </mat-card>
+    <mat-sidenav class="sidenav-inside" [(opened)]="opened">  
+      
+      <mat-list>
+        <div matRipple>
+          <a routerLink="/home">
+            <mat-card>
+              <mat-list-item>
+                Home
+              </mat-list-item>
+            </mat-card>
+          </a>
+        </div>
+  
+        <div matRipple>
+          <a routerLink="/perfil">
+            <mat-card>
+              <mat-list-item>
+                Perfil
+              </mat-list-item>
+            </mat-card>
         </a>
-      </div>
+        </div>
+  
+        <div matRipple>
+          <a routerLink="/transferencia">
+            <mat-card>
+              <mat-list-item>
+                Transferencia
+              </mat-list-item>
+            </mat-card>
+          </a>
+        </div>
+       
+  
+        <div matRipple>
+          <a routerLink="/operaciones">
+            <mat-card>
+              <mat-list-item>
+                Operaciones
+              </mat-list-item>
+            </mat-card>
+          </a>
+        </div>
+  
+        <div matRipple>
+          <a routerLink="/deposit">
+            <mat-card>
+              <mat-list-item>
+                Depositos
+              </mat-list-item>
+            </mat-card>
+          </a>
+        </div>
+  
+        <div matRipple>
+          <a (click)="logout();">
+            <mat-card id="cerrarSesion">
+              <mat-list-item>
+                Cerrar Sesion
+              </mat-list-item>
+            </mat-card>
+          </a>
+        </div>
+  
+      </mat-list>
+  
+    </mat-sidenav>
+  
+  
+    <mat-sidenav-content id="background">
+      
+      <router-outlet></router-outlet>
+  
+    </mat-sidenav-content>
+    
+  </mat-sidenav-container>
 
-      <div matRipple>
-        <a routerLink="/perfil">
-          <mat-card>
-            <mat-list-item>
-              Perfil
-            </mat-list-item>
-          </mat-card>
-      </a>
-      </div>
+</div>
 
-      <div matRipple>
-        <a routerLink="/transferencia">
-          <mat-card>
-            <mat-list-item>
-              Transferencia
-            </mat-list-item>
-          </mat-card>
-        </a>
-      </div>
-     
-
-      <div matRipple>
-        <a routerLink="/operaciones">
-          <mat-card>
-            <mat-list-item>
-              Operaciones
-            </mat-list-item>
-          </mat-card>
-        </a>
-      </div>
-
-      <div matRipple>
-        <a routerLink="/deposit">
-          <mat-card>
-            <mat-list-item>
-              Depositos
-            </mat-list-item>
-          </mat-card>
-        </a>
-      </div>
-
-      <div matRipple>
-        <a (click)="logout();">
-          <mat-card id="cerrarSesion">
-            <mat-list-item>
-              Cerrar Sesion
-            </mat-list-item>
-          </mat-card>
-        </a>
-      </div>
-
-    </mat-list>
-
-  </mat-sidenav>
-
-
-  <mat-sidenav-content id="background">
-  <!-- Router outlet-->
+<div *ngIf="usuario === null">
   <router-outlet></router-outlet>
-
-  </mat-sidenav-content>
-</mat-sidenav-container>
+</div>
