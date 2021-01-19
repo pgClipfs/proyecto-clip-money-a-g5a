@@ -2,28 +2,29 @@
     <img alt="Angular Logo" src="./assets/logo-moneyclip-simple.png" />
     <mat-card-title>Depositar</mat-card-title>
     <mat-card-content>
-        <p>¿Como deseas Realizar el Deposito?</p>
+        <p>¿Como deseas Realizar el Depósito?</p>
         <div>
-            <button type="submit"
-                mat-raised-button
-                color="primary"
-                ><a routerLink="/depositocuenta" routerLinkActive="active">Deposito con Cuenta</a>
-            </button>
+            <a routerLink="./bankAccount">
+                <button mat-raised-button color="primary">
+                    Depósito con Cuenta Bancaria
+                </button>
+            </a>
         </div>
         <div>
-            <button type="submit"
-                mat-raised-button
-                color="primary"
-                ><a routerLink="./cards" routerLinkActive="active">Pago con tarjeta de credito / debito</a>
-            </button>
+            <a routerLink="./cards">
+                <button mat-raised-button color="primary">
+                    Pago con tarjeta de crédito/débito
+                </button>
+            </a>
         </div>
         <div>
-        <button type="submit"
-            mat-raised-button
-            color="primary"
-            ><a routerLink="/depositrp" routerLinkActive="active">Deposito con PagoFacil/Rapipago</a>
-        </button>
+            <a routerLink="./cash" >
+                <button mat-raised-button color="primary">
+                    Depósito con PagoFacil/Rapipago
+                </button>
+            </a>
         </div>
     </mat-card-content>
 </mat-card>
-<router-outlet></router-outlet>
+
+<!-- <router-outlet></router-outlet> -->

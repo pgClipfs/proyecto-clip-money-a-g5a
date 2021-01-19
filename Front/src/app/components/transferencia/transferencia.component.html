@@ -1,37 +1,37 @@
 <!--Modelo transferencia -->
 <mat-card id="transferencia">
-    <h1>Transferencia</h1>
-    <mat-divider></mat-divider>
-    
-    <div id="container-transaction">
+  <h1>Transferencia</h1>
+  <mat-divider></mat-divider>
+  
+  <div id="container-transaction">
 
-      <mat-form-field appearance="fill" style="width: 80%; margin-top:20px;">
-        <mat-label>Cuenta origen</mat-label>
-        <mat-select>
-          <mat-option value="option">0000000000</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 80%; margin-top:20px;">
+      <mat-label>Cuenta origen</mat-label>
+      <mat-select>
+        <mat-option value="option">200000000004694</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <mat-form-field id="input">
-        <mat-label>CBU/CVU Cuenta Destino</mat-label>
-        <input matInput type="text">
-      </mat-form-field>
+    <mat-form-field id="input">
+      <mat-label>CBU/CVU Cuenta Destino</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
 
-      <mat-form-field id="input">
-        <mat-label>Monto</mat-label>
-        <input matInput type="number" min="0" oninput="validity.valid||(value='');">
-      </mat-form-field>
+    <mat-form-field id="input">
+      <mat-label>Monto</mat-label>
+      <input matInput type="number" min="0" oninput="validity.valid||(value='');">
+    </mat-form-field>
 
-      <mat-form-field appearance="fill" style="width: 80%; padding-bottom:10px;">
-        <mat-label>Divisa</mat-label>
-        <mat-select>
-          <mat-option value="option">Pesos (ARS) </mat-option>
-          <mat-option value="option">Dolares (U$D) </mat-option>
-          <mat-option value="option">Bitcoin (BTC) </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 80%; padding-bottom:10px;">
+      <mat-label>Divisa</mat-label>
+      <mat-select>
+        <mat-option value="option">Pesos (ARS) </mat-option>
+        <mat-option value="option">Dolares (U$D) </mat-option>
+        <mat-option value="option">Bitcoin (BTC) </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <br>
-      <button id="transferirButton" mat-raised-button color="primary" style="width: 80%; border-radius: 0px;">Transferir</button>
-    </div>
-  </mat-card>
+    <br>
+    <button id="transferirButton" mat-raised-button color="primary" style="width: 80%; border-radius: 0px;">Transferir</button>
+  </div>
+</mat-card>

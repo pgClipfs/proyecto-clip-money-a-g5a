@@ -1,59 +1,71 @@
-a{
-    color: white;
-    text-decoration: none;
-  }
-  
-  .clickable {
-    cursor: pointer;
-  }
-  
-  .title{
-      margin-left:20px;
-      color: #ffffff;
-  }
-  
-  .sidenav-container{
-    height: 90%;
-  }
-  .sidenav-inside{
-    width: 15%;
-  }
-  
-  .mat-sidenav-content{
-    align-items: center;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .mat-card{margin: 0 5px 5px 5px; cursor: pointer;}
-  .mat-card:hover{
-    box-shadow: 0 0 11px rgba(33,33,33,.2);
-  }
-  
-  .mat-form-field{width: 60%;}
-  
-  .mat-divider{margin-bottom: 50px}
-  
-  #container-transaction{margin:40px 0px 20px 0px;}
-  
-  #transferencia{
-    cursor: default;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 auto ;
-    align-items: center;
-    text-align: center;
-  }
-  
-  #input{
-    width: 80%;
-  }
-  
-  .mat-form-field{
-    padding: 0 10%;
-  }
-  #transferirButton{
-    margin: 0 10%;
-  }
+#transferencia {
+  cursor: default;
+  width: 100%;
+  margin: 40px auto;
+  padding: 0 auto;
+  align-items: center;
+  text-align: center;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.title {
+  margin-left: 20px;
+  color: #ffffff;
+}
+
+.sidenav-container {
+  height: 90%;
+}
+
+.sidenav-inside {
+  width: 15%;
+}
+
+.mat-sidenav-content {
+  align-items: center;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-card {
+  margin: 0 5px 5px 5px;
+  cursor: pointer;
+}
+
+.mat-card:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+
+.mat-form-field {
+  width: 60%;
+}
+
+.mat-divider {
+  margin-bottom: 50px;
+}
+
+#container-transaction {
+  margin: 40px 0px 20px 0px;
+}
+
+#input {
+  width: 80%;
+}
+
+.mat-form-field {
+  padding: 0 10%;
+}
+
+#transferirButton {
+  margin: 0 10%;
+}

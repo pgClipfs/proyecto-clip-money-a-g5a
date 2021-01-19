@@ -1,14 +1,21 @@
-*{
-    margin: 50px 0px;
-    margin-bottom: 200px;
+* {
+    margin: 40px 0px;
+    // margin-bottom: 200px;
 }
+
+#operacionesTitle{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+table {
+    margin-top: 0px;
+}
+
 table mat-table{
     width: 100px;
 }
-th{
+
+th {
     width: 100px;
-}
-#operacionesTitle{
-    font-size: 30px;
-    font-weight: 700;
 }
