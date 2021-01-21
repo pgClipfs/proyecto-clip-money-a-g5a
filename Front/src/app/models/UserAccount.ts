@@ -1,7 +1,7 @@
 import { TypeAccount } from "./typeAccount";
 import { Currency } from "./currency";
 
-export interface Account {
+export interface UserAccount {
     AccountId: number;
     TypeAccount: TypeAccount;
     Currency: Currency;
@@ -9,5 +9,5 @@ export interface Account {
     CVU: string;
     Balance: number;
     Alias: string;
-    OpeningDate: Date;
+    OpeningDate: string;
 }

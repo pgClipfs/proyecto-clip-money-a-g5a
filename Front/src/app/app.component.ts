@@ -20,8 +20,6 @@ export class AppComponent {
       this.apiauthService.usuario.subscribe(res => {
 
         this.usuario = res;
-        console.log(this.usuario);
-        
         // console.log('cambio en el objeto: ' + res);
       });
       // this.usuario = this.apiauthService.usuarioData; // no se usa este porque al no ser un observable el menu lateral no se va a actualizar

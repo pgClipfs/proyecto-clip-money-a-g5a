@@ -70,7 +70,7 @@
                 <div class="formGroup">
                     <h4>Seleccione la cuenta hacia la cual desea depostar</h4>
                     <mat-form-field appearance="fill" class="select">
-                        <mat-label>Seleccionar cuenta...</mat-label>
+                        <mat-label [style.color]="Accounts ? 'green' : 'red'">{{Accounts ? 'Seleccionar cuenta...' : 'Error al obtener cuentas. Intenta luego'}}</mat-label>
                         <mat-select formControlName="DebitAccountId">
                             <mat-option *ngFor="let account of Accounts" [value]="account.AccountId">
                                 {{ 

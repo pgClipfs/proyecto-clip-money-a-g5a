@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog,MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef ,MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -9,9 +9,24 @@ import { MatDialog,MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DialogTransactionStatusComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  code: number = this.getRandom(99999999999, 10000000000000);
+  date: string = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogTransactionStatusComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
   ngOnInit(): void {
+    console.log('Status transacción:', this.data.Status);
+  }
+  
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+  
+  getRandom(min:number, max:number) :number {
+    return Math.floor(Math.random() * (max - min)) + min;    
   }
   
 

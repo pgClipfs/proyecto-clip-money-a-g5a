@@ -140,7 +140,7 @@ namespace ClipMoney.Controllers
 
                 if (!detector.IsValid())
                 {
-                    throw new ArgumentException("Los datos de la tarjeta de credito no son valdios");
+                    throw new ArgumentException("Los datos de la tarjeta de credito no son válidos");
                 }
 
                 oDepositManager.DepositWithCreditCard(model.Amount, model.DebitAccountId, model.FullName, model.CreditCardNumber.Substring(model.CreditCardNumber.Length - 4), model.DocumentNumber, model.ExpirationDate);

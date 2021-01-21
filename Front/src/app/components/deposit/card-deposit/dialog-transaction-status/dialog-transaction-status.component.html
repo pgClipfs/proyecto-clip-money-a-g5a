@@ -1,1 +1,54 @@
-<p>dialog-transaction-status works!</p>
+<!-- SUCCESS -->
+<div *ngIf="data.Status">
+    <h2>¡El deposito se realizó exitosamente!</h2>
+    <h3>A continuación están los datos de la transacción</h3>
+
+    <p style="text-align: center;">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color: green;"></i>        
+    </p>
+
+
+    <div style="text-align: center;">
+        <dl>
+            <dt>Código de transacción</dt>
+            <dd>{{ code }}</dd>
+
+            <dt>Fecha de ejecución</dt>
+            <dd>{{ date }}</dd>
+
+            <dt>CVU de la cuenta</dt>
+            <dd>{{ data.Result.CVU }}</dd>
+
+            <dt>Monto</dt>
+            <dd>{{ data.Result.Amount | currency}}</dd>
+
+            <dt>Moneda</dt>
+            <dd>{{ data.Result.Currency }}</dd>
+
+            <dt>Método</dt>
+            <dd>{{ 'Tarjeta ' + data.Result.CardBrand + ' terminada en ' + data.Result.CardNumber.toString().substring(12) }}</dd>
+        </dl>
+    </div>
+
+
+
+</div>
+
+<!-- ERROR -->
+<div *ngIf="!data.Status">
+    <h2>La transacción no ha sido completada</h2>
+    <p>Por favor, verifica los errores listados a continuación e intentalo nuevamente.</p>
+
+    <p style="text-align: center;">
+        <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color: red;"></i>
+    </p>
+    
+    <p style="color: #721c24; margin: 0;">Errores:</p>
+    <ul>
+        <li>{{ data.Result.Error }}</li>
+    </ul>
+</div>
+
+<div style="margin: auto;">
+    <button mat-raised-button color="primary" (click)="closeDialog()">Aceptar</button>
+</div>
