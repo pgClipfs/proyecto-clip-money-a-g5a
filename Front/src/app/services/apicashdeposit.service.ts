@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Response } from '../models/response';
 
-let token = JSON.parse(localStorage.getItem('usuario')).Token;
+let token = localStorage.getItem('usuario') != null ? JSON.parse(localStorage.getItem('usuario')).Token : '';
 
 const httpOption = {
   headers: new HttpHeaders({
     'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept': '*/*',
   })
 }
 
