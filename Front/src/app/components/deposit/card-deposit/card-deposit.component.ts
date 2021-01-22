@@ -17,31 +17,31 @@ import { CardDepositResult } from 'src/app/models/CardDepositResult';
   styleUrls: ['./card-deposit.component.scss']
 })
 export class CardDepositComponent implements OnInit {
+  
+  // Accounts: UserAccount[] = [
+  //   {
+  //     AccountId: 6,
+  //     Alias: null,
+  //     Balance: 0,
+  //     CVU: "0784673993803028515583",
+  //     Currency: {
+  //       "CurrencyId": 1,
+  //       "CurrencyName": "PESO ARGENTINO",
+  //       "Fee": 1.0,
+  //       "SalePrice": 70.0000,
+  //       "PurchasePrice": 60.0000
+  //     },
+  //     OpeningDate: "2021-01-03T00:00:00",
+  //     TypeAccount:{
+  //       "AccountTypeId": 1,
+  //       "AccountTypeName": "CORRIENTE"
+  //     },
+  //     User: null
+  //   }
+  // ];
 
-  //Accounts: Account[];
-  Accounts: UserAccount[] = [
-    {
-      AccountId: 6,
-      Alias: null,
-      Balance: 0,
-      CVU: "0784673993803028515583",
-      Currency: {
-        "CurrencyId": 1,
-        "CurrencyName": "PESO ARGENTINO",
-        "Fee": 1.0,
-        "SalePrice": 70.0000,
-        "PurchasePrice": 60.0000
-      },
-      OpeningDate: "2021-01-03T00:00:00",
-      TypeAccount:{
-        "AccountTypeId": 1,
-        "AccountTypeName": "CORRIENTE"
-      },
-      User: null
-    }
-  ];
+  Accounts: UserAccount[];
   cardBrand: string;
-
   minExpirationDate: string = new Date().toISOString().substring(0, 7);
   cardInput: HTMLElement;
   cardIcon: string = "fa fa-credit-card";
@@ -176,8 +176,6 @@ export class CardDepositComponent implements OnInit {
           (error: HttpErrorResponse) => {
             this.error = error.error.Data;
             console.error('Fail POST data:', error.error.Data);
-            console.error('Fail POST error:', error.error);
-            console.error('Fail POSTerro http:', error);
             this.queryInProgress = false;
 
             result.Error = error.error.Data;
@@ -200,8 +198,6 @@ export class CardDepositComponent implements OnInit {
   }
 
   openDialog(status: boolean, result: CardDepositResult): void {
-
-    console.log(status, result.CVU, result.CardNumber,result.Currency, result.CardBrand);
     
     const dialogRef = this.dialog.open(DialogTransactionStatusComponent, {
         data: { Status: status, Result: result}
@@ -211,7 +207,7 @@ export class CardDepositComponent implements OnInit {
 
   testDialog() {
 
-    //Función para probar el dialogo de resultado sin usar el backend
+    //Función para probar el dialogo de resultado sin usar el backend agregando evento click en el btn Depositar
     let result: CardDepositResult = {
       Error: 'El número de tarjeta es invalido',
       CVU: '13223232655',

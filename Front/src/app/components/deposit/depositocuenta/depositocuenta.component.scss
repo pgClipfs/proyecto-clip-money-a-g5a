@@ -6,14 +6,15 @@ mat-card {
 }
 
 mat-card-content {
-    width: 95%;
-    margin-top: 3rem;
-    //border-color: #293785;
-    //border-width: 5px;
-    //border-style: solid;
+    width: 95%;    
     padding-left: 2rem;
     padding-right: 2rem;
     padding-bottom: 2rem;
+}
+
+h4 {
+    margin: 0 0 0 75px;
+    text-align: left;
 }
 
 img {
@@ -25,32 +26,33 @@ mat-card-title {
     text-align: center;
     font-size: 3rem;
     padding-top: 1rem;
+    // margin: 0;
 }
 
 mat-form-field {
     width: 100%;
 }
 
-
-#terms:hover {
-    background-color: #dfdfdf
-}
-
 .half {
     width: 48%;
 }
 
-p{
+p {
     padding-top: 1rem;
     font-size: 1.5rem;
     text-align: left;
     line-height: 2rem;
 }
+
 .datos{
     width: 500px;
-    margin: 50px auto;
+    margin: 10px auto;
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     text-align: left;
     font-size: 1rem;
+}
+
+.select {
+    width: 80%;
 }

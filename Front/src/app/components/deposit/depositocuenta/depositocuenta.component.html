@@ -1,17 +1,34 @@
 <mat-card fxLayout="column" fxLayoutAlign="center center">
     <img alt="Angular Logo" src="./assets/logo-moneyclip-simple.png" />
-    <mat-card-title>Depositar con Cuenta</mat-card-title>
+    <mat-card-title>Depositar con Cuenta Bancaria</mat-card-title>
+
     <mat-card-content>
         <p style="text-align: center;">
-            Con estos datos podrán depositarte dinero en tu cuenta
+            Con estos datos podrán depositarte dinero en tus cuentas
         </p>
+
+        <div class="formGroup">
+            <h4>Seleccione una cuenta para mostrar sus datos</h4>
+            <mat-form-field appearance="fill" class="select">
+                <mat-label [style.color]="Accounts ? 'green' : 'red'">{{Accounts ? 'Seleccionar cuenta...' : 'Error al obtener cuentas. Intenta nuevamente más tarde'}}</mat-label>
+                <mat-select id="accountSelect" [(value)]="selectedAccountIndex">
+                    <mat-option *ngFor="let account of Accounts;  let i = index" [value]="i" (click)="isNumber()">
+                        {{ 
+                            'CTA NRO: ' + '...' + account.CVU.substring(16) + ' ' + (account.TypeAccount.AccountTypeName === "CORRIENTE" ? 'CC' : 'CA') + '  $ ' + account.Currency.CurrencyName
+                        }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
         <mat-card class="datos">
-            <mat-card-title class="datos">Alias de la Cuenta:</mat-card-title>
-            <mat-card-content class="datos"><em>prueba.alias.cuenta</em></mat-card-content>
+            <mat-card-title class="datos">Alias de la Cuenta</mat-card-title>
+            <mat-card-content class="datos" style="margin: 0;"><em>{{ isNumber() ? Accounts[selectedAccountIndex].Alias : ''}}</em></mat-card-content>
         </mat-card>
         <mat-card class="datos">
-            <mat-card-title class="datos">CVU:</mat-card-title>
-            <mat-card-content class="datos"><em>200000000000045687</em></mat-card-content>
+            <mat-card-title class="datos">CVU</mat-card-title>
+            <mat-card-content class="datos" style="margin: 0;"><em>{{ isNumber() ? Accounts[selectedAccountIndex].CVU : ''}}</em></mat-card-content>
         </mat-card>
+
     </mat-card-content>
 </mat-card>

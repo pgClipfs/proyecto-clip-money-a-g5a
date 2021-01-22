@@ -1,32 +1,46 @@
 <mat-card fxLayout="column" fxLayoutAlign="center center">
-    <img alt="Angular Logo" src="./assets/logo-moneyclip-simple.png" />
-    <mat-card-title>Depositar</mat-card-title>
+    <div>
+        <img alt="Clip Logo" src="./assets/logo-moneyclip-simple.png" style="margin:0 15px 0 0"/>
+        <img alt="Rapipago Logo" src="./assets/rapipagoPagofacil-Logos.png"/>
+    </div>
+    <mat-card-title>Depositar mediante Rapipago/PagoFácil</mat-card-title>
     <mat-card-content>
-        <p>Rapipago/Pagofacil</p>
-        <h2>Datos de la cuenta</h2>
-        <form [formGroup]="depositrpform" (ngSubmit)="generarBoleta()" *ngIf="boletaGenerada==false">
-        <mat-form-field>
-            <mat-label>Cvu</mat-label>
-            <input type="text" formControlName="cvu" matInput
-                placeholder="Sin espacios, ni guiones">
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Monto a Depositar</mat-label>
-            <input type="text" formControlName="monto" matInput
-                placeholder="Ingrese el monto a depositar, sin puntos">
-        </mat-form-field>
+        <h3>Completá los datos para generar la boleta de pago</h3>
 
-        <mat-card *ngIf="error" class="error-login">{{error}}</mat-card>
-        
-        <div>   
-            <button type="submit" mat-raised-button color="primary">Generar Boleta</button>
-        </div>
-    </form>
+        <form [formGroup]="depositrpform" (ngSubmit)="generarBoleta()" *ngIf="boletaGenerada == false">
+            <div class="formGroup">
+                <h4>Seleccione una cuenta para mostrar sus datos</h4>
+                <mat-form-field appearance="fill" class="select" style="margin: 0;">
+                    <mat-label [style.color]="Accounts ? 'green' : 'red'">{{Accounts ? 'Seleccionar cuenta...' : 'Error al obtener cuentas. Intenta nuevamente más tarde'}}</mat-label>
+                    <mat-select id="accountSelect" [(value)]="selectedAccountIndex" formControlName="CVU">
+                        <mat-option *ngFor="let account of Accounts" [value]="account.CVU">
+                            {{ 
+                                'CTA NRO: ' + '...' + account.CVU.substring(16) + ' ' + (account.TypeAccount.AccountTypeName === "CORRIENTE" ? 'CC' : 'CA') + '  $ ' + account.Currency.CurrencyName
+                            }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field>
+                <mat-label>Monto a Depositar</mat-label>
+                <input type="number" formControlName="monto" matInput
+                    placeholder="Ingrese el monto a depositar">
+            </mat-form-field>
+
+            <mat-card *ngIf="error" style="color: red;">{{error}}</mat-card>
+            
+            <div>   
+                <button type="submit" mat-raised-button color="primary">Generar Boleta</button>
+            </div>
+        </form>
     </mat-card-content>
-    <div *ngIf="boletaGenerada==true">
-        <h3>El código de barras generado es el siguiente:</h3>
+
+    <div *ngIf="boletaGenerada == true">
+        <h3 style="margin: 0;">El código generado para tu depósito es el siguiente:</h3>
         <img alt="Codigo de barras" src= "./assets/barrasClip.png">
-        <h3>Podes dictarle estos números al cajero de un rapipago o sino podes imprimir la boleta de pago para que sea escaneada.</h3>
+        <h3>Podes decirle el código al cajero o también imprimir la boleta de pago para que sea escaneada.</h3>
         <button mat-raised-button color="primary">Descargar PDF</button>
-</div>
+    </div>
+
 </mat-card>

@@ -11,16 +11,23 @@
 
 h1 {
     text-align: center;
-    margin: 0;
+    margin: 3px;
+    font-weight: 500;
+}
+
+h4 {
+    margin-bottom: 2px;
 }
 
 fieldset {
     display: inline-block;
     margin: 0 auto;
+    border-radius: 4px;
 }
 
 legend {
     text-align: left;
+    font-weight: bold;
 }
 
 form {
@@ -52,4 +59,10 @@ button {
 
 .fa {
     font-size: 25px;
+}
+
+img {
+    height: 45px;
+    border-radius: 2px;
+    border: 1px solid lightslategrey;
 }
