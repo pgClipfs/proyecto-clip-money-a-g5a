@@ -62,7 +62,7 @@ export class DepositocuentaComponent implements OnInit {
     this.getAccounts();
 
     // setInterval(() => {
-    //   console.log(this.selectedAccountIndex);
+    //   console.log(this.selectedAccountIndex);      
     // }, 3000);
   }
 

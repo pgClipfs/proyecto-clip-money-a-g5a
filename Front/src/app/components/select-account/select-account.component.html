@@ -1,0 +1,14 @@
+<!-- Idea de componente <select> para las cuentas ya que se utiliza en variasSecciones de la Página -->
+<div class="formGroup">
+    <h4>Seleccione una cuenta para mostrar sus datos</h4>
+    <mat-form-field appearance="fill" class="select">
+        <mat-label [style.color]="Accounts ? 'green' : 'red'">{{Accounts ? 'Seleccionar cuenta...' : 'Error al obtener cuentas. Intenta nuevamente más tarde'}}</mat-label>
+        <mat-select id="accountSelect" [(value)]="selectedAccountIndex">
+            <mat-option *ngFor="let account of Accounts;  let i = index" [value]="i" (click)="isNumber()">
+                {{ 
+                    'CTA NRO: ' + '...' + account.CVU.substring(16) + ' ' + (account.TypeAccount.AccountTypeName === "CORRIENTE" ? 'CC' : 'CA') + '  $ ' + account.Currency.CurrencyName
+                }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

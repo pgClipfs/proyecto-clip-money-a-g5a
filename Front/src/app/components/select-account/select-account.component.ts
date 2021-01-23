@@ -1,30 +1,20 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Response } from 'src/app/models/response';
 import { UserAccount } from 'src/app/models/UserAccount';
 import { ApiAccountService } from 'src/app/services/apiaccount.service';
 
 @Component({
-  selector: 'app-transferencia',
-  templateUrl: './transferencia.component.html',
-  styleUrls: ['./transferencia.component.scss']
+  selector: 'select-account',
+  templateUrl: './select-account.component.html',
+  styleUrls: ['./select-account.component.scss']
 })
-export class TransferenciaComponent implements OnInit {
+export class SelectAccountComponent implements OnInit {
 
   Accounts: UserAccount[];
   selectedAccountIndex: number = undefined;
-
-  public transferForm = this.formBuilder.group({
-    DebitAccountId: ['', Validators.required],
-    Amount: ['', Validators.required],
-    CreditAccountId: ['', Validators.required],
-    Concept: ['', Validators.required],
-    DestinationReference: ['', Validators.required],
-    EmailNotificacion: ['', Validators.required],
-  })
-
-  constructor(private apiAccountService: ApiAccountService, private formBuilder: FormBuilder) { }
+  
+  constructor(private apiAccountService: ApiAccountService) { }
 
   ngOnInit(): void {
     this.getAccounts();
@@ -36,7 +26,6 @@ export class TransferenciaComponent implements OnInit {
         if (response.Success === 1) {
           this.Accounts = response.Data;
           console.log('this.Accounts', this.Accounts);
-
         }
       },
       (error: HttpErrorResponse) => {
@@ -47,10 +36,8 @@ export class TransferenciaComponent implements OnInit {
   }
 
   isNumber(): boolean {
+    //console.log('!isNaN:', !isNaN(this.selectedAccountIndex));
     return !isNaN(this.selectedAccountIndex);
   }
 
-  transfer(){
-
-  }
 }

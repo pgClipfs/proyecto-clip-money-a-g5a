@@ -2,36 +2,35 @@
 <mat-card id="transferencia">
   <h1>Transferencia</h1>
   <mat-divider></mat-divider>
-  
-  <div id="container-transaction">
+  <form [formGroup]="transferForm" (ngSubmit)="transfer()">
+    <div id="container-transaction">
 
-    <mat-form-field appearance="fill" style="width: 80%; margin-top:20px;">
-      <mat-label>Cuenta origen</mat-label>
-      <mat-select>
-        <mat-option value="option">200000000004694</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <div class="formGroup">
+        <h4 style=" margin:0;">Seleccione una cuenta para transferir dinero</h4>
+        <mat-form-field appearance="fill" class="select" style="width: 80%; margin-top:20px;">
+            <mat-label [style.color]="Accounts ? 'green' : 'red'">{{Accounts ? 'Seleccionar cuenta...' : 'Error al obtener cuentas. Intenta nuevamente más tarde'}}</mat-label>
+            <mat-select id="accountSelect" [(value)]="selectedAccountIndex" formControlName="DebitAccountId">
+                <mat-option *ngFor="let account of Accounts;  let i = index" [value]="i" (click)="isNumber()">
+                    {{ 
+                        'CTA NRO: ' + '...' + account.CVU.substring(16) + ' ' + (account.TypeAccount.AccountTypeName === "CORRIENTE" ? 'CC' : 'CA') + '  $ ' + account.Currency.CurrencyName
+                    }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 
-    <mat-form-field id="input">
-      <mat-label>CBU/CVU Cuenta Destino</mat-label>
-      <input matInput type="text">
-    </mat-form-field>
+      <mat-form-field id="input">
+        <mat-label>CBU/CVU Cuenta Destino</mat-label>
+        <input matInput type="number" formControlName="CreditAccountId" min="100000000" max="9999999999999999999999" >
+      </mat-form-field>
 
-    <mat-form-field id="input">
-      <mat-label>Monto</mat-label>
-      <input matInput type="number" min="0" oninput="validity.valid||(value='');">
-    </mat-form-field>
+      <mat-form-field id="input">
+        <mat-label>Monto</mat-label>
+        <input matInput type="number" formControlName="Amount" min="0" >
+      </mat-form-field>
 
-    <mat-form-field appearance="fill" style="width: 80%; padding-bottom:10px;">
-      <mat-label>Divisa</mat-label>
-      <mat-select>
-        <mat-option value="option">Pesos (ARS) </mat-option>
-        <mat-option value="option">Dolares (U$D) </mat-option>
-        <mat-option value="option">Bitcoin (BTC) </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <br>
-    <button id="transferirButton" mat-raised-button color="primary" style="width: 80%; border-radius: 0px;">Transferir</button>
-  </div>
+      <br>
+      <button id="transferirButton" mat-raised-button color="primary" style="width: 80%; border-radius: 0px;">Transferir</button>
+    </div>
+  </form>
 </mat-card>

@@ -39,6 +39,7 @@ import { DepositComponent } from './components/deposit/deposit.component';
 import { DepositocuentaComponent } from './components/deposit/depositocuenta/depositocuenta.component';
 import { DepositRapiPagoComponent } from './components/deposit/deposit-rapi-pago/deposit-rapi-pago.component';
 import { DialogTransactionStatusComponent } from './components/deposit/card-deposit/dialog-transaction-status/dialog-transaction-status.component';
+import { SelectAccountComponent } from './components/select-account/select-account.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { DialogTransactionStatusComponent } from './components/deposit/card-depo
     DepositComponent,
     DepositocuentaComponent,
     DepositRapiPagoComponent,
-    DialogTransactionStatusComponent
+    DialogTransactionStatusComponent,
+    SelectAccountComponent
   ],
   imports: [
     BrowserModule,
