@@ -1,12 +1,8 @@
 export interface Usuario {
-    Nombre: string;
-    Apellido: string;
-    CVU: number;
-    DNI: number;
-    Contraseña: string;
-    //Situacion: ;
-    Domicilio: string;
-    Telefono: number;
+    Cuil: string;
+    Name: string;
+    Surname: string;
     Email: string;
+    PhoneNumber: string;
     Token: string;
 }

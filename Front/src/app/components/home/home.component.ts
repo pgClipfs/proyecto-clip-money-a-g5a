@@ -12,6 +12,7 @@ import { UserAccount } from 'src/app/models/UserAccount';
 export class HomeComponent implements OnInit {
 
   Accounts: UserAccount[];
+  gettingAccounts: boolean = true;
 
   constructor(private apiAccountService: ApiAccountService) { }
     
@@ -29,10 +30,14 @@ export class HomeComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        console.log(error.error.Data);
-        
+        console.log(error.error.Data);        
       }
     )
+
+    setTimeout(() => {
+      this.gettingAccounts = false;      
+    }, 1000);
+
   }
 
 }

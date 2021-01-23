@@ -9,15 +9,11 @@
     </div>
 
     <div id="dataContainer">
-        <div class="listItem noedit"><mat-card class="dataUser">Nombre:</mat-card></div>
-        <div class="listItem noedit"><mat-card class="dataUser">Apellido:</mat-card></div>
-        <div class="listItem noedit"><mat-card class="dataUser">CVU:<div class="dataUserGet"></div></mat-card></div>
-        <div class="listItem noedit"><mat-card class="dataUser">DNI/CUIT:<div class="dataUserGet"></div></mat-card></div>
-        <div class="listItem noedit"><mat-card class="dataUser">Contraseña:<div class="dataUserGet"></div></mat-card></div>
-        <div class="listItem noedit"><mat-card class="dataUser">Situacion crediticia:<div class="dataUserGet"></div></mat-card></div>
-        <div class="listItem editable"><mat-card class="dataUser">Domicilio:</mat-card><mat-icon>edit</mat-icon></div>
-        <div class="listItem editable"><mat-card class="dataUser">Telefono:</mat-card><mat-icon>edit</mat-icon></div>
-        <div class="listItem editable"><mat-card class="dataUser">Email:</mat-card><mat-icon>edit</mat-icon></div>
+        <div class="listItem noedit"><mat-card class="dataUser"><strong>Nombre:</strong> {{ UserData != null ? UserData.Name : ''}}</mat-card></div>
+        <div class="listItem noedit"><mat-card class="dataUser"><strong>Apellido:</strong> {{ UserData != null ? UserData.Surname : '' }}</mat-card></div>
+        <div class="listItem noedit"><mat-card class="dataUser"><strong>CUIL:</strong> {{ UserData != null ? UserData.Cuil : ''}} </mat-card></div>
+        <div class="listItem editable"><mat-card class="dataUser"><strong>Email:</strong> {{ UserData != null ? UserData.Email : '' }}</mat-card>  <mat-icon>edit</mat-icon></div>
+        <div class="listItem editable"><mat-card class="dataUser"><strong>Teléfono:</strong> {{ UserData != null ? UserData.PhoneNumber : ''}}</mat-card> <mat-icon>edit</mat-icon></div>
     </div>
     
 </div>

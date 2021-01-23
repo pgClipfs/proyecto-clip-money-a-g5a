@@ -1,4 +1,6 @@
-<div id="cuentasContenedor">
+<mat-spinner *ngIf="gettingAccounts"></mat-spinner>
+
+<div *ngIf="!gettingAccounts" id="cuentasContenedor">
     <mat-card *ngFor="let account of Accounts">
         <p id="titulo">CUENTA {{account.TypeAccount.AccountTypeName}}</p>
         <ul>
