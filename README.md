@@ -117,6 +117,14 @@ Ejemplo:
 }
 ```
 
+Haciendo un post a ´http://localhost:49220/api/Account/Alias´ enviado un json como el siguiente se actualiza el alias de la cuenta especificada
+```json
+{
+    "AccountId": 3,
+    "Alias": "NUEVO.ALIAS"
+}
+```
+
 #### Usuario
 
 

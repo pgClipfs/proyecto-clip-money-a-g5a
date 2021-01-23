@@ -90,7 +90,6 @@ export class DepositRapiPagoComponent implements OnInit {
       (error: HttpErrorResponse) => {
         this.error = error.error.Data;
         console.log('PDF Response ERROR',error);
-        console.log(error);
         
       }
     )

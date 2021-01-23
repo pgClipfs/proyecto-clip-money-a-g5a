@@ -215,6 +215,7 @@
     <Compile Include="Models\Gestores\DepositManager.cs" />
     <Compile Include="Models\Gestores\TransactionManager.cs" />
     <Compile Include="Models\Gestores\TransferManager.cs" />
+    <Compile Include="Models\Request\ChangeAccountAliasController.cs" />
     <Compile Include="Models\Request\CreditCardDepositRequest.cs" />
     <Compile Include="Models\Request\LoginRequest.cs" />
     <Compile Include="Models\Request\RegistrationRequest.cs" />

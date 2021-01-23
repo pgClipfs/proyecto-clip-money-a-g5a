@@ -70,6 +70,19 @@ namespace ClipMoney.Models.Gestores
             return account;
         }
 
+        public void SetAccountAlias(string newAlias, int AccountId)
+        {
+            SqlConnection conn = new SqlConnection(StrConn);
+            conn.Open();
+            SqlCommand comm = conn.CreateCommand();
+            comm.CommandText = "UPDATE CUENTAS SET ALIAS=@newAlias WHERE ID_CUENTA=@AccountId ";
+            comm.Parameters.AddWithValue("@newAlias", newAlias);
+            comm.Parameters.AddWithValue("@AccountId", AccountId);
+
+            comm.ExecuteNonQuery();
+            conn.Close();
+        }
+
         public List<Account> GetUserAccountsByUserId(int UserID)
         {
             User usuario = new User();
