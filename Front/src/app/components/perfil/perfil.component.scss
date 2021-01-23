@@ -18,11 +18,12 @@ mat-toolbar{
 #foto {
     height: 200px;
     width: 200px;
-    border: 1px solid grey;
+    border: 2px solid black;
+    border-radius: 4px;
     margin: auto;
     margin-top: 10px;
     text-align: center;
-    
+    overflow: hidden;
 }
 #foto p {
     margin-top: 45%;

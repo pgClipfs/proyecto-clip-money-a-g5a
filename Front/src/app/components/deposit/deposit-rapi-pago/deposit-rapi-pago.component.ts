@@ -20,28 +20,28 @@ export class DepositRapiPagoComponent implements OnInit {
   })
 
   public boletaGenerada: boolean = false;
-  // Accounts: UserAccount[];
-  Accounts: UserAccount[] = [
-    {
-      AccountId: 6,
-      Alias: "PRUEBA1.PRUEBA2",
-      Balance: 0,
-      CVU: "0784673993803028515583",
-      Currency: {
-        "CurrencyId": 1,
-        "CurrencyName": "PESO ARGENTINO",
-        "Fee": 1.0,
-        "SalePrice": 70.0000,
-        "PurchasePrice": 60.0000
-      },
-      OpeningDate: "2021-01-03T00:00:00",
-      TypeAccount:{
-        "AccountTypeId": 1,
-        "AccountTypeName": "CORRIENTE"
-      },
-      User: null
-    }
-  ];
+  Accounts: UserAccount[];
+  // Accounts: UserAccount[] = [
+  //   {
+  //     AccountId: 6,
+  //     Alias: "PRUEBA1.PRUEBA2",
+  //     Balance: 0,
+  //     CVU: "0784673993803028515583",
+  //     Currency: {
+  //       "CurrencyId": 1,
+  //       "CurrencyName": "PESO ARGENTINO",
+  //       "Fee": 1.0,
+  //       "SalePrice": 70.0000,
+  //       "PurchasePrice": 60.0000
+  //     },
+  //     OpeningDate: "2021-01-03T00:00:00",
+  //     TypeAccount:{
+  //       "AccountTypeId": 1,
+  //       "AccountTypeName": "CORRIENTE"
+  //     },
+  //     User: null
+  //   }
+  // ];
 
   public error: string = "";
   
@@ -89,7 +89,7 @@ export class DepositRapiPagoComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         this.error = error.error.Data;
-        console.log('PDF Response ERROR',error);
+        console.log('PDF Response ERROR', error);
         
       }
     )

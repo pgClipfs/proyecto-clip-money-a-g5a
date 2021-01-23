@@ -12,48 +12,48 @@ import { ApiAccountService } from 'src/app/services/apiaccount.service';
 })
 export class DepositocuentaComponent implements OnInit {
 
-  Accounts: UserAccount[] = [
-    {
-      AccountId: 6,
-      Alias: "PRUEBA1.PRUEBA2",
-      Balance: 0,
-      CVU: "0784673993803028515583",
-      Currency: {
-        "CurrencyId": 1,
-        "CurrencyName": "PESO ARGENTINO",
-        "Fee": 1.0,
-        "SalePrice": 70.0000,
-        "PurchasePrice": 60.0000
-      },
-      OpeningDate: "2021-01-03T00:00:00",
-      TypeAccount:{
-        "AccountTypeId": 1,
-        "AccountTypeName": "CORRIENTE"
-      },
-      User: null
-    },
-    {
-      AccountId: 5,
-      Alias: "PRUEBA3.PRUEBA4",
-      Balance: 0,
-      CVU: "9984674568803028516627",
-      Currency: {
-        "CurrencyId": 1,
-        "CurrencyName": "PESO ARGENTINO",
-        "Fee": 1.0,
-        "SalePrice": 70.0000,
-        "PurchasePrice": 60.0000
-      },
-      OpeningDate: "2021-01-03T00:00:00",
-      TypeAccount:{
-        "AccountTypeId": 1,
-        "AccountTypeName": "CORRIENTE"
-      },
-      User: null
-    },
-  ];
+  // Accounts: UserAccount[] = [
+  //   {
+  //     AccountId: 6,
+  //     Alias: "PRUEBA1.PRUEBA2",
+  //     Balance: 0,
+  //     CVU: "0784673993803028515583",
+  //     Currency: {
+  //       "CurrencyId": 1,
+  //       "CurrencyName": "PESO ARGENTINO",
+  //       "Fee": 1.0,
+  //       "SalePrice": 70.0000,
+  //       "PurchasePrice": 60.0000
+  //     },
+  //     OpeningDate: "2021-01-03T00:00:00",
+  //     TypeAccount:{
+  //       "AccountTypeId": 1,
+  //       "AccountTypeName": "CORRIENTE"
+  //     },
+  //     User: null
+  //   },
+  //   {
+  //     AccountId: 5,
+  //     Alias: "PRUEBA3.PRUEBA4",
+  //     Balance: 0,
+  //     CVU: "9984674568803028516627",
+  //     Currency: {
+  //       "CurrencyId": 1,
+  //       "CurrencyName": "PESO ARGENTINO",
+  //       "Fee": 1.0,
+  //       "SalePrice": 70.0000,
+  //       "PurchasePrice": 60.0000
+  //     },
+  //     OpeningDate: "2021-01-03T00:00:00",
+  //     TypeAccount:{
+  //       "AccountTypeId": 1,
+  //       "AccountTypeName": "CORRIENTE"
+  //     },
+  //     User: null
+  //   },
+  // ];
   
-  //Accounts: UserAccount[];
+  Accounts: UserAccount[];
   selectedAccountIndex: number = undefined;
 
   constructor(private apiAccountService: ApiAccountService) { }
@@ -63,7 +63,6 @@ export class DepositocuentaComponent implements OnInit {
 
     // setInterval(() => {
     //   console.log(this.selectedAccountIndex);
-      
     // }, 3000);
   }
 
