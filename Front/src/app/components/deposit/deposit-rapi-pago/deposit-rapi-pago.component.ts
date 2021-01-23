@@ -54,7 +54,6 @@ export class DepositRapiPagoComponent implements OnInit {
   ngOnInit(): void {
     this.getAccounts();
 
-    this.getTicket();
   }
 
   generarBoleta(){
@@ -80,18 +79,18 @@ export class DepositRapiPagoComponent implements OnInit {
 
   getTicket() {
     this.apiCashDepositService.getTicket(this.Accounts[0].CVU).subscribe(
-      (response: Response) => {
-        if (response.Success === 1) {
+      (response) => {
+
           // this.Accounts = response.Data;
           console.log('PDF Response OK', response);
-
-        }
-        console.log('PDF ResponseOK', response);
+          var file = window.URL.createObjectURL(response);
+          window.open(file);
 
       },
       (error: HttpErrorResponse) => {
         this.error = error.error.Data;
         console.log('PDF Response ERROR',error);
+        console.log(error);
         
       }
     )

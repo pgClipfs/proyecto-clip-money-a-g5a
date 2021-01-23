@@ -1,17 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Response } from '../models/response';
-
-let token = localStorage.getItem('usuario') != null ? JSON.parse(localStorage.getItem('usuario')).Token : '';
-
-const httpOption = {
-  headers: new HttpHeaders({
-    'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json',
-    'Accept': '*/*',
-  })
-}
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +14,9 @@ export class ApiCashDepositService {
   //   return this._http.post<Response>(this.url, deposit, httpOption);
   // }
 
-  getTicket(CVU: string): Observable<Response> {
-    console.log('Headers',httpOption);
+  getTicket(CVU: string) {
     
-    return this._http.get<Response>(this.url+`?cvu=${CVU}`, httpOption);
+    return this._http.get(this.url+`?cvu=${CVU}`, {responseType: 'blob'});
   }
 }
 
