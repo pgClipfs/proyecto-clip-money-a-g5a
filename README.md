@@ -5,58 +5,6 @@
 
 ### General
 
-Haciendo un get a `./api/Account/` se obtienen las cuentas del usuario logeado.
-Se devuelve un JSON con un array de objetos de cuentas.
-
-Ejemplo:
-
-```json
-{
-    "Success": 1,
-    "Message": "Exito - cuentas del usuario obtenidas exitosamente",
-    "Data": [
-        {
-            "AccountId": 1,
-            "TypeAccount": {
-                "AccountTypeId": 1,
-                "AccountTypeName": "CORRIENTE"
-            },
-            "Currency": {
-                "CurrencyId": 1,
-                "CurrencyName": "PESO ARGENTINO",
-                "Fee": 1.0,
-                "SalePrice": 70.0000,
-                "PurchasePrice": 60.0000
-            },
-            "User": null,
-            "CVU": "4879413218432184163518",
-            "Balance": 6742.0500,
-            "Alias": "PRUEBA1.PRUEBA2",
-            "OpeningDate": "2020-12-19T00:00:00"
-        },
-        {
-            "AccountId": 2,
-            "TypeAccount": {
-                "AccountTypeId": 1,
-                "AccountTypeName": "CORRIENTE"
-            },
-            "Currency": {
-                "CurrencyId": 1,
-                "CurrencyName": "PESO ARGENTINO",
-                "Fee": 1.0,
-                "SalePrice": 70.0000,
-                "PurchasePrice": 60.0000
-            },
-            "User": null,
-            "CVU": "8831892375712317645923",
-            "Balance": 253257.9500,
-            "Alias": "PRUEBA3.PRUEBA4",
-            "OpeningDate": "2020-12-19T00:00:00"
-        }
-    ]
-}
-```
-
 Haciendo un get a `./api/Transactions/` se obtienen las 10 ultimas transacciones del usuario, actualmente solo muestra depositos y transferencias
 
 Ejemplo:
@@ -117,11 +65,81 @@ Ejemplo:
 }
 ```
 
-Haciendo un post a ´http://localhost:49220/api/Account/Alias´ enviado un json como el siguiente se actualiza el alias de la cuenta especificada
+
+
+#### Cuentas
+
+Haciendo un get a `./api/Account/` se obtienen las cuentas del usuario logeado.
+Se devuelve un JSON con un array de objetos de cuentas.
+
+Ejemplo:
+
+```json
+{
+    "Success": 1,
+    "Message": "Exito - cuentas del usuario obtenidas exitosamente",
+    "Data": [
+        {
+            "AccountId": 1,
+            "TypeAccount": {
+                "AccountTypeId": 1,
+                "AccountTypeName": "CORRIENTE"
+            },
+            "Currency": {
+                "CurrencyId": 1,
+                "CurrencyName": "PESO ARGENTINO",
+                "Fee": 1.0,
+                "SalePrice": 70.0000,
+                "PurchasePrice": 60.0000
+            },
+            "User": null,
+            "CVU": "4879413218432184163518",
+            "Balance": 6742.0500,
+            "Alias": "PRUEBA1.PRUEBA2",
+            "OpeningDate": "2020-12-19T00:00:00"
+        },
+        {
+            "AccountId": 2,
+            "TypeAccount": {
+                "AccountTypeId": 1,
+                "AccountTypeName": "CORRIENTE"
+            },
+            "Currency": {
+                "CurrencyId": 1,
+                "CurrencyName": "PESO ARGENTINO",
+                "Fee": 1.0,
+                "SalePrice": 70.0000,
+                "PurchasePrice": 60.0000
+            },
+            "User": null,
+            "CVU": "8831892375712317645923",
+            "Balance": 253257.9500,
+            "Alias": "PRUEBA3.PRUEBA4",
+            "OpeningDate": "2020-12-19T00:00:00"
+        }
+    ]
+}
+```
+
+Haciendo un post a `http://localhost:49220/api/Account/Alias` enviado un json como el siguiente se actualiza el alias de la cuenta especificada
 ```json
 {
     "AccountId": 3,
     "Alias": "NUEVO.ALIAS"
+}
+```
+
+Haciendo un get a `http://localhost:49220/api/Account/New/Pesos?Type=tipodecuenta`, se crea una cuenta en pesos al usuario logeado con un saldo inicial de $150 (de regalo) donde en Type se especifica el tipo de cuenta que puede ser ahorro o corriente (todo en minuscula).
+
+Por ejemplo `http://localhost:49220/api/Account/New/Pesos?Type=ahorro`
+
+Devuelve un json especificando si la cuenta fue creada o no
+
+```json
+{
+    "Success": 1,
+    "Message": "Se ha creado la cuenta exitosamente",
+    "Data": null
 }
 ```
 

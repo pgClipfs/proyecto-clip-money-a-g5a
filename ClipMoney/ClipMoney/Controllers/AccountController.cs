@@ -47,6 +47,41 @@ namespace ClipMoney.Controllers
             }
         }
 
+        [Route("api/Account/New/Pesos")]
+        [HttpGet]
+        public IHttpActionResult CreateNewAccount(string Type)
+        {
+            GeneralResponse oResponse = new GeneralResponse();
+            AccountManager oAccountManager = new AccountManager();
+            try
+            {
+                var claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+                string UserId = claims?.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid, StringComparison.OrdinalIgnoreCase))?.Value;
+                if(Type == "corriente")
+                {
+                    oAccountManager.CreateNewAccount(1, 1, Convert.ToInt32(UserId), 150, null);
+                } else if(Type == "ahorro")
+                {
+                    oAccountManager.CreateNewAccount(2, 1, Convert.ToInt32(UserId), 150, null);
+                } else
+                {
+                    throw new Exception("No esta bien especificado si la cuenta es de ahorro o corriente");
+                }
+
+                oResponse.Success = 1;
+                oResponse.Message = "Se ha creado la cuenta exitosamente";
+
+                return Content(HttpStatusCode.OK, oResponse);
+            } catch(Exception ex)
+            {
+                oResponse.Success = 0;
+                oResponse.Message = "Error - no se ha podido crear la nueva cuenta";
+                oResponse.Data = ex.Message;
+
+                return Content(HttpStatusCode.BadRequest, oResponse);
+            }
+        }
+
         [Route("api/Account/Alias")]
         [HttpPost]
         public IHttpActionResult Post([FromBody] ChangeAccountAliasController model)
