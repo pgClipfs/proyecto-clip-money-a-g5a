@@ -1,0 +1,22 @@
+<mat-nav-list>
+    <a href="#" mat-list-item (click)="createAccount($event, 'pesos', 'corriente')">
+      <span mat-line>Crear cuenta corriente en pesos</span>
+      <span mat-line>¡Se iniciara con $150 de regalo!</span>
+    </a>
+  
+    <a href="#" mat-list-item (click)="createAccount($event, 'pesos', 'ahorro')">
+      <span mat-line>Crear cuenta de ahorro en pesos</span>
+      <span mat-line>¡Se iniciara con $150 de regalo!</span>
+    </a>
+  
+    <a href="" mat-list-item (click)="createAccount($event, '', '')">
+      <span mat-line>Crear cuenta corriente en dolares</span>
+      <span mat-line>¡En desarrollo!</span>
+    </a>
+  
+    <a href="" mat-list-item (click)="createAccount($event, '', '')">
+      <span mat-line>Crear cuenta para bitcoins</span>
+      <span mat-line>¡En desarrollo!</span>
+    </a>
+  </mat-nav-list>
+  
