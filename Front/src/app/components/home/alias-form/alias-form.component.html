@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Nuevo Alias</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Alias</mat-label>
+    <input matInput [(ngModel)]="data.alias">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data.alias" cdkFocusInitial>Aceptar</button>
+</div>

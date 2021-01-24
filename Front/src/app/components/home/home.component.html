@@ -7,7 +7,7 @@
             <li><p class="element">Moneda:</p><p class="bind">{{account.Currency.CurrencyName}}</p></li>
             <li><p class="element">Balance:</p><p class="bind">{{account.Balance | currency}}</p></li>
             <li><p class="element">CVU:</p><p class="bind">{{account.CVU}}</p></li>
-            <li><p class="element">Alias:</p><p class="bind">{{account.Alias}}</p></li>
+            <li><p class="element">Alias:</p><p class="bind">{{account.Alias || 'Sin asignar'}} </p> <mat-icon (click)="openDialog(account.Alias, account.AccountId)" inline="true">edit</mat-icon> </li>
             <li><p class="element">Fecha de apertura:</p><p class="bind">{{account.OpeningDate | date: 'dd/MM/yyyy' }}</p></li>
         </ul>
     </mat-card>

@@ -21,6 +21,14 @@ export class ApiAccountService {
     return this._http.get<Response>(this.url);
   }
 
+  createPesoAccount(type: string): Observable<Response> {
+    return this._http.get<Response>(this.url + '/New/Pesos?Type='+type)
+  }
+
+  setNewAlias(accountId: number, alias: string): Observable<Response> {
+    return this._http.post<Response>(this.url + '/Alias', {AccountId: accountId, Alias: alias})
+  }
+
 }
 
 

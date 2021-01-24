@@ -30,6 +30,7 @@ namespace ClipMoney.Controllers
                 AccountManager accountManager = new AccountManager();
                 List<Account> accounts = accountManager.GetUserAccountsByUserId(Convert.ToInt32(UserId));
 
+
                 oResponse.Success = 1;
                 oResponse.Message = "Exito - cuentas del usuario obtenidas exitosamente";
                 oResponse.Data = accounts;
@@ -108,7 +109,7 @@ namespace ClipMoney.Controllers
 
                 if (!oAccounts.Where(m => m.AccountId == model.AccountId).Select(c => c).Any())
                 {
-                    throw new ArgumentException("La cuenta a la que desea depositar no pertenece al usuario logeado");
+                    throw new ArgumentException("La cuenta a la que desea cambiarle el alias no pertenece al usuario logeado");
                 };
 
                 oAccountManager.SetAccountAlias(model.Alias, model.AccountId);

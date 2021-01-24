@@ -40,6 +40,9 @@ import { DepositocuentaComponent } from './components/deposit/depositocuenta/dep
 import { DepositRapiPagoComponent } from './components/deposit/deposit-rapi-pago/deposit-rapi-pago.component';
 import { DialogTransactionStatusComponent } from './components/deposit/card-deposit/dialog-transaction-status/dialog-transaction-status.component';
 import { SelectAccountComponent } from './components/select-account/select-account.component';
+import { MenuCrearCuentaComponent } from './common/menu-crear-cuenta/menu-crear-cuenta.component';
+import {MatBottomSheetModule, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS} from '@angular/material/bottom-sheet';
+import { AliasFormComponent } from './components/home/alias-form/alias-form.component';
 
 
 @NgModule({
@@ -60,7 +63,9 @@ import { SelectAccountComponent } from './components/select-account/select-accou
     DepositocuentaComponent,
     DepositRapiPagoComponent,
     DialogTransactionStatusComponent,
-    SelectAccountComponent
+    SelectAccountComponent,
+    MenuCrearCuentaComponent,
+    AliasFormComponent
   ],
   imports: [
     BrowserModule,
@@ -86,10 +91,12 @@ import { SelectAccountComponent } from './components/select-account/select-accou
     MatListModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatBottomSheetModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+     {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent]
 })
