@@ -1,4 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Response } from 'src/app/models/response';
+import { ApiTransactionsService } from 'src/app/services/apitransactions.service.';
 
 @Component({
   selector: 'app-operaciones',
@@ -7,35 +10,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperacionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _transactionsService: ApiTransactionsService) {
+    this.refreshTransactions();
+   }
   
-  displayedColumns: string[] = ['position', 'name', 'account', 'monto', 'type', 'date', 'concepto'];
+  displayedColumns: string[] = ['VoucherNumber', 'Amount', 'Account', 'TransactionType', 'DateTime', 'Concept'];
   dataSource = ELEMENT_DATA;
   
   ngOnInit(): void {
+    
+  }
+
+  refreshTransactions() {
+    this._transactionsService.getTransactions().subscribe(
+      (response: Response) => {
+        console.log(response)
+        if (response.Success === 1) {
+          ELEMENT_DATA.push(...response.Data.map(elem => {elem.DateTime = elem.DateTime.substring(0,10); return elem}))
+          let prueba = [...ELEMENT_DATA]
+          this.dataSource = prueba;
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.error.Data);        
+      }
+    )
   }
 
 }
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  account: number;
-  monto: number;
-  type: string;
-  date: string;
-  concepto: string;
+  VoucherNumber: number;
+  TransactionType: string;
+  Amount: Number;
+  Account: string;
+  DateTime: Date;
+  Concept: string;
 }
 
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Usuario', monto: 200, account:123456, type: 'Deposito', date: "30/12/2020", concepto:'Venta'},
-  {position: 2, name: 'Usuario', monto: 200, account:123456, type: 'Transferencia', date: "30/12/2020", concepto:'Venta'},
-  {position: 3, name: 'Usuario', monto: 200, account:123456, type: 'Deposito', date: "1/1/2021", concepto:'Venta'},
-  {position: 4, name: 'Usuario', monto: 200, account:123456, type: 'Transferencia', date: "1/1/2021", concepto:'Venta'},
-  {position: 5, name: 'Usuario', monto: 200, account:123456, type: 'Transferencia', date: "1/1/2021", concepto:'Venta'},
-  {position: 6, name: 'Usuario', monto: 200, account:123456, type: 'Transferencia', date: "1/1/2021", concepto:'Venta'},
-  {position: 7, name: 'Usuario', monto: 200, account:123456, type: 'Deposito', date: "2/1/2021", concepto:'Venta'},
-  {position: 8, name: 'Usuario', monto: 200, account:123456, type: 'Transferencia', date: "2/1/2021", concepto:'Venta'},
-  {position: 9, name: 'Usuario', monto: 200, account:123456, type: 'Deposito', date: "2/1/2021", concepto:'Venta'},
-  {position: 10, name: 'Usuario', monto: 200, account:123456, type: 'Deposito', date: "4/1/2021", concepto:'Venta'},
 ];
