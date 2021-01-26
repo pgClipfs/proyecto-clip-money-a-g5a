@@ -1,0 +1,33 @@
+<mat-card id="comprarDolares">
+    <h1>Comprar Dolares</h1>
+    <mat-divider></mat-divider>
+    
+    <div id="container-transaction">
+  
+      <mat-form-field appearance="fill" style="width: 80%; margin-top:20px;">
+        <mat-label>Cuenta En Pesos</mat-label>
+        <mat-select>
+          <mat-option value="option">0000000000</mat-option>
+        </mat-select>
+        <mat-hint>Cuenta que usara para comprar Dolares</mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" style="width: 80%; margin-top:20px;">
+        <mat-label>Cuenta En Dolares</mat-label>
+        <mat-select>
+          <mat-option value="option">0000000000</mat-option>
+        </mat-select>
+        <mat-hint>Cuenta en la que se le depositaran los Dolares comprados</mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Monto a comprar</mat-label>
+        <input matInput type="number" min="0" oninput="validity.valid||(value='');">
+      </mat-form-field>
+  
+      <mat-label>Costo Final=</mat-label>
+  
+      <br>
+      <button id="comprarbtn" mat-raised-button color="primary" style="width: 80%; border-radius: 0px;">Comprar</button>
+    </div>
+  </mat-card>
