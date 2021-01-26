@@ -1,0 +1,37 @@
+<mat-card id="transferirDolares">
+    <h1>Transferir Dolares</h1>
+    <mat-divider></mat-divider>
+    
+    <div id="container-transaction">
+  
+      <mat-form-field appearance="fill" style="width: 80%; margin-top:20px;">
+        <mat-label>Cuenta En Dolares</mat-label>
+        <mat-select>
+          <mat-option value="option">0000000000</mat-option>
+        </mat-select>
+        <mat-hint>Cuenta que usara para Enviar Dolares</mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" style="width: 80%; margin-top:20px;">
+        <mat-label>Cuenta De Destino</mat-label>
+        <mat-select>
+          <mat-option value="option">0000000000</mat-option>
+        </mat-select>
+        <mat-hint>Tiene que ser una cuenta en Dolares</mat-hint>
+      </mat-form-field>
+      <button mat-fab style=" width: 10%; display: inline-block;position: relative; background-color: rgb(120, 130, 138);" (click)="openDialog()">+</button>
+  
+      <mat-form-field>
+        <mat-label>Monto a Enviar</mat-label>
+        <input matInput type="number" min="0" oninput="validity.valid||(value='');">
+      </mat-form-field>
+  
+        <mat-label>Comicion por operacion=0%</mat-label><br>
+        <mat-divider></mat-divider>
+        <mat-label>Costo Final=</mat-label><br>
+        <mat-hint>con impuestos</mat-hint>
+  
+      <br>
+      <button id="enviarbtn" mat-raised-button color="primary" style="width: 80%; border-radius: 0px;">Enviar</button>
+    </div>
+  </mat-card>
